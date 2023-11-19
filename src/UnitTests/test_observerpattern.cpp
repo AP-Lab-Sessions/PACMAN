@@ -1,7 +1,7 @@
 //
 #include "Observer/Observer.h"
 #include "Subject/Subject.h"
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 
 class TestObserver : public Observer<std::string> {
 public:
