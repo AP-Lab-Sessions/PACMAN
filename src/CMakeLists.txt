@@ -6,7 +6,6 @@ include_directories(Representation)
 ADD_EXECUTABLE(pm main.cpp ${SRC})
 
 add_subdirectory(lib/googletest)
-include_directories(lib/googletest/googletest/include)
 FILE(GLOB_RECURSE TESTS_SRC UnitTests/*.cpp)
 add_executable(testing_tool UnitTests/test_main.cpp ${TESTS_SRC})
 target_link_libraries(testing_tool gtest)
