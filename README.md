@@ -1,5 +1,5 @@
 Project Advanced Programming 2023-2024
 =======================================
 
-Name:    
-Student number:
+Name: Patryk Pilichowski
+Student number: s0220383
