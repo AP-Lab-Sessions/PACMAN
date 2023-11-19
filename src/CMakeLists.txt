@@ -1,5 +1,4 @@
-FILE(GLOB_RECURSE SRC *.h *.cpp)
-LIST(FILTER SRC EXCLUDE REGEX "UnitTests/*")
+FILE(GLOB_RECURSE SRC Logic/*.h Representation/*.cpp)
 FIND_PACKAGE(SFML 2.5.1 COMPONENTS system window graphics)
 include_directories(Logic)
 include_directories(Representation)
