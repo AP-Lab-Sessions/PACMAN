@@ -1,15 +1,16 @@
 //
-#include "Observer/Observer.h"
+#include "PMLogic.h"
 #include "Subject/Subject.h"
+#include "Observer/Observer.h"
 #include <gtest/gtest.h>
 
-class SomeObject : public Subject<SomeObject> {
+class SomeObject : public ::Subject<SomeObject> {
 public:
     const std::string someData;
     explicit SomeObject(const std::string &someData) : someData(someData) {}
 };
 
-class TestObserver : public Observer<SomeObject> {
+class TestObserver : public ::Observer<SomeObject> {
 public:
     void Update(const SomeObject &obj) final {
         std::cout << "Oh no: " << obj.someData << std::endl;

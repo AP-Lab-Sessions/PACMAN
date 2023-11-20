@@ -1,10 +1,16 @@
-FILE(GLOB_RECURSE SRC Logic/*.h Representation/*.cpp)
-FIND_PACKAGE(SFML 2.5.1 COMPONENTS system window graphics)
-include_directories(Logic)
-include_directories(Representation)
-ADD_EXECUTABLE(pm main.cpp ${SRC})
-
+add_subdirectory(PacManLogic)
 add_subdirectory(lib/googletest)
-FILE(GLOB_RECURSE TESTS_SRC UnitTests/*.cpp)
-add_executable(testing_tool UnitTests/test_main.cpp ${TESTS_SRC})
-target_link_libraries(testing_tool gtest)
+
+SET(VIEW_SRC EntityView/Wall/WallView.cpp
+        EntityView/PacMan/PacManView.cpp
+        EntityView/Ghost/GhostView.cpp
+        EntityView/Collectable/CollectableView.cpp)
+
+
+add_executable(PacMan main.cpp ${VIEW_SRC})
+target_link_libraries(PacMan PUBLIC PacManLogicLib sfml-system sfml-graphics sfml-window)
+target_include_directories(PacManLogicLib PUBLIC PacManLogic)
+
+SET(TESTS_SRC UnitTests/test_observerpattern.cpp)
+add_executable(PacManTests UnitTests/test_main.cpp ${TESTS_SRC})
+target_link_libraries(PacManTests PUBLIC PacManLogicLib gtest)
