@@ -1,10 +1,9 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "PMLogic.h"
 #include "EntityFactory/EntityFactory.h"
+#include "Entity/PacMan/PacMan.h"
 int main() {
-    EntityFactory ef;
-    std::unique_ptr<PMLogic::Entity> entity = ef.Create();
-    std::cout << "done!";
+    EntityFactory<PacMan> pacManFactory;
+    std::unique_ptr<PMLogic::Entity> entity = pacManFactory.Create();
     return 0;
 }

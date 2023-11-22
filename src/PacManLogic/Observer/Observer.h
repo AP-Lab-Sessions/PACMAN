@@ -3,7 +3,6 @@
 #ifndef PAC_MAN_OBSERVER_H
 #define PAC_MAN_OBSERVER_H
 
-#include <memory>
 #include "PMLogic.h"
 
 /**
