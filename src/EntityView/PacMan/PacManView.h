@@ -3,9 +3,8 @@
 #ifndef PAC_MAN_PACMANVIEW_H
 #define PAC_MAN_PACMANVIEW_H
 
-#include "Observer/Observer.h"
-#include "PMLogic.h"
+#include "EntityView/EntityView.h"
 
-class PacManView : public PMLogic::Observer<PMLogic::Entity::PacMan> {};
+class PacManView : public EntityView {};
 
 #endif // PAC_MAN_PACMANVIEW_H

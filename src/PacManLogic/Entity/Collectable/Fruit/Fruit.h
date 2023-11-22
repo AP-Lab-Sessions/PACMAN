@@ -5,9 +5,7 @@
 
 #include "Entity/Collectable/Collectable.h"
 
-using namespace PMLogic;
-
-class Entity::Fruit : public Entity::Collectable {
+class Fruit : public Collectable {
 
 };
 

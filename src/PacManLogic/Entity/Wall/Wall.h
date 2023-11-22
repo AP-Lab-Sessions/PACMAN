@@ -3,11 +3,8 @@
 #ifndef PAC_MAN_WALL_H
 #define PAC_MAN_WALL_H
 
-#include "Subject/Subject.h"
-#include "PMLogic.h"
+#include "Entity/Entity.h"
 
-using namespace PMLogic;
-
-class Entity::Wall : public ::Subject<Entity::Wall> {};
+class Wall : public PMLogic::Entity {};
 
 #endif // PAC_MAN_WALL_H

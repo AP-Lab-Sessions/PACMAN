@@ -3,11 +3,9 @@
 #ifndef PAC_MAN_COLLECTABLE_H
 #define PAC_MAN_COLLECTABLE_H
 
-#include "Subject/Subject.h"
-#include "PMLogic.h"
+#include "Entity/Entity.h"
 
-using namespace PMLogic;
-    class Entity::Collectable : public ::Subject<Entity::Collectable> {
+class Collectable : public PMLogic::Entity {
 public:
     ~Collectable() override = default;
 };

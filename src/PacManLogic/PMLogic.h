@@ -8,6 +8,10 @@
  */
 namespace PMLogic {
     /**
+          * @brief Entity.
+     */
+    class Entity;
+    /**
      * @brief Subject and Observer design for the generic observer pattern
      * @tparam Type Generic type
      */
@@ -48,36 +52,5 @@ namespace PMLogic {
           */
          class StopWatch;
      }
-
-    /**
-     * @brief Entities which essentially are derived from generic subject class but with concrete type
-     */
-    namespace Entity {
-            /**
-             * @brief Something that can be collected during the game.
-             */
-            class Collectable;
-            /**
-             * @brief A collectable type.
-             */
-            class Fruit;
-            /**
-             * @brief A collectable type.
-             */
-            class Coin;
-
-            /**
-             * @brief The enemies of Pac-Man.
-             */
-            class Ghost;
-            /**
-             * @brief The playable character of the game.
-             */
-            class PacMan;
-            /**
-             * @brief A wall that collides with entities.
-             */
-            class Wall;
-    }
 }
 #endif // PACMAN_PMLOGIC_H

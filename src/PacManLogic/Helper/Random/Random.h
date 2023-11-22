@@ -8,31 +8,30 @@
 #include <memory>
 
 
-using namespace PMLogic;
 
 /**
  * @brief A Singleton helper class that generates a random integer between x and y
  */
-class Helper::Random {
+class PMLogic::Helper::Random {
 private:
     std::mt19937 generator;
     Random();
-    static std::shared_ptr<Random> instance;
+    static std::shared_ptr<PMLogic::Helper::Random> instance;
 public:
     /**
      * @brief Make the assignment operator deleted
      */
-    void operator=(const Helper::Random &) = delete;
+    void operator=(const PMLogic::Helper::Random &) = delete;
     /**
      * @brief Make the copy constructor deleted
      */
-    Random(Helper::Random &) = delete;
+    Random(PMLogic::Helper::Random &) = delete;
 
     /**
      * @brief Gets the single instance of the class
      * @return The pointer to the instance
      */
-    static std::shared_ptr<Random> GetInstance();
+    static std::shared_ptr<PMLogic::Helper::Random> GetInstance();
     /**
      * @brief Generates a pseudo-random integer between min and max
      * @param min

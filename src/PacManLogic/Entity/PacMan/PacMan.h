@@ -3,11 +3,10 @@
 #ifndef PAC_MAN_PACMAN_H
 #define PAC_MAN_PACMAN_H
 
-#include "Subject/Subject.h"
+#include "Entity/Entity.h"
 
-using namespace PMLogic;
 
-class Entity::PacMan : public ::Subject<Entity::PacMan> {
+class PacMan : public PMLogic::Entity {
 public:
 
 };

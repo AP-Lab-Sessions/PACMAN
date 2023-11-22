@@ -8,15 +8,15 @@
 /**
  * @brief An abstract factory
  */
-template<typename EntityType>
+template<typename Type>
 class PMLogic::AbstractFactory {
 public:
     /**
      * @brief Creates an object and gives away its ownership
      * @return Unique pointer to the object
      */
-    virtual std::unique_ptr<EntityType> Create() const {
-        return std::unique_ptr<EntityType>(new EntityType());
+    virtual std::unique_ptr<Type> Create() const {
+        return std::unique_ptr<Type>(new Type());
     }
 
     /**

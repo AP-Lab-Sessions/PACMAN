@@ -3,11 +3,9 @@
 #ifndef PAC_MAN_GHOST_H
 #define PAC_MAN_GHOST_H
 
-#include "Subject/Subject.h"
+#include "Entity/Entity.h"
 
-using namespace PMLogic;
-
-class Entity::Ghost : public ::Subject<Entity::Ghost> {
+class Ghost : public PMLogic::Entity {
 
 };
 #endif // PAC_MAN_GHOST_H

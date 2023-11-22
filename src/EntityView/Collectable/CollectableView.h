@@ -3,11 +3,11 @@
 #ifndef PAC_MAN_COLLECTABLEVIEW_H
 #define PAC_MAN_COLLECTABLEVIEW_H
 
-#include "PMLogic.h"
-#include "Observer/Observer.h"
+#include "EntityView/EntityView.h"
 
-class CollectableView : public PMLogic::Observer<PMLogic::Entity::Collectable> {
-
+class CollectableView : public EntityView {
+public:
+    ~CollectableView() override = default;
 };
 
 #endif // PAC_MAN_COLLECTABLEVIEW_H

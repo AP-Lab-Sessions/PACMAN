@@ -5,7 +5,7 @@
 
 #include "Entity/Collectable/Collectable.h"
 
-class Entity::Coin : public Entity::Collectable {
+class Coin : public Collectable {
 
 };
 

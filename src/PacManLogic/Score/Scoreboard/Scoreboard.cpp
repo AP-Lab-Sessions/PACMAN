@@ -35,7 +35,7 @@ PMLogic::Scoreboard::Scoreboard() {
 
 std::array<int, 5> PMLogic::Scoreboard::GetHighScore() const {
     std::array<int, 5> result{};
-    unsigned int i = 0;
+    unsigned int i {0};
     for(auto iter=highScore.rbegin(); iter != highScore.rend() && std::distance(highScore.rbegin(), iter) < 5; iter++) {
         result.at(i) = *iter;
         i++;

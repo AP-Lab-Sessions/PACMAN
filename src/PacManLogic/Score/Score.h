@@ -9,7 +9,7 @@
 /**
  * @brief Keeps the score of the current game and at the end gives the score to the Scoreboard to handle it.
  */
-class Score : Observer<Entity::PacMan> {
+class Score : PMLogic::Observer<PacMan> {
 public:
 
 };
