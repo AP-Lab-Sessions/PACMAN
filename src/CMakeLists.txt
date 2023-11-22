@@ -4,7 +4,8 @@ add_subdirectory(lib/googletest)
 SET(VIEW_SRC EntityView/Wall/WallView.cpp
         EntityView/PacMan/PacManView.cpp
         EntityView/Ghost/GhostView.cpp
-        EntityView/Collectable/CollectableView.cpp)
+        EntityView/Collectable/CollectableView.cpp
+        )
 
 
 add_executable(PacMan main.cpp ${VIEW_SRC})

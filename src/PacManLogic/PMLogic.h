@@ -26,6 +26,16 @@ namespace PMLogic {
     class World;
 
     /**
+     * @brief An observer of Pac-Man, adds or decreases score based on actions of Pac-Man/player.
+     */
+    class Score;
+
+    /**
+     * @brief A singleton which loads and writes to a file keeping top 5 high scores of all time.
+     */
+    class Scoreboard;
+
+    /**
      * @brief The singleton helper classes
      */
      namespace Helper {

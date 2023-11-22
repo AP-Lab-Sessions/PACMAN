@@ -13,8 +13,8 @@ int Helper::Random::GetRandomInteger(const int& min, const int& max) {
 
 std::shared_ptr<Helper::Random> Helper::Random::GetInstance() {
     if(instance == nullptr) {
-        std::shared_ptr<Helper::Random> instance1{new Helper::Random()};
-        instance = instance1;
+        std::shared_ptr<Helper::Random> createdInstance{new Helper::Random()};
+        instance = createdInstance;
     }
     return instance;
 }

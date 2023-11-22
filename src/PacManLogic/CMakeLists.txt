@@ -10,7 +10,9 @@ SET(LOGIC_SRC AbstractFactory/AbstractFactory.h
         Entity/Collectable/Coin/Coin.cpp
         Entity/Collectable/Fruit/Fruit.cpp
         PMLogic.h
-        Helper/Random/Random.h Helper/Random/Random.cpp)
+        Helper/Random/Random.h Helper/Random/Random.cpp Helper/StopWatch/StopWatch.h Helper/StopWatch/StopWatch.cpp
+        Score/Score.h Score/Scoreboard/Scoreboard.h Score/Scoreboard/Scoreboard.cpp)
+SET(WORKING)
 
 add_executable(PacManLogicExec main.cpp ${LOGIC_SRC})
 add_library(PacManLogicLib ${LOGIC_SRC})

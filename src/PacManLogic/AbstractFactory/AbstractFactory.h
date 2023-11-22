@@ -15,7 +15,9 @@ public:
      * @brief Creates an object and gives away its ownership
      * @return Unique pointer to the object
      */
-    virtual std::unique_ptr<EntityType> Create() const = 0;
+    virtual std::unique_ptr<EntityType> Create() const {
+        return std::unique_ptr<EntityType>(new EntityType());
+    }
 
     /**
      * @brief Virtual destructor
