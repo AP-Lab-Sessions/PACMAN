@@ -1,0 +1,14 @@
+//
+
+#ifndef PACMAN_COLLECTABLEENTITY_H
+#define PACMAN_COLLECTABLEENTITY_H
+
+
+
+class CollectableEntity {
+
+};
+
+
+
+#endif //PACMAN_COLLECTABLEENTITY_H
