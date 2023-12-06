@@ -31,7 +31,7 @@ public:
      * @brief Gets the single instance of the class
      * @return The pointer to the instance
      */
-    static std::shared_ptr<PMLogic::Helper::Random> GetInstance();
+    static std::weak_ptr<PMLogic::Helper::Random> GetInstance();
     /**
      * @brief Generates a pseudo-random integer between min and max
      * @param min

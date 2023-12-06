@@ -4,8 +4,9 @@
 #define PACMAN_IOBSERVER_H
 
 #include "PMLogic.h"
+#include <memory>
 
-class IObserver {
+class PMLogic::IObserver {
 public:
     virtual ~IObserver() = default;
     virtual void Update() = 0;

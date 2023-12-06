@@ -1,9 +1,8 @@
-#include <iostream>
-#include <SFML/Graphics.hpp>
-#include "EntityFactory/EntityFactory.h"
-#include "Entity/PacMan/PacMan.h"
+#include "Game/Game.h"
+
+// TODO: Exception handling, namespace encapsulation, check that all primitive types are explicitly initialized
 int main() {
-    EntityFactory<PacMan> pacManFactory;
-    std::unique_ptr<PMLogic::Entity> entity = pacManFactory.Create();
-    return 0;
+    Game game;
+    game.Run();
+    return EXIT_SUCCESS;
 }

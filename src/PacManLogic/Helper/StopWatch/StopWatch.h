@@ -33,7 +33,7 @@ public:
      * @brief Gets the single instance of the class
      * @return The pointer to the instance
      */
-    static std::shared_ptr<PMLogic::Helper::StopWatch> GetInstance();
+    static std::weak_ptr<PMLogic::Helper::StopWatch> GetInstance();
 
     /**
      * @brief

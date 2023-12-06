@@ -4,7 +4,7 @@
 
 std::shared_ptr<PMLogic::Helper::StopWatch> PMLogic::Helper::StopWatch::instance {nullptr};
 
-std::shared_ptr<PMLogic::Helper::StopWatch> PMLogic::Helper::StopWatch::GetInstance() {
+std::weak_ptr<PMLogic::Helper::StopWatch> PMLogic::Helper::StopWatch::GetInstance() {
     if(instance == nullptr) {
         std::shared_ptr<Helper::StopWatch> createdInstance{new Helper::StopWatch()};
         instance = createdInstance;

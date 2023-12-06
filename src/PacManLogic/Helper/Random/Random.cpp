@@ -11,7 +11,7 @@ int PMLogic::Helper::Random::GetRandomInteger(const int& min, const int& max) {
     return distribution(generator);
 }
 
-std::shared_ptr<PMLogic::Helper::Random> PMLogic::Helper::Random::GetInstance() {
+std::weak_ptr<PMLogic::Helper::Random> PMLogic::Helper::Random::GetInstance() {
     if(instance == nullptr) {
         std::shared_ptr<PMLogic::Helper::Random> createdInstance{new PMLogic::Helper::Random()};
         instance = createdInstance;

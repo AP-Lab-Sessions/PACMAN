@@ -5,15 +5,38 @@
 
 namespace Coordinate2D {
 
-struct PixelCoordinate{
+class PixelCoordinate{
+public:
     unsigned int x,y;
     PixelCoordinate(const unsigned int &x, const unsigned int &y);
 };
+class Coordinate {
+protected:
+    float x, y;
+public:
+    ~Coordinate() = default;
+    Coordinate(const float &x, const float &y);
+    float GetX() const;
+    float GetY() const;
 
-struct NormalizedCoordinate {
-    float x,y;
-    NormalizedCoordinate(const float &xArg, const float &yArg);
+    virtual void SetX(const float &newX);
+    virtual void SetY(const float &newY);
 };
+
+const float normalizedMin=-1.0f, normalizedMax=1.0f;
+
+bool IsNormalized(const float &n);
+bool IsNormalized(const Coordinate &coordinate);
+
+class NormalizedCoordinate : public Coordinate {
+public:
+    NormalizedCoordinate(const float &xArg, const float &yArg);
+
+    void SetX(const float &newX) override;
+    void SetY(const float &newY) override;
+};
+
+PixelCoordinate Project(const NormalizedCoordinate &coord, const unsigned int &width, const unsigned int &height);
 
 }
 

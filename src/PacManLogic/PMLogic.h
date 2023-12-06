@@ -7,22 +7,16 @@
  * @brief Classes belonging to the logic part of the PacMan project encapsulated in this namespace.
  */
 namespace PMLogic {
-    /**
-          * @brief Entity.
-     */
-    class Entity;
-    /**
-     * @brief Subject and Observer design for the generic observer pattern
-     * @tparam Type Generic type
-     */
-    template<typename Type> class Subject;
-    template<typename Type> class Observer;
 
-    /**
-     * @brief Interface abstract factory that creates entities of generic type
-     * @tparam EntityType Generic type of entity
-     */
-    template<typename EntityType> class AbstractFactory;
+    class IObserver;
+
+    class ISubject;
+
+    class IVisitor;
+
+    class Entity;
+
+    class AbstractFactory;
 
     /**
      * @brief The world class
@@ -51,6 +45,6 @@ namespace PMLogic {
           * @brief Keeps the difference in time between current update step and the previous one.
           */
          class StopWatch;
-     }
+         }
 }
 #endif // PACMAN_PMLOGIC_H

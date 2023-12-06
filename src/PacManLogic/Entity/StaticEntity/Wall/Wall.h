@@ -3,12 +3,13 @@
 #ifndef PACMAN_WALL_H
 #define PACMAN_WALL_H
 
+#include "Entity/StaticEntity/StaticEntity.h"
 
+class Wall : public StaticEntity {
+public:
+    Wall();
 
-class Wall {
-
+    void Accept(const std::weak_ptr<PMLogic::IVisitor> &visitor) const override;
 };
 
-
-
-#endif //PACMAN_WALL_H
+#endif // PACMAN_WALL_H

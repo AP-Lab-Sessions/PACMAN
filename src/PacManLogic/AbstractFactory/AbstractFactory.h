@@ -3,21 +3,20 @@
 #ifndef PAC_MAN_ABSTRACTFACTORY_H
 #define PAC_MAN_ABSTRACTFACTORY_H
 
-#include <memory>
 #include "PMLogic.h"
-/**
- * @brief An abstract factory
- */
-template<typename Type>
+#include <memory>
+
 class PMLogic::AbstractFactory {
 public:
-    /**
-     * @brief Creates an object and gives away its ownership
-     * @return Unique pointer to the object
-     */
-    virtual std::unique_ptr<Type> Create() const {
-        return std::unique_ptr<Type>(new Type());
-    }
+    virtual std::unique_ptr<PMLogic::Entity> CreatePacMan() const = 0;
+
+    virtual std::unique_ptr<PMLogic::Entity> CreateGhost() const = 0;
+
+    virtual std::unique_ptr<PMLogic::Entity> CreateWall() const = 0;
+
+    virtual std::unique_ptr<PMLogic::Entity> CreateFruit() const = 0;
+
+    virtual std::unique_ptr<PMLogic::Entity> CreateCoin() const = 0;
 
     /**
      * @brief Virtual destructor
