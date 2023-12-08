@@ -7,7 +7,7 @@
 #include <memory>
 #include <set>
 
-#define HIGHSCORE_PATH "json/highScore.json"
+#define HIGHSCORE_PATH "src/json/highScore.json"
 
 /**
  * @brief A singleton which loads and writes to a file keeping top 5 high scores of all time.
@@ -36,7 +36,7 @@ public:
      * @brief Gets the single instance of the class
      * @return The pointer to the instance
       */
-     static std::shared_ptr<PMLogic::Scoreboard> GetInstance();
+     static std::weak_ptr<PMLogic::Scoreboard> GetInstance();
 
      /**
       * @brief Returns the 5 highest scores

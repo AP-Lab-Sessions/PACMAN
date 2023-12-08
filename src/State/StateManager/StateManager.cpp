@@ -1,10 +1,8 @@
 //
 
 #include "StateManager.h"
+#include <iostream>
 
-StateManager::StateManager(std::unique_ptr<State> &state) {
-    PushState(state);
-}
 
 void StateManager::PushState(std::unique_ptr<State>& state) {
     state->SetManager(weak_from_this());
@@ -17,6 +15,14 @@ void StateManager::PopState() {
     }
 }
 
-void StateManager::Run(sf::RenderWindow &window) {
-    stateStack.top()->Run(window);
+void StateManager::Render() {
+    stateStack.top()->Render();
+}
+
+void StateManager::Update() {
+    stateStack.top()->Update();
+}
+
+void StateManager::ProcessEvents() {
+    stateStack.top()->ProcessEvents();
 }

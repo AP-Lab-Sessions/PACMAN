@@ -8,7 +8,7 @@
 
 std::shared_ptr<PMLogic::Scoreboard> PMLogic::Scoreboard::instance{nullptr};
 
-std::shared_ptr<PMLogic::Scoreboard> PMLogic::Scoreboard::GetInstance() {
+std::weak_ptr<PMLogic::Scoreboard> PMLogic::Scoreboard::GetInstance() {
     if(instance == nullptr) {
         std::shared_ptr<PMLogic::Scoreboard> createdInstance{new PMLogic::Scoreboard()};
         instance = createdInstance;
@@ -27,6 +27,7 @@ PMLogic::Scoreboard::Scoreboard() {
             // Even if highScore contains more than 5 ints we will store the first 5.
             highScore = j["highScore"].get<std::set<int>>();
         }
+        else std::cerr << "No highscore file found\n";
     }
     catch(const std::exception &exception) {
         std::cerr << "Error: " << exception.what() << std::endl;

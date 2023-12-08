@@ -15,7 +15,6 @@ protected:
     std::unique_ptr<sf::RenderWindow> window;
     std::shared_ptr<StateManager> stateManager;
 
-    void ProcessEvents();
     void Update();
     void Render();
 public:

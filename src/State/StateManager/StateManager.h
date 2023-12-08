@@ -8,14 +8,17 @@
 #include <stack>
 
 class StateManager : public std::enable_shared_from_this<StateManager> {
-private:
+protected:
     std::stack<std::unique_ptr<State>> stateStack;
 public:
-    explicit StateManager(std::unique_ptr<State> &state);
+    StateManager() = default;
 
     void PushState(std::unique_ptr<State> &state);
     void PopState();
-    void Run(sf::RenderWindow &window);
+
+    void Update();
+    void ProcessEvents();
+    void Render();
 };
 
 #endif // PACMAN_STATEMANAGER_H
