@@ -23,6 +23,6 @@ void StateManager::Update() {
     stateStack.top()->Update();
 }
 
-void StateManager::ProcessEvents() {
-    stateStack.top()->ProcessEvents();
+void StateManager::ProcessEvents(const sf::Event &event) {
+    stateStack.top()->ProcessEvents(event);
 }

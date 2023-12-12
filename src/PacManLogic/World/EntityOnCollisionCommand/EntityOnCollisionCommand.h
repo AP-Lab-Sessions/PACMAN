@@ -1,12 +1,11 @@
 //
 
-#ifndef PACMAN_ENTITYCOLLISIONCOMMAND_H
-#define PACMAN_ENTITYCOLLISIONCOMMAND_H
+#ifndef PACMAN_ENTITYONCOLLISIONCOMMAND_H
+#define PACMAN_ENTITYONCOLLISIONCOMMAND_H
 
 #include "Pattern/Command/ICommand/ICommand.h"
 #include "Entity/DynamicEntity/DynamicEntity.h"
 
-// TODO: based upon isCollider
 
 class EntityOnCollisionCommand : public PMLogic::ICommand {
 protected:
@@ -19,4 +18,4 @@ public:
 };
 
 
-#endif //PACMAN_ENTITYCOLLISIONCOMMAND_H
+#endif //PACMAN_ENTITYONCOLLISIONCOMMAND_H

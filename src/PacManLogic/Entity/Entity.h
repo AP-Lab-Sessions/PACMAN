@@ -4,23 +4,26 @@
 #define PACMAN_ENTITY_H
 
 #include "Coordinate/Coordinate.h"
-#include "ISubject/ISubject.h"
-#include "IVisitor/IVisitor.h"
+#include "Pattern/Observer/ISubject/ISubject.h"
+#include "IEntityVisitor/IEntityVisitor.h"
 
 class PMLogic::Entity : public PMLogic::ISubject {
 protected:
-    const Coordinate2D::NormalizedCoordinate startPosition;
+    Coordinate2D::NormalizedCoordinate position;
+    const Coordinate2D::Coordinate size;
 public:
-    explicit Entity(Coordinate2D::NormalizedCoordinate startPosition);
-    Entity();
+    Coordinate2D::Coordinate GetSize() const;
+
+    explicit Entity(Coordinate2D::NormalizedCoordinate startPosition, const Coordinate2D::Coordinate &size);
     ~Entity() override = default;
 
     void NotifyAll() override;
 
-    Coordinate2D::NormalizedCoordinate GetStartPosition() const;
-    virtual Coordinate2D::NormalizedCoordinate GetCurrentPosition() const;
+    Coordinate2D::NormalizedCoordinate GetPosition() const;
 
-    virtual void Accept(const std::weak_ptr<PMLogic::IVisitor> &visitor) const = 0;
+    void SetPosition(const Coordinate2D::NormalizedCoordinate &newPosition);
+
+    virtual void Accept(const std::weak_ptr<IEntityVisitor> &visitor) = 0;
 };
 
 #endif // PACMAN_ENTITY_H

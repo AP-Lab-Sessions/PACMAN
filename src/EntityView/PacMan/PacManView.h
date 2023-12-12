@@ -6,12 +6,13 @@
 #include "PacManLogic/Entity/DynamicEntity/PacMan/PacMan.h"
 #include "EntityView/View.h"
 
-template<>
-class View<PacMan> : public PMLogic::IObserver {
+class PacManView final : public View<PacMan> {
 protected:
-    const std::weak_ptr<PacMan> entity;
 public:
-    void Update() override {}
+    PacManView(const PacMan &entity, const std::weak_ptr<sf::RenderWindow> &window);
+
+    void Load() final;
+    void Update() final;
 };
 
 #endif // PAC_MAN_PACMANVIEW_H

@@ -4,7 +4,7 @@
 #define PACMAN_ISUBJECT_H
 
 #include "PMLogic.h"
-#include "IObserver/IObserver.h"
+#include "Pattern/Observer/IObserver/IObserver.h"
 #include <list>
 #include <memory>
 

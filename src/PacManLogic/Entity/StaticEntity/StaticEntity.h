@@ -11,7 +11,9 @@ protected:
     bool isCollider; // Causes collisions between dynamic entities
 public:
     ~StaticEntity() override = default;
-    StaticEntity(const bool &isCollectable, const bool &isCollider);
+    StaticEntity(const Coordinate2D::NormalizedCoordinate &startPosition,
+                 const Coordinate2D::Coordinate &size,
+                 const bool &isCollectable, const bool &isCollider);
 
     bool GetIsCollectable() const;
     bool GetIsCollider() const;

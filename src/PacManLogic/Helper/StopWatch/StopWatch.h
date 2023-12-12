@@ -15,7 +15,6 @@ class PMLogic::Helper::StopWatch {
 private:
     StopWatch();
     static std::shared_ptr<PMLogic::Helper::StopWatch> instance;
-
     std::chrono::time_point<std::chrono::high_resolution_clock> startTime;
     std::chrono::time_point<std::chrono::high_resolution_clock> prevTime;
     float deltaTime;

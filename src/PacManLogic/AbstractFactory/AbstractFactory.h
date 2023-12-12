@@ -4,19 +4,34 @@
 #define PAC_MAN_ABSTRACTFACTORY_H
 
 #include "PMLogic.h"
+#include "Coordinate/Coordinate.h"
 #include <memory>
+
+class DynamicEntity;
+class StaticEntity;
+class CollectableEntity;
 
 class PMLogic::AbstractFactory {
 public:
-    virtual std::unique_ptr<PMLogic::Entity> CreatePacMan() const = 0;
+    virtual std::unique_ptr<DynamicEntity> CreatePacMan(
+            const Coordinate2D::NormalizedCoordinate &startPosition
+            ) const = 0;
 
-    virtual std::unique_ptr<PMLogic::Entity> CreateGhost() const = 0;
+    virtual std::unique_ptr<DynamicEntity> CreateGhost(
+            const Coordinate2D::NormalizedCoordinate &startPosition
+            ) const = 0;
 
-    virtual std::unique_ptr<PMLogic::Entity> CreateWall() const = 0;
+    virtual std::unique_ptr<StaticEntity> CreateWall(
+            const Coordinate2D::NormalizedCoordinate &startPosition, const Coordinate2D::Coordinate &size
+            ) const = 0;
 
-    virtual std::unique_ptr<PMLogic::Entity> CreateFruit() const = 0;
+    virtual std::unique_ptr<CollectableEntity> CreateFruit(
+            const Coordinate2D::NormalizedCoordinate &startPosition
+            ) const = 0;
 
-    virtual std::unique_ptr<PMLogic::Entity> CreateCoin() const = 0;
+    virtual std::unique_ptr<CollectableEntity> CreateCoin(
+            const Coordinate2D::NormalizedCoordinate &startPosition
+            ) const = 0;
 
     /**
      * @brief Virtual destructor

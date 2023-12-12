@@ -4,27 +4,40 @@
 #define PACMAN_ENTITYFACTORY_H
 
 #include "AbstractFactory/AbstractFactory.h"
-#include "PacManLogic/IObserver/IObserver.h"
+#include "EntityView/View.h"
 #include <vector>
+#include <SFML/Graphics.hpp>
 
-class EntityFactory : PMLogic::AbstractFactory {
+class EntityFactory : public PMLogic::AbstractFactory {
 protected:
-    const std::weak_ptr<std::vector<std::shared_ptr<PMLogic::IObserver>>> observers;
+    const std::weak_ptr<std::vector<std::shared_ptr<IEntityObserver>>> observers;
+    const std::weak_ptr<sf::RenderWindow> window;
 
-    template<typename EntityType>
-    std::unique_ptr<EntityType> CreateEntity() const;
+    template<typename EntityType, typename EntityViewType>
+    std::unique_ptr<EntityType> CreateEntity(const Coordinate2D::NormalizedCoordinate &startPosition) const;
 public:
-    explicit EntityFactory(const std::weak_ptr<std::vector<std::shared_ptr<PMLogic::IObserver>>> &observers_ptr);
+    explicit EntityFactory(const std::weak_ptr<std::vector<std::shared_ptr<IEntityObserver>>> &observers_ptr,
+                           const std::weak_ptr<sf::RenderWindow> &window);
 
-    std::unique_ptr<PMLogic::Entity> CreatePacMan() const override;
+    std::unique_ptr<DynamicEntity> CreatePacMan(
+            const Coordinate2D::NormalizedCoordinate &startPosition
+            ) const override;
 
-    std::unique_ptr<PMLogic::Entity> CreateGhost() const override;
+    std::unique_ptr<DynamicEntity> CreateGhost(
+            const Coordinate2D::NormalizedCoordinate &startPosition
+            ) const override;
 
-    std::unique_ptr<PMLogic::Entity> CreateWall() const override;
+    std::unique_ptr<StaticEntity> CreateWall(
+            const Coordinate2D::NormalizedCoordinate &startPosition, const Coordinate2D::Coordinate &size
+    ) const override;
 
-    std::unique_ptr<PMLogic::Entity> CreateFruit() const override;
+    std::unique_ptr<CollectableEntity> CreateFruit(
+            const Coordinate2D::NormalizedCoordinate &startPosition
+            ) const override;
 
-    std::unique_ptr<PMLogic::Entity> CreateCoin() const override;
+    std::unique_ptr<CollectableEntity> CreateCoin(
+            const Coordinate2D::NormalizedCoordinate &startPosition
+            ) const override;
 };
 
 #endif // PACMAN_ENTITYFACTORY_H

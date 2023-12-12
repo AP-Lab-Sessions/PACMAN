@@ -8,8 +8,10 @@
 
 class PacMan : public DynamicEntity {
 public:
+    explicit PacMan(const Coordinate2D::NormalizedCoordinate &startPosition);
+
     void Eat(const CollectableEntity &collectable);
-    void Accept(const std::weak_ptr<PMLogic::IVisitor> &visitor) const override;
+    void Accept(const std::weak_ptr<IEntityVisitor> &visitor) override;
 };
 
 #endif // PACMAN_PACMAN_H

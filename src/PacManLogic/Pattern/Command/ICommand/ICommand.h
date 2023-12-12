@@ -9,7 +9,7 @@ class PMLogic::ICommand {
 public:
     virtual ~ICommand() = default;
 
-    virtual void Execute() const = 0;
+    virtual void Execute() = 0;
 };
 
 

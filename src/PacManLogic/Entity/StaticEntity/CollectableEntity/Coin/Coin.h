@@ -7,9 +7,9 @@
 
 class Coin : public CollectableEntity {
 public:
-    Coin();
+    explicit Coin(const Coordinate2D::NormalizedCoordinate &startPosition);
 
-    void Accept(const std::weak_ptr<PMLogic::IVisitor> &visitor) const override;
+    void Accept(const std::weak_ptr<IEntityVisitor> &visitor) override;
 };
 
 #endif // PACMAN_COIN_H

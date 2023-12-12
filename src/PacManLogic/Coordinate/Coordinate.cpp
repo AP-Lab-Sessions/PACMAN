@@ -1,9 +1,6 @@
 //
 #include "Coordinate.h"
 #include <cassert>
-#include <cmath>
-
-Coordinate2D::PixelCoordinate::PixelCoordinate(const unsigned int& x, const unsigned int& y) : x(x), y(y) {}
 
 Coordinate2D::Coordinate::Coordinate(const float& x, const float& y) : x(x), y(y) {}
 
@@ -34,9 +31,9 @@ void Coordinate2D::NormalizedCoordinate::SetY(const float& newY) {
     y = newY;
 }
 
-Coordinate2D::PixelCoordinate Coordinate2D::Project(
+Coordinate2D::Coordinate Coordinate2D::Project(
     const Coordinate2D::NormalizedCoordinate& coord, const unsigned int& width, const unsigned int& height) {
-    const unsigned int x = std::lroundf((float)(width)/2*(coord.GetX()+1));
-    const unsigned int y = std::lroundf((float)(height)/2*(coord.GetY()+1));
-    return PixelCoordinate{x,y};
+    const float x = static_cast<float>(width)/2*(coord.GetX()+1);
+    const float y = static_cast<float>(height)/2*(coord.GetY()+1);
+    return Coordinate{x,y};
 }

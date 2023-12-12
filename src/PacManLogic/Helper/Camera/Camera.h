@@ -5,13 +5,15 @@
 
 #include "Entity/Entity.h"
 #include "Coordinate/Coordinate.h"
+#include "PMLogic.h"
 
-class Camera {
+class PMLogic::Helper::Camera {
 protected:
     unsigned int width, height;
 public:
     Camera(const unsigned int &width, const unsigned int &height);
-    Coordinate2D::PixelCoordinate Project(const PMLogic::Entity &entity) const;
+    Coordinate2D::Coordinate ProjectCurrentPosition(const PMLogic::Entity &entity) const;
+    Coordinate2D::Coordinate ProjectSize(const PMLogic::Entity &entity) const;
 };
 
 #endif // PACMAN_CAMERA_H

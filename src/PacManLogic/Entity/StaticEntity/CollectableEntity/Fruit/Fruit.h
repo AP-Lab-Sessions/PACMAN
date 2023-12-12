@@ -7,9 +7,9 @@
 
 class Fruit : public CollectableEntity {
 public:
-    Fruit();
+    explicit Fruit(const Coordinate2D::NormalizedCoordinate &startPosition);
 
-    void Accept(const std::weak_ptr<PMLogic::IVisitor> &visitor) const override;
+    void Accept(const std::weak_ptr<IEntityVisitor> &visitor) override;
 };
 
 #endif // PACMAN_FRUIT_H

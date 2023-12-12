@@ -6,12 +6,12 @@
 #include "PacManLogic/Entity/StaticEntity/CollectableEntity/Coin/Coin.h"
 #include "EntityView/View.h"
 
-template<>
-class View<Coin> : public PMLogic::IObserver {
-protected:
-    const std::weak_ptr<Coin> entity;
+class CoinView final : public View<Coin> {
 public:
-    void Update() override {}
+    CoinView(const Coin &entity, const std::weak_ptr<sf::RenderWindow> &window);
+
+    void Load() final;
+    void Update() final;
 };
 
 #endif // PACMAN_COINVIEW_H

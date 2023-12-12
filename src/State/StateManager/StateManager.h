@@ -17,7 +17,7 @@ public:
     void PopState();
 
     void Update();
-    void ProcessEvents();
+    void ProcessEvents(const sf::Event &event);
     void Render();
 };
 

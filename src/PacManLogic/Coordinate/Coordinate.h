@@ -4,12 +4,6 @@
 #define PACMAN_COORDINATE_H
 
 namespace Coordinate2D {
-
-class PixelCoordinate{
-public:
-    unsigned int x,y;
-    PixelCoordinate(const unsigned int &x, const unsigned int &y);
-};
 class Coordinate {
 protected:
     float x, y;
@@ -36,7 +30,7 @@ public:
     void SetY(const float &newY) override;
 };
 
-PixelCoordinate Project(const NormalizedCoordinate &coord, const unsigned int &width, const unsigned int &height);
+Coordinate Project(const NormalizedCoordinate &coord, const unsigned int &width, const unsigned int &height);
 
 }
 

@@ -7,9 +7,9 @@
 
 class Wall : public StaticEntity {
 public:
-    Wall();
+    Wall(const Coordinate2D::NormalizedCoordinate &startPosition, const Coordinate2D::Coordinate &size);
 
-    void Accept(const std::weak_ptr<PMLogic::IVisitor> &visitor) const override;
+    void Accept(const std::weak_ptr<IEntityVisitor> &visitor) override;
 };
 
 #endif // PACMAN_WALL_H

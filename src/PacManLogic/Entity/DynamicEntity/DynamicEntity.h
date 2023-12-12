@@ -11,16 +11,27 @@ enum DiscreteDirection2D {
 
 class DynamicEntity : public PMLogic::Entity {
 protected:
-    Coordinate2D::NormalizedCoordinate currentPosition;
-    bool isAlive;
+    unsigned int lives;
     DiscreteDirection2D currentDirection;
+    float speed;
+
 public:
-    explicit DynamicEntity(const Coordinate2D::NormalizedCoordinate &startPosition);
-    DynamicEntity();
+    explicit DynamicEntity(const Coordinate2D::NormalizedCoordinate &startPosition,
+                           const Coordinate2D::Coordinate &size,
+                           const unsigned int &lives, const float &speed);
     ~DynamicEntity() override = default;
 
-    Coordinate2D::NormalizedCoordinate GetCurrentPosition() const override;
-    void SetCurrentPosition(const Coordinate2D::NormalizedCoordinate &);
+    void Move();
+
+    float GetSpeed() const;
+    void SetSpeed(const float &newSpeed);
+
+    unsigned int GetLives() const;
+
+    void SetDirection(const DiscreteDirection2D &newDirection);
+    DiscreteDirection2D GetDirection() const;
+
+    Coordinate2D::NormalizedCoordinate GetNextPosition() const;
 };
 
 #endif // PACMAN_DYNAMICENTITY_H

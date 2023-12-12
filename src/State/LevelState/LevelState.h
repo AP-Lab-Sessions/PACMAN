@@ -3,15 +3,19 @@
 #ifndef INC_2023_PROJECT_MAGNUSTYMOTEUS_LEVELSTATE_H
 #define INC_2023_PROJECT_MAGNUSTYMOTEUS_LEVELSTATE_H
 
+#include "EntityView/View.h"
 #include "State/State.h"
+#include "PacManLogic/World/World.h"
+
 
 class LevelState : public State {
 protected:
-    sf::View view;
+    const std::shared_ptr<std::vector<std::shared_ptr<IEntityObserver>>> views;
+    std::unique_ptr<PMLogic::World> world;
 public:
-    explicit LevelState(sf::RenderWindow &window);
+    explicit LevelState(const std::weak_ptr<sf::RenderWindow> &window);
 
-    void ProcessEvents() override;
+    void ProcessEvents(const sf::Event &event) override;
     void Render() override;
     void Update() override;
 };

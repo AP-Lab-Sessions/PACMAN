@@ -8,11 +8,29 @@
  */
 namespace PMLogic {
 
+    // Observer design pattern
+
     class IObserver;
 
     class ISubject;
 
+
+
+    // Visitor design pattern
+
     class IVisitor;
+
+
+
+    // Command design pattern
+
+    class ICommand;
+
+    class Receiver;
+
+    class Invoker;
+
+
 
     class Entity;
 
@@ -45,6 +63,8 @@ namespace PMLogic {
           * @brief Keeps the difference in time between current update step and the previous one.
           */
          class StopWatch;
+
+         class Camera;
          }
 }
 #endif // PACMAN_PMLOGIC_H

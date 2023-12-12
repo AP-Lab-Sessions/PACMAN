@@ -4,7 +4,7 @@
 #define PACMAN_SCORE_H
 
 #include "Entity/PacMan/PacMan.h"
-#include "Observer/IObserver.h"
+#include "Observer/IObserver/IObserver.h"
 
 // TODO
 /**

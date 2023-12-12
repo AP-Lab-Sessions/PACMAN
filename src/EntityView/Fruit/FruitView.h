@@ -6,12 +6,12 @@
 #include "PacManLogic/Entity/StaticEntity/CollectableEntity/Fruit/Fruit.h"
 #include "EntityView/View.h"
 
-template<>
-class View<Fruit> : public PMLogic::IObserver {
-protected:
-    const std::weak_ptr<Fruit> entity;
+class FruitView final : public View<Fruit> {
 public:
-    void Update() override {}
+    FruitView(const Fruit &entity, const std::weak_ptr<sf::RenderWindow> &window);
+
+    void Load() final;
+    void Update() final;
 };
 
 #endif // PACMAN_FRUITVIEW_H

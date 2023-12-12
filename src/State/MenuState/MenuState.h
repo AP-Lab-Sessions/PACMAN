@@ -4,20 +4,18 @@
 #define PACMAN_MENUSTATE_H
 
 #include "State/State.h"
-#include "Game/Assets.h"
 #include "Game/Widgets/Button/Button.h"
 
 #include <memory>
 
 class MenuState : public State {
 protected:
-    sf::View view;
     Button title, play, quit, highScore;
 
 public:
-    explicit MenuState(sf::RenderWindow &window);
+    explicit MenuState(const std::weak_ptr<sf::RenderWindow> &window);
 
-    void ProcessEvents() override;
+    void ProcessEvents(const sf::Event &event) override;
     void Render() override;
     void Update() override;
 };

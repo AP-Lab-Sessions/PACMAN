@@ -3,11 +3,17 @@ add_subdirectory(lib/googletest)
 
 SET(VIEW_SRC EntityView/PacMan/PacManView.cpp EntityFactory/EntityFactory.h EntityFactory/EntityFactory.h
         EntityFactory/EntityFactory.h EntityFactory/EntityFactory.cpp
-        Game/Game.h EntityView/Ghost/GhostView.h EntityView/Fruit/FruitView.h
-        EntityView/Coin/CoinView.h EntityView/Wall/WallView.h EntityView/View.h
+        Game/Game.h
+        EntityView/Ghost/GhostView.h EntityView/Ghost/GhostView.cpp
+        EntityView/Fruit/FruitView.h EntityView/Fruit/FruitView.cpp
+        EntityView/Coin/CoinView.h EntityView/Coin/CoinView.cpp
+        EntityView/Wall/WallView.h EntityView/Wall/WallView.cpp
+        EntityView/View.h
         State/State.h State/State.cpp
         State/StateManager/StateManager.h State/StateManager/StateManager.cpp
-        State/MenuState/MenuState.h State/MenuState/MenuState.cpp Game/Game.cpp Game/Assets.h Game/Assets.cpp Game/Widgets/Button/Button.h Game/Widgets/Button/Button.cpp State/LevelState/LevelState.h State/LevelState/LevelState.cpp)
+        State/MenuState/MenuState.h State/MenuState/MenuState.cpp Game/Game.cpp
+        Game/Widgets/Button/Button.h Game/Widgets/Button/Button.cpp
+        State/LevelState/LevelState.h State/LevelState/LevelState.cpp Game/SpriteSheet/SpriteSheet.h Game/SpriteSheet/SpriteSheet.cpp)
 
 
 add_executable(PacMan main.cpp ${VIEW_SRC})

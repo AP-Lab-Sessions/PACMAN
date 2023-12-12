@@ -14,12 +14,18 @@ std::string getHighScoreStr() {
     return highScoreStr;
 }
 
-MenuState::MenuState(sf::RenderWindow &window) : State(window), view(sf::View(sf::FloatRect(0,0,800,600))),
-title(Button("PACMAN", mainFont, sf::Color::Yellow, 75, {static_cast<float>(window.getSize().x)/2.0f, 50})),
-play(Button("PLAY", mainFont, sf::Color::Yellow, 45, {static_cast<float>(window.getSize().x)/2.0f, 250})),
-quit(Button("QUIT", mainFont, sf::Color::Yellow, 45, {static_cast<float>(window.getSize().x)/2.0f, 350})),
-highScore(Button(getHighScoreStr(), mainFont, sf::Color::Yellow, 30,
-                 {static_cast<float>(window.getSize().x-100), static_cast<float>(window.getSize().y-100)}))
+sf::Vector2f getWindowSize(const std::weak_ptr<sf::RenderWindow> &window) {
+    sf::Vector2<unsigned int> size = window.lock()->getSize();
+    sf::Vector2f result {static_cast<float>(size.x), static_cast<float>(size.y)};
+    return result;
+}
+
+MenuState::MenuState(const std::weak_ptr<sf::RenderWindow> &window) : State(window),
+title(Button("PACMAN", mainFont, sf::Color::Yellow, 75, {getWindowSize(window).x/2.0f, 50})),
+play(Button("PLAY", mainFont, sf::Color::Yellow, 45, {getWindowSize(window).x/2.0f, 250})),
+quit(Button("QUIT", mainFont, sf::Color::Yellow, 45, {getWindowSize(window).x/2.0f, 350})),
+highScore(Button(getHighScoreStr(), secondaryFont, sf::Color::Yellow, 20,
+                 {200, getWindowSize(window).y-100}))
 {
 
 }
@@ -28,38 +34,25 @@ void MenuState::Update() {
 
 }
 
-void MenuState::ProcessEvents() {
-    sf::Event event{};
-    while (window.pollEvent(event))
-    {
-        if (event.type == sf::Event::Closed) {
-            window.close();
-        }
-        if (event.type == sf::Event::Resized) {
-            view.setSize({
-                                 static_cast<float>(event.size.width),
-                                 static_cast<float>(event.size.height)
-                         });
-            window.setView(view);
-        }
-        if(event.type == sf::Event::MouseButtonPressed) {
-            if(event.mouseButton.button == sf::Mouse::Left) {
-                sf::Vector2f mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-                if(play.IsClicked(mouse)) {
-                    std::unique_ptr<State> newState {new LevelState(window)};
-                    manager.lock()->PushState(newState);
-                }
-                if(quit.IsClicked(mouse)) {
-                    window.close();
-                }
+void MenuState::ProcessEvents(const sf::Event &event) {
+    if(event.type == sf::Event::MouseButtonPressed) {
+        if(event.mouseButton.button == sf::Mouse::Left) {
+            sf::Vector2f mouse = window.lock()->mapPixelToCoords(sf::Mouse::getPosition(*window.lock()));
+            if(play.IsClicked(mouse)) {
+                std::unique_ptr<State> newState {new LevelState(window)};
+                manager.lock()->PushState(newState);
+            }
+            if(quit.IsClicked(mouse)) {
+                window.lock()->close();
             }
         }
     }
 }
 
 void MenuState::Render() {
-    window.draw(title.text);
-    window.draw(play.text);
-    window.draw(quit.text);
-    window.draw(highScore.text);
+    sf::RenderWindow &renderWindow = (*window.lock());
+    renderWindow.draw(title.text);
+    renderWindow.draw(play.text);
+    renderWindow.draw(quit.text);
+    renderWindow.draw(highScore.text);
 }

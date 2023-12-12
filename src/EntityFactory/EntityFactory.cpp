@@ -13,35 +13,51 @@
 #include "EntityView/Coin/CoinView.h"
 #include "EntityView/Fruit/FruitView.h"
 
-template<typename EntityType>
-std::unique_ptr<EntityType> EntityFactory::CreateEntity() const {
-    std::unique_ptr<EntityType> entity {new EntityType()};
-    std::shared_ptr<PMLogic::IObserver> view{new View<EntityType>()};
+template<typename EntityType, typename EntityViewType>
+std::unique_ptr<EntityType> EntityFactory::CreateEntity(const Coordinate2D::NormalizedCoordinate &startPosition) const {
+    std::unique_ptr<EntityType> entity {new EntityType(startPosition)};
+    std::shared_ptr<EntityViewType> view{new EntityViewType(*entity, window)};
+
     observers.lock()->push_back(view);
     entity->Attach(view);
     return entity;
 }
 
-EntityFactory::EntityFactory(const std::weak_ptr<std::vector<std::shared_ptr<PMLogic::IObserver>>>& observers_ptr)
-: observers(observers_ptr) {}
+EntityFactory::EntityFactory(const std::weak_ptr<std::vector<std::shared_ptr<IEntityObserver>>>& observers_ptr,
+                             const std::weak_ptr<sf::RenderWindow> &window)
+: observers(observers_ptr), window(window) {}
 
 
-std::unique_ptr<PMLogic::Entity> EntityFactory::CreatePacMan() const {
-    return CreateEntity<PacMan>();
+std::unique_ptr<DynamicEntity> EntityFactory::CreatePacMan(
+        const Coordinate2D::NormalizedCoordinate &startPosition
+        ) const {
+    return CreateEntity<PacMan, PacManView>(startPosition);
 }
 
-std::unique_ptr<PMLogic::Entity> EntityFactory::CreateCoin() const {
-    return CreateEntity<Coin>();
+std::unique_ptr<CollectableEntity> EntityFactory::CreateCoin(
+        const Coordinate2D::NormalizedCoordinate &startPosition
+        ) const {
+    return CreateEntity<Coin, CoinView>(startPosition);
 }
 
-std::unique_ptr<PMLogic::Entity> EntityFactory::CreateFruit() const {
-    return CreateEntity<Fruit>();
+std::unique_ptr<CollectableEntity> EntityFactory::CreateFruit(
+        const Coordinate2D::NormalizedCoordinate &startPosition
+        ) const {
+    return CreateEntity<Fruit, FruitView>(startPosition);
 }
 
-std::unique_ptr<PMLogic::Entity> EntityFactory::CreateGhost() const {
-    return CreateEntity<Ghost>();
+std::unique_ptr<DynamicEntity> EntityFactory::CreateGhost(
+        const Coordinate2D::NormalizedCoordinate &startPosition
+        ) const {
+    return CreateEntity<Ghost, GhostView>(startPosition);
 }
 
-std::unique_ptr<PMLogic::Entity> EntityFactory::CreateWall() const {
-    return CreateEntity<Wall>();
+std::unique_ptr<StaticEntity> EntityFactory::CreateWall(
+        const Coordinate2D::NormalizedCoordinate &startPosition, const Coordinate2D::Coordinate &size
+) const {
+    std::unique_ptr<Wall> entity {new Wall(startPosition, size)};
+    std::shared_ptr<WallView> view{new WallView(*entity, window)};
+    observers.lock()->push_back(view);
+    entity->Attach(view);
+    return entity;
 }
