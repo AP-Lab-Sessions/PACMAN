@@ -1,0 +1,14 @@
+//
+
+#ifndef PACMAN_ENTITYDESTROYEVENT_H
+#define PACMAN_ENTITYDESTROYEVENT_H
+
+
+
+class EntityDestroyEvent {
+
+};
+
+
+
+#endif //PACMAN_ENTITYDESTROYEVENT_H
