@@ -5,26 +5,30 @@
 
 #include "PMLogic.h"
 #include "AbstractFactory/AbstractFactory.h"
-#include "Entity/Entity.h"
-#include "Entity/DynamicEntity/PacMan/PacMan.h"
 #include "UpdateVisitor/UpdateVisitor.h"
+#include "Score/Score.h"
 
-#include <memory>
-#include <list>
 #include <functional>
+#include <list>
+
 
 class PMLogic::World {
+private:
+    std::vector<std::reference_wrapper<const PMLogic::Entity>> destructables;
 protected:
     const std::unique_ptr<AbstractFactory> factory;
 
+    std::list<std::shared_ptr<PMLogic::Entity>> entities;
+
     std::weak_ptr<DynamicEntity> player;
 
-    std::list<std::shared_ptr<PMLogic::Entity>> entities;
     std::shared_ptr<UpdateVisitor> updateVisitor;
 
-    template<typename EntityType>
-    void CallbackAndPush(const std::shared_ptr<EntityType> &entity,
-                        const std::function<void(const std::weak_ptr<EntityType> &)> &);
+    std::shared_ptr<OnCollisionCommand> onCollision;
+
+    std::shared_ptr<Score> score;
+
+    void DestroyDestructables();
 
 public:
     explicit World(std::unique_ptr<AbstractFactory> &factory);

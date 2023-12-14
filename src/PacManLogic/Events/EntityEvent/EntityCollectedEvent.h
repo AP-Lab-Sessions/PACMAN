@@ -1,15 +1,16 @@
 //
 
-#ifndef PACMAN_ENTITYCOLLECTEDEEVENT_H
-#define PACMAN_ENTITYCOLLECTEDEEVENT_H
+#ifndef PACMAN_ENTITYCOLLECTEDEVENT_H
+#define PACMAN_ENTITYCOLLECTEDEVENT_H
 
 #include "Pattern/Observer/Event/Event.h"
-#include "Entity/StaticEntity/CollectableEntity/CollectableEntity.h"
 
-class EntityCollectedeEvent : public PMLogic::Event<EntityCollectedeEvent> {
+class CollectableEntity;
+
+class EntityCollectedEvent : public PMLogic::Event<EntityCollectedEvent> {
 public:
     const CollectableEntity &entity;
-    explicit EntityCollectedeEvent(const CollectableEntity &entity) : entity(entity) {}
+    explicit EntityCollectedEvent(const CollectableEntity &entity) : entity(entity) {}
 };
 
-#endif //PACMAN_ENTITYCOLLECTEDEEVENT_H
+#endif //PACMAN_ENTITYCOLLECTEDEVENT_H

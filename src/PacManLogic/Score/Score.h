@@ -3,14 +3,12 @@
 #ifndef PACMAN_SCORE_H
 #define PACMAN_SCORE_H
 
-#include "Entity/PacMan/PacMan.h"
-#include "Observer/IObserver/IObserver.h"
+#include "PMLogic.h"
+#include "Pattern/Observer/EventListener/IEventListener.h"
+#include "Events/EntityEvent/EntityCollectedEvent.h"
 
-// TODO
-/**
- * @brief Keeps the score of the current game and at the end gives the score to the Scoreboard to handle it.
- */
-class PMLogic::Score : PMLogic::Observer<PacMan> {
+
+class PMLogic::Score : public IEventListener<EntityCollectedEvent> {
 protected:
     int currentScore;
 public:
@@ -21,7 +19,7 @@ public:
 
     int GetScore() const;
 
-    void Update(const PacMan &pacMan) override;
+    void Update(const EntityCollectedEvent &eventData) override;
 };
 
 #endif // PACMAN_SCORE_H

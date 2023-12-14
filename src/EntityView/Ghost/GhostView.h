@@ -12,7 +12,6 @@ public:
     GhostView(const Ghost &entity, const std::weak_ptr<sf::RenderWindow> &window);
 
     void Load() final;
-    void Update() final;
 };
 
 #endif // PACMAN_GHOSTVIEW_H

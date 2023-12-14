@@ -14,8 +14,10 @@ protected:
     unsigned int lives;
     DiscreteDirection2D currentDirection;
     float speed;
-
+    bool canMove;
+    bool isKillable;
 public:
+
     explicit DynamicEntity(const Coordinate2D::NormalizedCoordinate &startPosition,
                            const Coordinate2D::Coordinate &size,
                            const unsigned int &lives, const float &speed);
@@ -32,6 +34,21 @@ public:
     DiscreteDirection2D GetDirection() const;
 
     Coordinate2D::NormalizedCoordinate GetNextPosition() const;
+
+    bool GetCanMove() const;
+    void SetCanMove(const bool &newCanMove);
+
+    bool GetIsKillable() const;
+    void SetIsKillable(const bool &newIsKillable);
+
+    bool WillCollide(const PMLogic::Entity &entity) const override;
+
+    void CollideWith(Wall &) final;
+    void CollideWith(PacMan &) override {}
+    void CollideWith(Ghost &) override {}
+    void CollideWith(Fruit &) override {}
+    void CollideWith(Coin &) override {}
+    void CollideWith(PMLogic::Entity &) override = 0;
 };
 
 #endif // PACMAN_DYNAMICENTITY_H

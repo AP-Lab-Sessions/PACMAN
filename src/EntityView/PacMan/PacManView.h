@@ -12,7 +12,6 @@ public:
     PacManView(const PacMan &entity, const std::weak_ptr<sf::RenderWindow> &window);
 
     void Load() final;
-    void Update() final;
 };
 
 #endif // PAC_MAN_PACMANVIEW_H

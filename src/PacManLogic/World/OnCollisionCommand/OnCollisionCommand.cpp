@@ -1,10 +1,26 @@
 //
 
-#include "EntityOnCollisionCommand.h"
+#include "OnCollisionCommand.h"
 #include "Entity/DynamicEntity/PacMan/PacMan.h"
-#include "Entity/StaticEntity/Wall/Wall.h"
+#include "Entity/DynamicEntity/Ghost/Ghost.h"
+#include "Entity/StaticEntity/CollectableEntity/CollectableEntity.h"
 
-template<>
-void OnCollisionCommand<PacMan, Wall>::Execute() {
 
+OnCollisionCommand::OnCollisionCommand(std::vector<std::reference_wrapper<const PMLogic::Entity>> &destructables)
+        : destructables(destructables) {}
+
+void OnCollisionCommand::SetColliders(const PacMan &pacMan, const Ghost &ghost) {
+    if(pacMan.GetIsKillable()) {
+        destructables.emplace_back(pacMan);
+    }
+    else if(ghost.GetIsKillable()) {
+        destructables.emplace_back(ghost);
+    }
 }
+void OnCollisionCommand::SetColliders(const CollectableEntity &collectable) {
+    destructables.emplace_back(collectable);
+}
+
+void OnCollisionCommand::Execute() {}
+
+void OnCollisionCommand::ExecuteAndNotify() {Notify(*this);}

@@ -3,7 +3,7 @@
 #ifndef PACMAN_IENTITYVISITOR_H
 #define PACMAN_IENTITYVISITOR_H
 
-#include "Pattern/Visitor/IVisitor/IVisitor.h"
+#include "Pattern/Visitor/IVisitor.h"
 
 class PacMan;
 class Ghost;

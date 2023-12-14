@@ -13,7 +13,6 @@ public:
     WallView(const Wall &entity, const std::weak_ptr<sf::RenderWindow> &window);
 
     void Load() final;
-    void Update() final;
     void Render() override;
 };
 

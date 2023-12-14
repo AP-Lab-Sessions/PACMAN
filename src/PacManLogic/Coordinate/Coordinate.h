@@ -32,6 +32,8 @@ public:
 
 Coordinate Project(const NormalizedCoordinate &coord, const unsigned int &width, const unsigned int &height);
 
+bool IsOverlapping(const NormalizedCoordinate &pos1, const Coordinate &size1,
+                   const NormalizedCoordinate &pos2, const Coordinate &size2);
 }
 
 

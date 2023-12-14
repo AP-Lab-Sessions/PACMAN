@@ -6,18 +6,12 @@
 #include "Entity/Entity.h"
 
 class StaticEntity : public PMLogic::Entity {
-protected:
-    bool isCollectable; // can be collected
-    bool isCollider; // Causes collisions between dynamic entities
 public:
     ~StaticEntity() override = default;
     StaticEntity(const Coordinate2D::NormalizedCoordinate &startPosition,
-                 const Coordinate2D::Coordinate &size,
-                 const bool &isCollectable, const bool &isCollider);
+                 const Coordinate2D::Coordinate &size);
 
-    bool GetIsCollectable() const;
-    bool GetIsCollider() const;
-
+    bool WillCollide(const PMLogic::Entity &entity) const override;
 };
 
 #endif // PACMAN_STATICENTITY_H

@@ -12,3 +12,7 @@ Coordinate2D::Coordinate PMLogic::Helper::Camera::ProjectSize(const PMLogic::Ent
     return {static_cast<float>(width)*entity.GetSize().GetX()/2,
             static_cast<float>(height)*entity.GetSize().GetY()/2};
 }
+
+Coordinate2D::Coordinate PMLogic::Helper::Camera::Project(const Coordinate2D::NormalizedCoordinate &coordinate) const {
+    return Coordinate2D::Project(coordinate, width, height);
+}

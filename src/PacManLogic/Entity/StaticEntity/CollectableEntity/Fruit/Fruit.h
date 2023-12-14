@@ -10,6 +10,9 @@ public:
     explicit Fruit(const Coordinate2D::NormalizedCoordinate &startPosition);
 
     void Accept(const std::weak_ptr<IEntityVisitor> &visitor) override;
+
+    void CollideWith(PMLogic::Entity &) override;
+    void CollideWith(PacMan &) final;
 };
 
 #endif // PACMAN_FRUIT_H

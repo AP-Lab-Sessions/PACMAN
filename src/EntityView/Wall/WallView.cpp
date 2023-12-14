@@ -9,7 +9,6 @@ WallView::WallView(const Wall &entity, const std::weak_ptr<sf::RenderWindow> &wi
 void WallView::Render() {
     window.lock()->draw(wallShape);
 }
-void WallView::Update() {}
 
 void WallView::Load() {
     const sf::Vector2f viewSize = window.lock()->getDefaultView().getSize();

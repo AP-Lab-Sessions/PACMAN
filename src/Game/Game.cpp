@@ -2,7 +2,6 @@
 
 #include "Game.h"
 #include "State/MenuState/MenuState.h"
-#include "PacManLogic/Helper/StopWatch/StopWatch.h"
 
 Game::Game(const unsigned int &width, const unsigned int &height) : view(sf::View()), width(width), height(height)
 {
@@ -26,8 +25,6 @@ Game::Game(const unsigned int &width, const unsigned int &height) : view(sf::Vie
     background.setOutlineThickness(1.0f);
 }
 void Game::Update() {
-    std::weak_ptr<PMLogic::Helper::StopWatch> stopWatch = PMLogic::Helper::StopWatch::GetInstance();
-    stopWatch.lock()->Tick();
     stateManager->Update();
 }
 void Game::Render() {
@@ -36,7 +33,6 @@ void Game::Render() {
     stateManager->Render();
     window->display();
 }
-#include <iostream>
 void Game::ProcessEvents() {
     sf::Event event{};
     while (window->pollEvent(event))

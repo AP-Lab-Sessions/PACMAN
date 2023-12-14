@@ -2,12 +2,13 @@
 
 #include "DynamicEntity.h"
 #include "Helper/StopWatch/StopWatch.h"
-
+#include "Entity/StaticEntity/Wall/Wall.h"
 
 DynamicEntity::DynamicEntity(const Coordinate2D::NormalizedCoordinate& startPosition,
                              const Coordinate2D::Coordinate &size,
                              const unsigned int &lives, const float &speed)
-    : PMLogic::Entity(startPosition, size),lives(lives),  currentDirection(Direction_Right), speed(speed) {}
+    : PMLogic::Entity(startPosition, size),lives(lives),  currentDirection(Direction_Right), speed(speed),
+    canMove(true), isKillable(true) {}
 
 
 float move(const float &position, const float &speed, const float &length) {
@@ -21,8 +22,18 @@ float move(const float &position, const float &speed, const float &length) {
     return potentialResult;
 }
 void DynamicEntity::Move() {
-    SetPosition(GetNextPosition());
-    PMLogic::Entity::NotifyAll();
+    if(GetCanMove()) {
+        const auto nextPosition = GetNextPosition();
+        SetPosition(nextPosition);
+    }
+}
+
+void DynamicEntity::SetCanMove(const bool &newCanMove) {
+    canMove = newCanMove;
+}
+
+bool DynamicEntity::GetCanMove() const {
+    return canMove;
 }
 
 Coordinate2D::NormalizedCoordinate DynamicEntity::GetNextPosition() const {
@@ -65,4 +76,23 @@ void DynamicEntity::SetDirection(const DiscreteDirection2D &newDirection) {
 
 DiscreteDirection2D DynamicEntity::GetDirection() const {
     return currentDirection;
+}
+
+bool DynamicEntity::GetIsKillable() const {
+    return isKillable;
+}
+
+void DynamicEntity::SetIsKillable(const bool &newIsKillable) {
+    isKillable = newIsKillable;
+}
+
+void DynamicEntity::CollideWith(Wall & wall) {
+    if(WillCollide(wall)) {
+        SetCanMove(false);
+    }
+    else SetCanMove(true);
+}
+
+bool DynamicEntity::WillCollide(const PMLogic::Entity &entity) const {
+    return Coordinate2D::IsOverlapping(GetNextPosition(), GetSize(), entity.GetPosition(), entity.GetSize());
 }

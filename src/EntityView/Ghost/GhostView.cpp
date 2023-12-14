@@ -7,6 +7,12 @@ GhostView::GhostView(const Ghost &entity, const std::weak_ptr<sf::RenderWindow> 
     Load();
 }
 
-void GhostView::Load() {}
+void GhostView::Load() {
+    const sf::Vector2f size = window.lock()->getDefaultView().getSize();
 
-void GhostView::Update() {}
+    PMLogic::Helper::Camera camera(
+            static_cast<unsigned int>(size.x),
+            static_cast<unsigned int>(size.y));
+
+    sprite = spriteSheet.GetSprite(0,0, camera.ProjectSize(entity));
+}

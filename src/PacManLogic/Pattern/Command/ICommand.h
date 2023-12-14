@@ -11,7 +11,7 @@ class PMLogic::ICommand : public Event<CommandType> {
 public:
     ~ICommand() override = default;
     virtual void Execute() = 0;
-    virtual void ExecuteAndNotify() =0;
+    virtual void ExecuteAndNotify() = 0;
 };
 
 

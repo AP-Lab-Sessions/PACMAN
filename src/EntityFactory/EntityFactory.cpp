@@ -13,25 +13,33 @@
 #include "EntityView/Coin/CoinView.h"
 #include "EntityView/Fruit/FruitView.h"
 
+#include "PacManLogic/Score/Score.h"
+
 template<typename EntityType, typename EntityViewType>
 std::unique_ptr<EntityType> EntityFactory::CreateEntity(const Coordinate2D::NormalizedCoordinate &startPosition) const {
     std::unique_ptr<EntityType> entity {new EntityType(startPosition)};
     std::shared_ptr<EntityViewType> view{new EntityViewType(*entity, window)};
 
-    observers.lock()->push_back(view);
-    entity->Attach(view);
+    std::function<void()> callback = [view](){view->Render();};
+
+    renderCallbacks.lock()->push_back(callback);
+    entity->onPositionChange->Attach(view);
+    entity->onEntityDestroy->Attach(view);
     return entity;
 }
 
-EntityFactory::EntityFactory(const std::weak_ptr<std::vector<std::shared_ptr<IEntityObserver>>>& observers_ptr,
+EntityFactory::EntityFactory(const std::weak_ptr<std::vector<std::function<void()>>>& callbacks,
                              const std::weak_ptr<sf::RenderWindow> &window)
-: observers(observers_ptr), window(window) {}
+: renderCallbacks(callbacks), window(window) {}
 
 
 std::unique_ptr<DynamicEntity> EntityFactory::CreatePacMan(
         const Coordinate2D::NormalizedCoordinate &startPosition
         ) const {
-    return CreateEntity<PacMan, PacManView>(startPosition);
+    auto pacMan = CreateEntity<PacMan, PacManView>(startPosition);
+    //std::shared_ptr<PMLogic::Score> scoreObserver {new PMLogic::Score(*pacMan)};
+   // pacMan->Attach(scoreObserver);
+    return pacMan;
 }
 
 std::unique_ptr<CollectableEntity> EntityFactory::CreateCoin(
@@ -57,7 +65,10 @@ std::unique_ptr<StaticEntity> EntityFactory::CreateWall(
 ) const {
     std::unique_ptr<Wall> entity {new Wall(startPosition, size)};
     std::shared_ptr<WallView> view{new WallView(*entity, window)};
-    observers.lock()->push_back(view);
-    entity->Attach(view);
+
+    std::function<void()> callback = [view](){view->Render();};
+    renderCallbacks.lock()->push_back(callback);
+    entity->onPositionChange->Attach(view);
+    entity->onEntityDestroy->Attach(view);
     return entity;
 }

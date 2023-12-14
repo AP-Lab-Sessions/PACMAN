@@ -14,6 +14,7 @@ public:
     Camera(const unsigned int &width, const unsigned int &height);
     Coordinate2D::Coordinate ProjectCurrentPosition(const PMLogic::Entity &entity) const;
     Coordinate2D::Coordinate ProjectSize(const PMLogic::Entity &entity) const;
+    Coordinate2D::Coordinate Project(const Coordinate2D::NormalizedCoordinate &coordinate) const;
 };
 
 #endif // PACMAN_CAMERA_H

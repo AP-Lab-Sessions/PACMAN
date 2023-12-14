@@ -10,10 +10,11 @@ namespace PMLogic {
 
     // Observer design pattern
 
-    class IObserver;
+    template<typename CommandType>
+    class IEventListener;
 
-    class ISubject;
-
+    template<typename CommandType>
+    class Event;
 
 
     // Visitor design pattern
@@ -21,15 +22,14 @@ namespace PMLogic {
     class IVisitor;
 
 
-
     // Command design pattern
 
+    template<typename CommandType>
     class ICommand;
 
     class Receiver;
 
     class Invoker;
-
 
 
     class Entity;

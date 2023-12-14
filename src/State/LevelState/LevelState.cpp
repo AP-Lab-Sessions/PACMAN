@@ -4,9 +4,9 @@
 #include "EntityFactory/EntityFactory.h"
 
 LevelState::LevelState(const std::weak_ptr<sf::RenderWindow> &window) : State(window),
-views(new std::vector<std::shared_ptr<IEntityObserver>>())
+renderCallbacks(new std::vector<std::function<void()>>())
 {
-    std::unique_ptr<PMLogic::AbstractFactory> factory {std::make_unique<EntityFactory>(views, window)};
+    std::unique_ptr<PMLogic::AbstractFactory> factory {std::make_unique<EntityFactory>(renderCallbacks, window)};
     world = std::make_unique<PMLogic::World>(factory);
 }
 
@@ -15,8 +15,8 @@ void LevelState::Update() {
 }
 
 void LevelState::Render() {
-    for(const auto &currentEntityObserver : *views) {
-        currentEntityObserver->Render();
+    for(const auto &currentRenderCallback : *renderCallbacks) {
+        if(currentRenderCallback) currentRenderCallback();
     }
 }
 

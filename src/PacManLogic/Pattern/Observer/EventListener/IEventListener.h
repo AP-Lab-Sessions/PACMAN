@@ -5,10 +5,10 @@
 
 #include "PMLogic.h"
 
-template<typename CommandType>
+template<typename EventType>
 class PMLogic::IEventListener {
 public:
-    virtual void Update(const CommandType &eventData) = 0;
+    virtual void Update(const EventType &eventData) = 0;
     virtual ~IEventListener() = default;
 };
 

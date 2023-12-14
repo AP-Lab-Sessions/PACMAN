@@ -7,10 +7,11 @@
 #include "State/State.h"
 #include "PacManLogic/World/World.h"
 
+#include <functional>
 
 class LevelState : public State {
 protected:
-    const std::shared_ptr<std::vector<std::shared_ptr<IEntityObserver>>> views;
+    const std::shared_ptr<std::vector<std::function<void()>>> renderCallbacks;
     std::unique_ptr<PMLogic::World> world;
 public:
     explicit LevelState(const std::weak_ptr<sf::RenderWindow> &window);

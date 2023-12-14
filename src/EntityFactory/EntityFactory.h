@@ -10,13 +10,13 @@
 
 class EntityFactory : public PMLogic::AbstractFactory {
 protected:
-    const std::weak_ptr<std::vector<std::shared_ptr<IEntityObserver>>> observers;
+    const std::weak_ptr<std::vector<std::function<void()>>> renderCallbacks;
     const std::weak_ptr<sf::RenderWindow> window;
 
     template<typename EntityType, typename EntityViewType>
     std::unique_ptr<EntityType> CreateEntity(const Coordinate2D::NormalizedCoordinate &startPosition) const;
 public:
-    explicit EntityFactory(const std::weak_ptr<std::vector<std::shared_ptr<IEntityObserver>>> &observers_ptr,
+    explicit EntityFactory(const std::weak_ptr<std::vector<std::function<void()>>> &observers_ptr,
                            const std::weak_ptr<sf::RenderWindow> &window);
 
     std::unique_ptr<DynamicEntity> CreatePacMan(

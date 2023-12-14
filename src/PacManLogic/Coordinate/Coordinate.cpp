@@ -37,3 +37,10 @@ Coordinate2D::Coordinate Coordinate2D::Project(
     const float y = static_cast<float>(height)/2*(coord.GetY()+1);
     return Coordinate{x,y};
 }
+
+bool Coordinate2D::IsOverlapping(const Coordinate2D::NormalizedCoordinate &pos1, const Coordinate2D::Coordinate &size1,
+                                 const Coordinate2D::NormalizedCoordinate &pos2,
+                                 const Coordinate2D::Coordinate &size2) {
+    return (pos1.GetX() < pos2.GetX()+size2.GetX() && pos1.GetX()+size1.GetX() > pos2.GetX()
+            && pos1.GetY() < pos2.GetY()+size2.GetY() && pos1.GetY()+size1.GetY() > pos2.GetY());
+}

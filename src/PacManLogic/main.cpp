@@ -1,5 +1,11 @@
 #include <iostream>
-int main() {
+#include <list>
+#include <memory>
+
+using namespace std;
+
+int main()
+{
 
     return 0;
 }

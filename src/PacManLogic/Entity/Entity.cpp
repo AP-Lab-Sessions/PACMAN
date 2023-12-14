@@ -1,9 +1,17 @@
 //
 
 #include "Entity.h"
+#include <iostream>
+
+PMLogic::Entity::~Entity() {
+    onEntityDestroy->Notify(*onEntityDestroy);
+}
 
 PMLogic::Entity::Entity(Coordinate2D::NormalizedCoordinate startPosition, const Coordinate2D::Coordinate &size)
-    : position(std::move(startPosition)), size(size) {}
+    : position(std::move(startPosition)), size(size), isCollider(false),
+    onPositionChange(std::make_unique<EntityPositionChangeEvent>(startPosition)),
+    onEntityDestroy(std::make_unique<EntityDestroyEvent>()) {
+}
 
 Coordinate2D::NormalizedCoordinate PMLogic::Entity::GetPosition() const {
     return position;
@@ -11,13 +19,22 @@ Coordinate2D::NormalizedCoordinate PMLogic::Entity::GetPosition() const {
 
 void PMLogic::Entity::SetPosition(const Coordinate2D::NormalizedCoordinate &newPosition) {
     position = newPosition;
-}
-void PMLogic::Entity::NotifyAll() {
-    for(const auto& currentObserver : observers) {
-        currentObserver.lock()->Update();
-    }
+    onPositionChange->newPosition = newPosition;
+    onPositionChange->Notify(*onPositionChange);
 }
 
 Coordinate2D::Coordinate PMLogic::Entity::GetSize() const {
     return size;
+}
+
+void PMLogic::Entity::SetIsCollider(const bool &newIsCollider) {
+    isCollider = newIsCollider;
+}
+
+bool PMLogic::Entity::GetIsCollider() const {
+    return isCollider;
+}
+
+void PMLogic::Entity::SetOnCollision(const std::shared_ptr<OnCollisionCommand> &onCollisionArg) {
+    onCollision = onCollisionArg;
 }

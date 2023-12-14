@@ -9,4 +9,3 @@ CoinView::CoinView(const Coin &entity, const std::weak_ptr<sf::RenderWindow> &wi
 
 void CoinView::Load() {}
 
-void CoinView::Update() {}

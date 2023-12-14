@@ -11,6 +11,7 @@ class DynamicEntity;
 class StaticEntity;
 class CollectableEntity;
 
+
 class PMLogic::AbstractFactory {
 public:
     virtual std::unique_ptr<DynamicEntity> CreatePacMan(

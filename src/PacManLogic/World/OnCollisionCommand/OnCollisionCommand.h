@@ -1,22 +1,28 @@
 //
 
-#ifndef PACMAN_ENTITYONCOLLISIONCOMMAND_H
-#define PACMAN_ENTITYONCOLLISIONCOMMAND_H
+#ifndef PACMAN_ONCOLLISIONCOMMAND_H
+#define PACMAN_ONCOLLISIONCOMMAND_H
 
-#include "Pattern/Command/ICommand/ICommand.h"
-#include "Entity/DynamicEntity/DynamicEntity.h"
+#include <vector>
+#include "Pattern/Command/ICommand.h"
+#include "PMLogic.h"
 
-template<typename DynamicEntityType, typename EntityType>
-class OnCollisionCommand : public PMLogic::ICommand {
+class PacMan;
+class Ghost;
+class CollectableEntity;
+
+class OnCollisionCommand : public PMLogic::ICommand<OnCollisionCommand> {
 protected:
-    std::weak_ptr<DynamicEntityType> entity;
-    std::weak_ptr<EntityType> collidedWith;
+
+    std::vector<std::reference_wrapper<const PMLogic::Entity>> &destructables;
+
 public:
-    OnCollisionCommand(const std::weak_ptr<DynamicEntityType> &entity,
-                       const std::weak_ptr<EntityType> &collidedWith) : entity(entity), collidedWith(collidedWith)
-                             {}
+    explicit OnCollisionCommand(std::vector<std::reference_wrapper<const PMLogic::Entity>> &destructables);
+
     void Execute() override;
+    void ExecuteAndNotify() override;
+
+    void SetColliders(const PacMan &pacMan, const Ghost &ghost);
+    void SetColliders(const CollectableEntity &collectable);
 };
-
-
-#endif //PACMAN_ENTITYONCOLLISIONCOMMAND_H
+#endif //PACMAN_ONCOLLISIONCOMMAND_H
