@@ -39,6 +39,8 @@ public:
      * @return the generated random integer
      */
     int GetRandomInteger(const int &min=1, const int &max=100);
+
+    float GetRandomFloat(const float &min=0.0f, const float &max=1.0f);
 };
 
 

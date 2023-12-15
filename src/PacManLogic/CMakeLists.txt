@@ -13,13 +13,14 @@ SET(LOGIC_SRC AbstractFactory/AbstractFactory.h
         Entity/StaticEntity/CollectableEntity/Fruit/Fruit.cpp Entity/StaticEntity/CollectableEntity/Fruit/Fruit.h
         Entity/StaticEntity/CollectableEntity/Coin/Coin.h Entity/StaticEntity/CollectableEntity/Coin/Coin.cpp
         Entity/StaticEntity/Wall/Wall.h Entity/StaticEntity/Wall/Wall.cpp Entity/StaticEntity/CollectableEntity/CollectableEntity.cpp
-        Pattern/Visitor/IVisitor.h Entity/DynamicEntity/PacMan/PacMan.cpp Entity/DynamicEntity/Ghost/Ghost.cpp
+        Pattern/Visitor/IVisitor.h Entity/DynamicEntity/PacMan/PacMan.cpp Entity/DynamicEntity/AutomaticEntity/Ghost/Ghost.cpp
         Pattern/Command/ICommand.h
         World/UpdateVisitor/UpdateVisitor.h World/UpdateVisitor/UpdateVisitor.cpp
         Entity/IEntityVisitor/IEntityVisitor.h Entity/IEntityVisitor/IEntityVisitor.h
         World/OnCollisionCommand/OnCollisionCommand.h World/OnCollisionCommand/OnCollisionCommand.cpp
         Score/Score.cpp Events/EntityEvent/EntityPositionChangeEvent.h Events/EntityEvent/EntityDestroyEvent.h
-        Events/EntityEvent/EntityCollectedEvent.h)
+        Events/EntityEvent/EntityCollectedEvent.h Entity/DynamicEntity/AutomaticEntity/AutomaticEntity.h Entity/DynamicEntity/AutomaticEntity/AutomaticEntity.cpp
+        Events/EntityEvent/EntityCollectedEvent.cpp)
 
 add_executable(PacManLogicExec main.cpp ${LOGIC_SRC})
 add_library(PacManLogicLib ${LOGIC_SRC})

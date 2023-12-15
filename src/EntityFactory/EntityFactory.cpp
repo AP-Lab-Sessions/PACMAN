@@ -2,7 +2,7 @@
 
 #include "EntityFactory.h"
 #include "Entity/DynamicEntity/PacMan/PacMan.h"
-#include "Entity/DynamicEntity/Ghost/Ghost.h"
+#include "Entity/DynamicEntity/AutomaticEntity/Ghost/Ghost.h"
 #include "Entity/StaticEntity/CollectableEntity/Coin/Coin.h"
 #include "Entity/StaticEntity/CollectableEntity/Fruit/Fruit.h"
 #include "Entity/StaticEntity/Wall/Wall.h"
@@ -13,7 +13,6 @@
 #include "EntityView/Coin/CoinView.h"
 #include "EntityView/Fruit/FruitView.h"
 
-#include "PacManLogic/Score/Score.h"
 
 template<typename EntityType, typename EntityViewType>
 std::unique_ptr<EntityType> EntityFactory::CreateEntity(const Coordinate2D::NormalizedCoordinate &startPosition) const {
@@ -37,8 +36,6 @@ std::unique_ptr<DynamicEntity> EntityFactory::CreatePacMan(
         const Coordinate2D::NormalizedCoordinate &startPosition
         ) const {
     auto pacMan = CreateEntity<PacMan, PacManView>(startPosition);
-    //std::shared_ptr<PMLogic::Score> scoreObserver {new PMLogic::Score(*pacMan)};
-   // pacMan->Attach(scoreObserver);
     return pacMan;
 }
 
@@ -54,9 +51,8 @@ std::unique_ptr<CollectableEntity> EntityFactory::CreateFruit(
     return CreateEntity<Fruit, FruitView>(startPosition);
 }
 
-std::unique_ptr<DynamicEntity> EntityFactory::CreateGhost(
-        const Coordinate2D::NormalizedCoordinate &startPosition
-        ) const {
+std::unique_ptr<AutomaticEntity> EntityFactory::CreateGhost(
+        const Coordinate2D::NormalizedCoordinate &startPosition) const {
     return CreateEntity<Ghost, GhostView>(startPosition);
 }
 

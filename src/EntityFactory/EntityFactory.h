@@ -23,9 +23,8 @@ public:
             const Coordinate2D::NormalizedCoordinate &startPosition
             ) const override;
 
-    std::unique_ptr<DynamicEntity> CreateGhost(
-            const Coordinate2D::NormalizedCoordinate &startPosition
-            ) const override;
+    std::unique_ptr<AutomaticEntity> CreateGhost(
+            const Coordinate2D::NormalizedCoordinate &startPosition) const override;
 
     std::unique_ptr<StaticEntity> CreateWall(
             const Coordinate2D::NormalizedCoordinate &startPosition, const Coordinate2D::Coordinate &size

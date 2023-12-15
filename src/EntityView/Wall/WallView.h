@@ -8,7 +8,7 @@
 
 class WallView final : public View<Wall> {
 protected:
-    sf::RectangleShape wallShape;
+    sf::RectangleShape wall;
 public:
     WallView(const Wall &entity, const std::weak_ptr<sf::RenderWindow> &window);
 

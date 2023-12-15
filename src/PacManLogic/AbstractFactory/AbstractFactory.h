@@ -10,6 +10,7 @@
 class DynamicEntity;
 class StaticEntity;
 class CollectableEntity;
+class AutomaticEntity;
 
 
 class PMLogic::AbstractFactory {
@@ -18,7 +19,7 @@ public:
             const Coordinate2D::NormalizedCoordinate &startPosition
             ) const = 0;
 
-    virtual std::unique_ptr<DynamicEntity> CreateGhost(
+    virtual std::unique_ptr<AutomaticEntity> CreateGhost(
             const Coordinate2D::NormalizedCoordinate &startPosition
             ) const = 0;
 

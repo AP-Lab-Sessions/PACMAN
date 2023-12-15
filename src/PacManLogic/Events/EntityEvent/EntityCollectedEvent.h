@@ -9,8 +9,10 @@ class CollectableEntity;
 
 class EntityCollectedEvent : public PMLogic::Event<EntityCollectedEvent> {
 public:
-    const CollectableEntity &entity;
-    explicit EntityCollectedEvent(const CollectableEntity &entity) : entity(entity) {}
+    const int reward;
+    const bool collectedFruit;
+
+    explicit EntityCollectedEvent(const int &reward, const bool &collectedFruit);
 };
 
 #endif //PACMAN_ENTITYCOLLECTEDEVENT_H

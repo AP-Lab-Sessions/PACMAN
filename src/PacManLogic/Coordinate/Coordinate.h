@@ -8,7 +8,7 @@ class Coordinate {
 protected:
     float x, y;
 public:
-    ~Coordinate() = default;
+    virtual ~Coordinate() = default;
     Coordinate(const float &x, const float &y);
     float GetX() const;
     float GetY() const;
@@ -34,6 +34,8 @@ Coordinate Project(const NormalizedCoordinate &coord, const unsigned int &width,
 
 bool IsOverlapping(const NormalizedCoordinate &pos1, const Coordinate &size1,
                    const NormalizedCoordinate &pos2, const Coordinate &size2);
+
+float GetManhattanDistance(const NormalizedCoordinate &coord1, const NormalizedCoordinate &coord2);
 }
 
 

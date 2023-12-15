@@ -16,7 +16,6 @@ class PMLogic::Entity {
 protected:
     Coordinate2D::NormalizedCoordinate position;
     const Coordinate2D::Coordinate size;
-    bool isCollider;
 
 public:
     std::unique_ptr<EntityPositionChangeEvent> onPositionChange;
@@ -34,9 +33,6 @@ public:
     void SetPosition(const Coordinate2D::NormalizedCoordinate &newPosition);
 
     virtual void Accept(const std::weak_ptr<IEntityVisitor> &visitor) = 0;
-
-    bool GetIsCollider() const;
-    void SetIsCollider(const bool &newIsCollider);
 
     virtual bool WillCollide(const PMLogic::Entity &entity) const = 0;
 

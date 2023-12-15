@@ -3,7 +3,7 @@
 #ifndef PACMAN_GHOSTVIEW_H
 #define PACMAN_GHOSTVIEW_H
 
-#include "PacManLogic/Entity/DynamicEntity/Ghost/Ghost.h"
+#include "PacManLogic/Entity/DynamicEntity/AutomaticEntity/Ghost/Ghost.h"
 #include "EntityView/View.h"
 
 

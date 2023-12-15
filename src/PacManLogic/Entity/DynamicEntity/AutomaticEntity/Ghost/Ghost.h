@@ -3,21 +3,16 @@
 #ifndef PACMAN_GHOST_H
 #define PACMAN_GHOST_H
 
-#include "Entity/DynamicEntity/DynamicEntity.h"
-#include "Entity/DynamicEntity/PacMan/PacMan.h"
-#include "Events/EntityEvent/EntityPositionChangeEvent.h"
-#include "Pattern/Observer/EventListener/IEventListener.h"
+#include "Entity/DynamicEntity/AutomaticEntity/AutomaticEntity.h"
 
 #include <unordered_map>
 
 enum GhostMode {Mode_Stasis, Mode_Chase, Mode_Fear};
 
-class Ghost : public DynamicEntity, public PMLogic::IEventListener<EntityPositionChangeEvent> {
+class Ghost : public AutomaticEntity {
 protected:
     GhostMode mode;
     std::unordered_map<DiscreteDirection2D, bool> viableDirections;
-
-    std::unique_ptr<Coordinate2D::NormalizedCoordinate> target;
 
     void ResetViableDirections();
 
@@ -33,10 +28,10 @@ public:
 
     void CollideWith(Wall &) override;
 
-    void ChooseDirection();
-
     GhostMode GetMode() const;
     void SetMode(const GhostMode &);
+
+    void ChooseDirection() override;
 
     void Update(const EntityPositionChangeEvent &eventData) override;
 };

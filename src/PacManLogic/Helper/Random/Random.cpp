@@ -11,6 +11,11 @@ int PMLogic::Helper::Random::GetRandomInteger(const int& min, const int& max) {
     return distribution(generator);
 }
 
+float PMLogic::Helper::Random::GetRandomFloat(const float& min, const float& max) {
+    std::uniform_real_distribution<float> distribution(min,max);
+    return distribution(generator);
+}
+
 std::weak_ptr<PMLogic::Helper::Random> PMLogic::Helper::Random::GetInstance() {
     if(instance == nullptr) {
         std::shared_ptr<PMLogic::Helper::Random> createdInstance{new PMLogic::Helper::Random()};

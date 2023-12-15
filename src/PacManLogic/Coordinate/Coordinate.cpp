@@ -1,6 +1,7 @@
 //
 #include "Coordinate.h"
 #include <cassert>
+#include <cmath>
 
 Coordinate2D::Coordinate::Coordinate(const float& x, const float& y) : x(x), y(y) {}
 
@@ -43,4 +44,9 @@ bool Coordinate2D::IsOverlapping(const Coordinate2D::NormalizedCoordinate &pos1,
                                  const Coordinate2D::Coordinate &size2) {
     return (pos1.GetX() < pos2.GetX()+size2.GetX() && pos1.GetX()+size1.GetX() > pos2.GetX()
             && pos1.GetY() < pos2.GetY()+size2.GetY() && pos1.GetY()+size1.GetY() > pos2.GetY());
+}
+
+float Coordinate2D::GetManhattanDistance(const Coordinate2D::NormalizedCoordinate& coord1,
+                                         const Coordinate2D::NormalizedCoordinate& coord2) {
+    return std::abs(coord2.GetX()-coord1.GetX()) + std::abs(coord2.GetY()-coord1.GetY());
 }

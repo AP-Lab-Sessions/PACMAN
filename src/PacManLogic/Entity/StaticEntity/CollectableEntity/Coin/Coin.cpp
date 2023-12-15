@@ -3,7 +3,7 @@
 #include "Coin.h"
 
 Coin::Coin(const Coordinate2D::NormalizedCoordinate &startPosition) :
-CollectableEntity(startPosition,  {0.01, 0.01f},  5) {}
+CollectableEntity(startPosition,  {0.05, 0.05f},  5) {}
 
 void Coin::Accept(const std::weak_ptr<IEntityVisitor>& visitor) {
     visitor.lock()->Visit(*this);

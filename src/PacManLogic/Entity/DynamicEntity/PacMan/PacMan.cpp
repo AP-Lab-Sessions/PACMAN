@@ -6,8 +6,7 @@
 #include "Entity/StaticEntity/CollectableEntity/Coin/Coin.h"
 
 PacMan::PacMan(const Coordinate2D::NormalizedCoordinate &startPosition) :
-DynamicEntity(startPosition, {0.15f,0.15f}, 3, 1.0f) {
-    SetIsCollider(true);
+DynamicEntity(startPosition, {0.1f,0.1f}, 3, 0.75f) {
     SetIsKillable(true);
 }
 

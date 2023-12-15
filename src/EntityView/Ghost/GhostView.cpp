@@ -15,4 +15,7 @@ void GhostView::Load() {
             static_cast<unsigned int>(size.y));
 
     sprite = spriteSheet.GetSprite(0,0, camera.ProjectSize(entity));
+    const auto &startPos = camera.ProjectCurrentPosition(entity);
+
+    sprite.setPosition(startPos.GetX(), startPos.GetY());
 }

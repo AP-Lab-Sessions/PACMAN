@@ -6,8 +6,9 @@
 
 DynamicEntity::DynamicEntity(const Coordinate2D::NormalizedCoordinate& startPosition,
                              const Coordinate2D::Coordinate &size,
-                             const unsigned int &lives, const float &speed)
-    : PMLogic::Entity(startPosition, size),lives(lives),  currentDirection(Direction_Right), speed(speed),
+                             const unsigned int &lives, const float &defaultSpeed)
+    : PMLogic::Entity(startPosition, size),lives(lives),  currentDirection(Direction_Right),
+      defaultSpeed(defaultSpeed), speed(defaultSpeed),
     canMove(true), isKillable(true) {}
 
 
@@ -26,6 +27,7 @@ void DynamicEntity::Move() {
         const auto nextPosition = GetNextPosition();
         SetPosition(nextPosition);
     }
+    else SetCanMove(true);
 }
 
 void DynamicEntity::SetCanMove(const bool &newCanMove) {
@@ -36,26 +38,30 @@ bool DynamicEntity::GetCanMove() const {
     return canMove;
 }
 
-Coordinate2D::NormalizedCoordinate DynamicEntity::GetNextPosition() const {
+Coordinate2D::NormalizedCoordinate DynamicEntity::GetNextPosition(const DiscreteDirection2D& direction) const {
     const float deltaTime = PMLogic::Helper::StopWatch::GetInstance().lock()->GetDeltaTime();
     Coordinate2D::NormalizedCoordinate newPosition = GetPosition();
-    switch(currentDirection) {
-        case Direction_Left:
-            newPosition.SetX(move(position.GetX(), -speed*deltaTime, size.GetX()));
-            break;
-        case Direction_Right:
-            newPosition.SetX(move(position.GetX(), speed*deltaTime, size.GetX()));
-            break;
-        case Direction_Down:
-            newPosition.SetY( move(position.GetY(), speed*deltaTime, size.GetY()));
-            break;
-        case Direction_Up:
-            newPosition.SetY(move(position.GetY(), -speed*deltaTime, size.GetY()));
-            break;
-        default:
-            break;
+    switch(direction) {
+    case Direction_Left:
+        newPosition.SetX(move(position.GetX(), -speed*deltaTime, size.GetX()));
+        break;
+    case Direction_Right:
+        newPosition.SetX(move(position.GetX(), speed*deltaTime, size.GetX()));
+        break;
+    case Direction_Down:
+        newPosition.SetY( move(position.GetY(), speed*deltaTime, size.GetY()));
+        break;
+    case Direction_Up:
+        newPosition.SetY(move(position.GetY(), -speed*deltaTime, size.GetY()));
+        break;
+    default:
+        break;
     }
     return newPosition;
+}
+
+Coordinate2D::NormalizedCoordinate DynamicEntity::GetNextPosition() const {
+    return GetNextPosition(GetDirection());
 }
 
 float DynamicEntity::GetSpeed() const {
@@ -90,9 +96,29 @@ void DynamicEntity::CollideWith(Wall & wall) {
     if(WillCollide(wall)) {
         SetCanMove(false);
     }
-    else SetCanMove(true);
 }
 
 bool DynamicEntity::WillCollide(const PMLogic::Entity &entity) const {
     return Coordinate2D::IsOverlapping(GetNextPosition(), GetSize(), entity.GetPosition(), entity.GetSize());
+}
+
+void DynamicEntity::TurnOppositeDirection() {
+    switch(GetDirection()) {
+        case Direction_Up:
+            SetDirection(Direction_Down);
+            break;
+        case Direction_Down:
+            SetDirection(Direction_Up);
+            break;
+        case Direction_Left:
+            SetDirection(Direction_Right);
+            break;
+        default:
+            SetDirection(Direction_Left);
+            break;
+    }
+}
+
+float DynamicEntity::GetDefaultSpeed() const {
+    return defaultSpeed;
 }

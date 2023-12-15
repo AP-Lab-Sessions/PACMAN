@@ -4,7 +4,7 @@
 
 Wall::Wall(const Coordinate2D::NormalizedCoordinate &startPosition, const Coordinate2D::Coordinate &size
 ) : StaticEntity(startPosition, size) {
-    SetIsCollider(true);
+
 }
 
 void Wall::Accept(const std::weak_ptr<IEntityVisitor>& visitor) {

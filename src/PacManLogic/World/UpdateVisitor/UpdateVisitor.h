@@ -8,6 +8,7 @@
 #include "Entity/StaticEntity/StaticEntity.h"
 #include "Entity/StaticEntity/CollectableEntity/CollectableEntity.h"
 #include "Entity/DynamicEntity/DynamicEntity.h"
+#include "Entity/DynamicEntity/AutomaticEntity/AutomaticEntity.h"
 #include <memory>
 
 class UpdateVisitor : public IEntityVisitor {

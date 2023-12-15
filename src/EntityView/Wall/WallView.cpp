@@ -7,7 +7,9 @@ WallView::WallView(const Wall &entity, const std::weak_ptr<sf::RenderWindow> &wi
 }
 
 void WallView::Render() {
-    window.lock()->draw(wallShape);
+    if(!entityDestroyed) {
+        window.lock()->draw(wall);
+    }
 }
 
 void WallView::Load() {
@@ -19,9 +21,8 @@ void WallView::Load() {
     const auto &size = camera.ProjectSize(entity);
     const auto &position = camera.ProjectCurrentPosition(entity);
 
-    wallShape = sf::RectangleShape();
-    wallShape.setFillColor(sf::Color::Blue);
-    wallShape.setSize(sf::Vector2f{size.GetX(), size.GetY()});
-    wallShape.setScale(sprite.getScale());
-    wallShape.setPosition(position.GetX(), position.GetY());
+    wall = sf::RectangleShape();
+    wall.setFillColor(sf::Color::Blue);
+    wall.setSize(sf::Vector2f{size.GetX(), size.GetY()});
+    wall.setPosition(position.GetX(), position.GetY());
 }

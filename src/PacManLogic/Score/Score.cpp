@@ -19,6 +19,6 @@ void PMLogic::Score::DecreaseScore(const int& amount) {
 }
 
 void PMLogic::Score::Update(const EntityCollectedEvent &eventData) {
-    IncreaseScore(eventData.entity.GetReward());
+    IncreaseScore(eventData.reward);
     std::cout << "current score: " << currentScore << std::endl;
 }

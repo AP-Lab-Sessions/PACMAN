@@ -2,7 +2,7 @@
 
 #include "UpdateVisitor.h"
 #include "Entity/DynamicEntity/PacMan/PacMan.h"
-#include "Entity/DynamicEntity/Ghost/Ghost.h"
+#include "Entity/DynamicEntity/AutomaticEntity/Ghost/Ghost.h"
 
 void UpdateVisitor::Visit(Coin &coin) const {}
 
