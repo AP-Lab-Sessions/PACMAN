@@ -6,7 +6,7 @@
 #include "Entity/Entity.h"
 
 enum DiscreteDirection2D {
-    Direction_Left, Direction_Right, Direction_Up, Direction_Down
+    Direction_Left='L', Direction_Right='R', Direction_Up='U', Direction_Down='D'
 };
 
 class DynamicEntity : public PMLogic::Entity {
@@ -47,6 +47,7 @@ public:
     void SetIsKillable(const bool &newIsKillable);
 
     bool WillCollide(const PMLogic::Entity &entity) const override;
+    bool WillCollide(const PMLogic::Entity &entity, const DiscreteDirection2D &direction) const;
 
     void CollideWith(Wall &) override;
     void CollideWith(PacMan &) override {}

@@ -9,11 +9,11 @@ PMLogic::World::World(std::unique_ptr<AbstractFactory> &factoryArg)
     onCollision(std::make_shared<OnCollisionCommand>(destructables)), score(std::make_shared<Score>()) {
 
     std::vector<std::unique_ptr<CollectableEntity>> collectables;
-    std::vector<std::shared_ptr<AutomaticEntity>> ghosts;
+    std::vector<std::shared_ptr<Ghost>> ghosts;
 
     const float thickness = 0.05f;
 
-    const std::shared_ptr<DynamicEntity> pacMan = factory->CreatePacMan({0.0f,-thickness});
+    const std::shared_ptr<PacMan> pacMan = factory->CreatePacMan({0.0f,-thickness});
 
     player = pacMan;
     entities.push_back(pacMan);
@@ -33,11 +33,15 @@ PMLogic::World::World(std::unique_ptr<AbstractFactory> &factoryArg)
     collectables.push_back(factory->CreateCoin({-0.1f, -0.5f}));
 
     for (auto &currentCollectable : collectables) {
+        for(auto &currentGhost : ghosts) {
+            currentCollectable->onEntityCollected->Attach(currentGhost);
+        }
         currentCollectable->onEntityCollected->Attach(score);
         entities.push_back(std::move(currentCollectable));
     }
     for(auto &currentGhost : ghosts) {
         pacMan->onPositionChange->Attach(currentGhost);
+        pacMan->onEntityDestroy->Attach(currentGhost);
         entities.push_back(currentGhost);
     }
     for (const auto &currentEntity: entities) {

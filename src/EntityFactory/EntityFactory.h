@@ -19,22 +19,22 @@ public:
     explicit EntityFactory(const std::weak_ptr<std::vector<std::function<void()>>> &observers_ptr,
                            const std::weak_ptr<sf::RenderWindow> &window);
 
-    std::unique_ptr<DynamicEntity> CreatePacMan(
+    std::unique_ptr<PacMan> CreatePacMan(
             const Coordinate2D::NormalizedCoordinate &startPosition
             ) const override;
 
-    std::unique_ptr<AutomaticEntity> CreateGhost(
+    std::unique_ptr<Ghost> CreateGhost(
             const Coordinate2D::NormalizedCoordinate &startPosition) const override;
 
-    std::unique_ptr<StaticEntity> CreateWall(
+    std::unique_ptr<Wall> CreateWall(
             const Coordinate2D::NormalizedCoordinate &startPosition, const Coordinate2D::Coordinate &size
     ) const override;
 
-    std::unique_ptr<CollectableEntity> CreateFruit(
+    std::unique_ptr<Fruit> CreateFruit(
             const Coordinate2D::NormalizedCoordinate &startPosition
             ) const override;
 
-    std::unique_ptr<CollectableEntity> CreateCoin(
+    std::unique_ptr<Coin> CreateCoin(
             const Coordinate2D::NormalizedCoordinate &startPosition
             ) const override;
 };

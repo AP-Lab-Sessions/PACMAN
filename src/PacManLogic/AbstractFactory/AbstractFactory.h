@@ -7,31 +7,31 @@
 #include "Coordinate/Coordinate.h"
 #include <memory>
 
-class DynamicEntity;
-class StaticEntity;
-class CollectableEntity;
-class AutomaticEntity;
-
+class PacMan;
+class Ghost;
+class Wall;
+class Fruit;
+class Coin;
 
 class PMLogic::AbstractFactory {
 public:
-    virtual std::unique_ptr<DynamicEntity> CreatePacMan(
+    virtual std::unique_ptr<PacMan> CreatePacMan(
             const Coordinate2D::NormalizedCoordinate &startPosition
             ) const = 0;
 
-    virtual std::unique_ptr<AutomaticEntity> CreateGhost(
+    virtual std::unique_ptr<Ghost> CreateGhost(
             const Coordinate2D::NormalizedCoordinate &startPosition
             ) const = 0;
 
-    virtual std::unique_ptr<StaticEntity> CreateWall(
+    virtual std::unique_ptr<Wall> CreateWall(
             const Coordinate2D::NormalizedCoordinate &startPosition, const Coordinate2D::Coordinate &size
             ) const = 0;
 
-    virtual std::unique_ptr<CollectableEntity> CreateFruit(
+    virtual std::unique_ptr<Fruit> CreateFruit(
             const Coordinate2D::NormalizedCoordinate &startPosition
             ) const = 0;
 
-    virtual std::unique_ptr<CollectableEntity> CreateCoin(
+    virtual std::unique_ptr<Coin> CreateCoin(
             const Coordinate2D::NormalizedCoordinate &startPosition
             ) const = 0;
 

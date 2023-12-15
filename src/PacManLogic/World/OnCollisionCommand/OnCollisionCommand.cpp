@@ -10,11 +10,11 @@ OnCollisionCommand::OnCollisionCommand(std::vector<std::reference_wrapper<const 
         : destructables(destructables) {}
 
 void OnCollisionCommand::SetColliders(const PacMan &pacMan, const Ghost &ghost) {
-    if(pacMan.GetIsKillable()) {
-        destructables.emplace_back(pacMan);
-    }
-    else if(ghost.GetIsKillable()) {
+    if(ghost.GetIsKillable()) {
         destructables.emplace_back(ghost);
+    }
+    else if(pacMan.GetIsKillable()) {
+        destructables.emplace_back(pacMan);
     }
 }
 void OnCollisionCommand::SetColliders(const CollectableEntity &collectable) {

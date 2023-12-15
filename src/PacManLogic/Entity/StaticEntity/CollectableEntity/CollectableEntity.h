@@ -13,8 +13,10 @@ public:
     std::unique_ptr<EntityCollectedEvent> onEntityCollected;
 
     ~CollectableEntity() override = default;
+
     CollectableEntity(const Coordinate2D::NormalizedCoordinate &startPosition,
-                      const Coordinate2D::Coordinate &size, const int &reward);
+                      const Coordinate2D::Coordinate &size, const int &reward,
+                      const bool &isFruit=false);
 
     int GetReward() const;
 };

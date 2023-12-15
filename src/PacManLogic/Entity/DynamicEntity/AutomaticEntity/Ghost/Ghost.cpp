@@ -6,6 +6,8 @@
 #include "Helper/Random/Random.h"
 
 
+const std::list<DiscreteDirection2D> directions2D = {Direction_Left, Direction_Right, Direction_Up, Direction_Down};
+
 Ghost::Ghost(const Coordinate2D::NormalizedCoordinate &startPosition) :
 AutomaticEntity(startPosition, {0.1f,0.1f}, 1, 0.7f), mode(Mode_Chase)
 {
@@ -29,10 +31,12 @@ void Ghost::CollideWith(PMLogic::Entity &entity) {
 }
 
 void Ghost::CollideWith(Wall& wall) {
-    if(WillCollide(wall)) {
-        viableDirections[GetDirection()] = false;
-        ChooseDirection();
+    for(const auto &direction : directions2D) {
+        if(WillCollide(wall, direction)) {
+            viableDirections.remove(direction);
+        }
     }
+    if(WillCollide(wall)) ChooseDirection();
 }
 
 GhostMode Ghost::GetMode() const {
@@ -42,7 +46,7 @@ GhostMode Ghost::GetMode() const {
 void Ghost::SetMode(const GhostMode &newMode) {
     mode = newMode;
     if(GetMode() == Mode_Fear) {
-        TurnOppositeDirection();
+        ChooseDirection();
         SetSpeed(GetDefaultSpeed()/1.5f);
     }
     else {
@@ -51,73 +55,70 @@ void Ghost::SetMode(const GhostMode &newMode) {
 }
 
 void Ghost::ResetViableDirections() {
-    std::array<DiscreteDirection2D, 4> directions2D = {Direction_Left, Direction_Right, Direction_Up, Direction_Down};
-    for(const auto &currentDirection : directions2D) {
-        viableDirections[currentDirection] = true;
-    }
+    viableDirections = directions2D;
 }
 
 
 DiscreteDirection2D Ghost::GetDirectionWithMinimumDistance() const {
-    float minDistance = Coordinate2D::GetManhattanDistance(GetNextPosition(viableDirections.begin()->first), *target);
+    float minDistance = Coordinate2D::GetManhattanDistance(GetNextPosition(*viableDirections.begin()), *target);
     const auto random = PMLogic::Helper::Random::GetInstance();
 
     std::vector<DiscreteDirection2D> result;
     for(const auto &currentViableDirection : viableDirections) {
         const float currentDistance =
-            Coordinate2D::GetManhattanDistance(GetNextPosition(currentViableDirection.first), *target);
+            Coordinate2D::GetManhattanDistance(GetNextPosition(currentViableDirection), *target);
         if(minDistance > currentDistance) {
             minDistance = currentDistance;
             result.clear();
-            result.push_back(currentViableDirection.first);
+            result.push_back(currentViableDirection);
         }
         else if(minDistance == currentDistance) {
-            result.push_back(currentViableDirection.first);
+            result.push_back(currentViableDirection);
         }
     }
     return result[random.lock()->GetRandomInteger(0, static_cast<int>(result.size()-1))];
 }
 
 DiscreteDirection2D Ghost::GetDirectionWithMaximumDistance() const {
-    float maxDistance = Coordinate2D::GetManhattanDistance(GetNextPosition(viableDirections.begin()->first), *target);
+    float maxDistance = Coordinate2D::GetManhattanDistance(GetNextPosition(*viableDirections.begin()), *target);
     const auto random = PMLogic::Helper::Random::GetInstance();
 
     std::vector<DiscreteDirection2D> result;
     for(const auto &currentViableDirection : viableDirections) {
         const float currentDistance =
-            Coordinate2D::GetManhattanDistance(GetNextPosition(currentViableDirection.first), *target);
+            Coordinate2D::GetManhattanDistance(GetNextPosition(currentViableDirection), *target);
         if(maxDistance < currentDistance) {
             maxDistance = currentDistance;
             result.clear();
-            result.push_back(currentViableDirection.first);
+            result.push_back(currentViableDirection);
         }
         else if(maxDistance == currentDistance) {
-            result.push_back(currentViableDirection.first);
+            result.push_back(currentViableDirection);
         }
     }
     return result[random.lock()->GetRandomInteger(0, static_cast<int>(result.size()-1))];
 }
 void Ghost::ChooseDirection() {
-        const auto& random = PMLogic::Helper::Random::GetInstance();
-        const bool computeManhattanDistance = random.lock()->GetRandomFloat(0.0f, 1.0f) <= 0.5f;
-        DiscreteDirection2D bestDirection;
+    const auto& random = PMLogic::Helper::Random::GetInstance();
+    const bool computeManhattanDistance = random.lock()->GetRandomFloat(0.0f, 1.0f) <= 0.5f;
+    DiscreteDirection2D bestDirection;
 
-        if (!target || !computeManhattanDistance || GetMode() == Mode_Stasis) {
-            auto directionIter = viableDirections.begin();
-            const int advancer = random.lock()->GetRandomInteger(0, static_cast<int>(viableDirections.size()-1));
-            std::advance(directionIter,advancer);
-            bestDirection = directionIter->first;
-        } else {
-            switch (mode) {
-            case Mode_Chase:
-                bestDirection = GetDirectionWithMinimumDistance();
-                break;
-            default:
-                bestDirection = GetDirectionWithMaximumDistance();
-            }
-         }
-        SetDirection(bestDirection);
-        ResetViableDirections();
+    if (!target || !computeManhattanDistance || GetMode() == Mode_Stasis) {
+        auto directionIter = viableDirections.begin();
+        const int advancer = random.lock()->GetRandomInteger(0, static_cast<int>(viableDirections.size()-1));
+        std::advance(directionIter,advancer);
+        bestDirection = *directionIter;
+    } else {
+        switch (mode) {
+        case Mode_Chase:
+            bestDirection = GetDirectionWithMinimumDistance();
+            break;
+        default:
+            bestDirection = GetDirectionWithMaximumDistance();
+            break;
+        }
+     }
+    SetDirection(bestDirection);
 }
 
 void Ghost::Update(const EntityPositionChangeEvent& eventData) {
@@ -127,3 +128,11 @@ void Ghost::Update(const EntityPositionChangeEvent& eventData) {
     }
     else *target = position;
 }
+
+void Ghost::Update(const EntityCollectedEvent& eventData) {
+    if(eventData.collectedFruit) {
+        SetMode(Mode_Fear);
+        SetIsKillable(true);
+    }
+}
+

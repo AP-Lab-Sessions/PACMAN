@@ -27,7 +27,6 @@ void DynamicEntity::Move() {
         const auto nextPosition = GetNextPosition();
         SetPosition(nextPosition);
     }
-    else SetCanMove(true);
 }
 
 void DynamicEntity::SetCanMove(const bool &newCanMove) {
@@ -101,7 +100,9 @@ void DynamicEntity::CollideWith(Wall & wall) {
 bool DynamicEntity::WillCollide(const PMLogic::Entity &entity) const {
     return Coordinate2D::IsOverlapping(GetNextPosition(), GetSize(), entity.GetPosition(), entity.GetSize());
 }
-
+bool DynamicEntity::WillCollide(const PMLogic::Entity& entity, const DiscreteDirection2D& direction) const {
+    return Coordinate2D::IsOverlapping(GetNextPosition(direction), GetSize(), entity.GetPosition(), entity.GetSize());
+}
 void DynamicEntity::TurnOppositeDirection() {
     switch(GetDirection()) {
         case Direction_Up:

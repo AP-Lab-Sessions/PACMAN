@@ -5,7 +5,6 @@
 
 #include "Pattern/Observer/Event/Event.h"
 
-class CollectableEntity;
 
 class EntityCollectedEvent : public PMLogic::Event<EntityCollectedEvent> {
 public:

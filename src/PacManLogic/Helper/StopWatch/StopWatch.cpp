@@ -14,6 +14,7 @@ std::weak_ptr<PMLogic::Helper::StopWatch> PMLogic::Helper::StopWatch::GetInstanc
 PMLogic::Helper::StopWatch::StopWatch() {
     startTime = std::chrono::high_resolution_clock::now();
     prevTime = startTime;
+    deltaTime = std::chrono::duration<float>(startTime - prevTime).count();
 }
 void PMLogic::Helper::StopWatch::Tick() {
     auto currentTime = std::chrono::high_resolution_clock::now();

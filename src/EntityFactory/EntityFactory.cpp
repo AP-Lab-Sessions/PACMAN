@@ -32,31 +32,31 @@ EntityFactory::EntityFactory(const std::weak_ptr<std::vector<std::function<void(
 : renderCallbacks(callbacks), window(window) {}
 
 
-std::unique_ptr<DynamicEntity> EntityFactory::CreatePacMan(
+std::unique_ptr<PacMan> EntityFactory::CreatePacMan(
         const Coordinate2D::NormalizedCoordinate &startPosition
         ) const {
     auto pacMan = CreateEntity<PacMan, PacManView>(startPosition);
     return pacMan;
 }
 
-std::unique_ptr<CollectableEntity> EntityFactory::CreateCoin(
+std::unique_ptr<Coin> EntityFactory::CreateCoin(
         const Coordinate2D::NormalizedCoordinate &startPosition
         ) const {
     return CreateEntity<Coin, CoinView>(startPosition);
 }
 
-std::unique_ptr<CollectableEntity> EntityFactory::CreateFruit(
+std::unique_ptr<Fruit> EntityFactory::CreateFruit(
         const Coordinate2D::NormalizedCoordinate &startPosition
         ) const {
     return CreateEntity<Fruit, FruitView>(startPosition);
 }
 
-std::unique_ptr<AutomaticEntity> EntityFactory::CreateGhost(
+std::unique_ptr<Ghost> EntityFactory::CreateGhost(
         const Coordinate2D::NormalizedCoordinate &startPosition) const {
     return CreateEntity<Ghost, GhostView>(startPosition);
 }
 
-std::unique_ptr<StaticEntity> EntityFactory::CreateWall(
+std::unique_ptr<Wall> EntityFactory::CreateWall(
         const Coordinate2D::NormalizedCoordinate &startPosition, const Coordinate2D::Coordinate &size
 ) const {
     std::unique_ptr<Wall> entity {new Wall(startPosition, size)};

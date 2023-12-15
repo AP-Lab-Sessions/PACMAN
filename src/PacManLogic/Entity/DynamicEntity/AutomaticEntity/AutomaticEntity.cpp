@@ -8,3 +8,7 @@ AutomaticEntity::AutomaticEntity(const Coordinate2D::NormalizedCoordinate& start
     : DynamicEntity(startPosition, size, lives, speed) {
 
 }
+
+void AutomaticEntity::Update(const EntityDestroyEvent& eventData) {
+    target.reset();
+}

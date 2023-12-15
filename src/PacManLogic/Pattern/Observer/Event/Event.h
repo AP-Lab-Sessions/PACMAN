@@ -12,7 +12,13 @@
 template<typename EventType>
 class PMLogic::Event {
 protected:
-    std::list<std::shared_ptr<PMLogic::IEventListener<EventType>>> observers;
+    std::list<std::weak_ptr<PMLogic::IEventListener<EventType>>> observers;
+
+    void CleanUp() {
+        for(auto iter=observers.begin();iter!=observers.end();iter++) {
+            if(iter->expired()) iter = observers.erase(iter);
+        }
+    }
 public:
     virtual ~Event() = default;
 
@@ -20,11 +26,15 @@ public:
         observers.push_back(observer);
     }
     virtual void Detach(const std::shared_ptr<PMLogic::IEventListener<EventType>> &observer) {
-        observers.remove(observer);
+        CleanUp();
+        for(auto iter=observers.begin();iter!=observers.end();iter++) {
+            if(iter->lock() == observer) iter = observers.erase(iter);
+        }
     }
     virtual void Notify(const EventType &command) {
-        for(const auto &currentObserver : observers) {
-            currentObserver->Update(command);
+        CleanUp();
+        for(auto iter=observers.begin();iter!=observers.end();iter++) {
+            iter->lock()->Update(command);
         }
     }
 };

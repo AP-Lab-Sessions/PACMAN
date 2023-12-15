@@ -12,8 +12,11 @@ void UpdateVisitor::Visit(Fruit &fruit) const {}
 
 void UpdateVisitor::Visit(Ghost &ghost) const {
     ghost.Move();
+    ghost.SetCanMove(true);
+    ghost.ResetViableDirections();
 }
 
 void UpdateVisitor::Visit(PacMan &pacMan) const {
     pacMan.Move();
+    pacMan.SetCanMove(true);
 }

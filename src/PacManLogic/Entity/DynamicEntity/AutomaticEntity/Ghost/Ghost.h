@@ -4,17 +4,17 @@
 #define PACMAN_GHOST_H
 
 #include "Entity/DynamicEntity/AutomaticEntity/AutomaticEntity.h"
+#include "Events/EntityEvent/EntityCollectedEvent.h"
 
 #include <unordered_map>
 
 enum GhostMode {Mode_Stasis, Mode_Chase, Mode_Fear};
 
-class Ghost : public AutomaticEntity {
+class Ghost : public AutomaticEntity,
+              public PMLogic::IEventListener<EntityCollectedEvent> {
 protected:
     GhostMode mode;
-    std::unordered_map<DiscreteDirection2D, bool> viableDirections;
-
-    void ResetViableDirections();
+    std::list<DiscreteDirection2D> viableDirections;
 
     DiscreteDirection2D GetDirectionWithMinimumDistance() const;
     DiscreteDirection2D GetDirectionWithMaximumDistance() const;
@@ -33,7 +33,13 @@ public:
 
     void ChooseDirection() override;
 
+    void ResetViableDirections();
+
     void Update(const EntityPositionChangeEvent &eventData) override;
+
+    void Update(const EntityCollectedEvent &eventData) override;
+
+    using AutomaticEntity::Update;
 };
 
 #endif // PACMAN_GHOST_H

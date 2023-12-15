@@ -11,6 +11,8 @@
 
 #include <iostream>
 
+
+// TODO: remove EntityType entity in the very close future because it defeats the purpose of observer-subject pattern
 template<typename EntityType>
 class View : public PMLogic::IEventListener<EntityPositionChangeEvent>,
         public PMLogic::IEventListener<EntityDestroyEvent> {

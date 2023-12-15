@@ -3,7 +3,7 @@
 #include "Fruit.h"
 
 Fruit::Fruit(const Coordinate2D::NormalizedCoordinate &startPosition) :
-CollectableEntity(startPosition, {0.1, 0.1f}, 25) {}
+CollectableEntity(startPosition, {0.1, 0.1f}, 25, true) {}
 
 void Fruit::Accept(const std::weak_ptr<IEntityVisitor>& visitor) {
     visitor.lock()->Visit(*this);
