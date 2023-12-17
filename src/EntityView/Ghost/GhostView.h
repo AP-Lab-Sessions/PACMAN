@@ -3,15 +3,16 @@
 #ifndef PACMAN_GHOSTVIEW_H
 #define PACMAN_GHOSTVIEW_H
 
-#include "PacManLogic/Entity/DynamicEntity/AutomaticEntity/Ghost/Ghost.h"
-#include "EntityView/View.h"
+#include "EntityView/DynamicEntityView.h"
+#include "Events/GhostEvent/GhostModeChangeEvent.h"
 
-
-class GhostView final : public View<Ghost> {
+class GhostView final : public DynamicEntityView,
+                        public PMLogic::IEventListener<GhostModeChangeEvent>{
 public:
-    GhostView(const Ghost &entity, const std::weak_ptr<sf::RenderWindow> &window);
+    explicit GhostView(const std::weak_ptr<sf::RenderWindow> &window);
 
-    void Load() final;
+    using DynamicEntityView::Update;
+    void Update(const GhostModeChangeEvent &eventData) final;
 };
 
 #endif // PACMAN_GHOSTVIEW_H

@@ -3,15 +3,12 @@
 #ifndef PAC_MAN_PACMANVIEW_H
 #define PAC_MAN_PACMANVIEW_H
 
-#include "PacManLogic/Entity/DynamicEntity/PacMan/PacMan.h"
-#include "EntityView/View.h"
+#include "EntityView/DynamicEntityView.h"
 
-class PacManView final : public View<PacMan> {
+class PacManView final : public DynamicEntityView {
 protected:
 public:
-    PacManView(const PacMan &entity, const std::weak_ptr<sf::RenderWindow> &window);
-
-    void Load() final;
+    explicit PacManView(const std::weak_ptr<sf::RenderWindow> &window);
 };
 
 #endif // PAC_MAN_PACMANVIEW_H

@@ -2,7 +2,7 @@
 
 #include "Game.h"
 #include "State/MenuState/MenuState.h"
-
+// TODO: score system, states, animations, multiple lives, gameover
 Game::Game(const unsigned int &width, const unsigned int &height) : view(sf::View()), width(width), height(height)
 {
     window = std::make_shared<sf::RenderWindow>(sf::VideoMode(width,height), "PacMan",
@@ -19,7 +19,7 @@ Game::Game(const unsigned int &width, const unsigned int &height) : view(sf::Vie
     stateManager = manager;
 
     background = sf::RectangleShape();
-    background.setSize(sf::Vector2f{(float)width, (float)height});
+    background.setSize(sf::Vector2f{static_cast<float>(width), static_cast<float>(height)});
     background.setOutlineColor(sf::Color::White);
     background.setFillColor(sf::Color::Transparent);
     background.setOutlineThickness(1.0f);

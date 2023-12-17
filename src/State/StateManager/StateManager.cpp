@@ -9,9 +9,12 @@ void StateManager::PushState(std::unique_ptr<State>& state) {
     stateStack.push(std::move(state));
 }
 
-void StateManager::PopState() {
-    if(!stateStack.empty()) {
-        stateStack.pop();
+void StateManager::PopState(const int &times) {
+    for(int i=0;i<times;i++) {
+        if (!stateStack.empty()) {
+            stateStack.pop();
+        }
+        else break;
     }
 }
 

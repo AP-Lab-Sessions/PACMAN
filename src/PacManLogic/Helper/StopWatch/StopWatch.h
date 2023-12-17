@@ -4,8 +4,20 @@
 #define PACMAN_STOPWATCH_H
 
 #include "PMLogic.h"
+
 #include <memory>
 #include <chrono>
+#include <functional>
+#include <list>
+
+
+class PMLogic::Helper::Timer {
+public:
+    const std::function<void()> callback;
+    float duration;
+
+    Timer(const std::function<void()> &callback, const float &duration);
+};
 
 
 /**
@@ -13,11 +25,16 @@
  */
 class PMLogic::Helper::StopWatch {
 private:
+    bool isPaused;
+
     StopWatch();
     static std::shared_ptr<PMLogic::Helper::StopWatch> instance;
     std::chrono::time_point<std::chrono::high_resolution_clock> startTime;
     std::chrono::time_point<std::chrono::high_resolution_clock> prevTime;
+
     float deltaTime;
+
+    std::list<std::weak_ptr<PMLogic::Helper::Timer>> timers;
 public:
     /**
      * @brief Make the assignment operator deleted
@@ -27,6 +44,11 @@ public:
      * @brief Make the copy constructor deleted
      */
     StopWatch(PMLogic::Helper::StopWatch &) = delete;
+
+    /**
+     * @brief
+     */
+    void Reset();
 
     /**
      * @brief Gets the single instance of the class
@@ -44,6 +66,13 @@ public:
      * @return deltaTime
      */
      float GetDeltaTime() const;
+
+     /**
+      * @brief
+      * @param callBack
+      * @param duration
+      */
+     void AddTimer(const std::weak_ptr<PMLogic::Helper::Timer> &timer);
 };
 
 #endif // PACMAN_STOPWATCH_H

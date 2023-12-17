@@ -1,7 +1,6 @@
 //
 
 #include "Entity.h"
-#include <iostream>
 
 PMLogic::Entity::~Entity() {
     onEntityDestroy->Notify(*onEntityDestroy);
@@ -9,17 +8,11 @@ PMLogic::Entity::~Entity() {
 
 PMLogic::Entity::Entity(Coordinate2D::NormalizedCoordinate startPosition, const Coordinate2D::Coordinate &size)
     : position(std::move(startPosition)), size(size),
-    onPositionChange(std::make_unique<EntityPositionChangeEvent>(startPosition)),
-    onEntityDestroy(std::make_unique<EntityDestroyEvent>()) {}
+    onEntityDestroy(std::make_unique<EntityDestroyEvent>()),
+      onEntityCreate(std::make_unique<EntityCreateEvent>(startPosition, size)) {}
 
 Coordinate2D::NormalizedCoordinate PMLogic::Entity::GetPosition() const {
     return position;
-}
-
-void PMLogic::Entity::SetPosition(const Coordinate2D::NormalizedCoordinate &newPosition) {
-    position = newPosition;
-    onPositionChange->newPosition = newPosition;
-    onPositionChange->Notify(*onPositionChange);
 }
 
 Coordinate2D::Coordinate PMLogic::Entity::GetSize() const {
@@ -27,4 +20,8 @@ Coordinate2D::Coordinate PMLogic::Entity::GetSize() const {
 }
 void PMLogic::Entity::SetOnCollision(const std::shared_ptr<OnCollisionCommand> &onCollisionArg) {
     onCollision = onCollisionArg;
+}
+
+void PMLogic::Entity::Create() const {
+    onEntityCreate->Notify(*onEntityCreate);
 }

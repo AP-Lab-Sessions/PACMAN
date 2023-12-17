@@ -1,6 +1,6 @@
 //
 
-#include "Button.h"
+#include "ButtonWidget.h"
 
 sf::Text makeText(const std::string &str, const sf::Font &font, const sf::Color &fillColor, const int &size) {
     sf::Text text {str, font};
@@ -9,7 +9,7 @@ sf::Text makeText(const std::string &str, const sf::Font &font, const sf::Color 
     return text;
 }
 
-Button::Button(const std::string &str, const sf::Font &font, const sf::Color &fillColor,
+ButtonWidget::ButtonWidget(const std::string &str, const sf::Font &font, const sf::Color &fillColor,
                const int &size, const sf::Vector2f &position) {
     text = makeText(str, font, fillColor, size);
 
@@ -19,7 +19,7 @@ Button::Button(const std::string &str, const sf::Font &font, const sf::Color &fi
     text.setPosition(position);
 }
 
-bool Button::IsClicked(const sf::Vector2f &mousePos) const {
+bool ButtonWidget::IsClicked(const sf::Vector2f &mousePos) const {
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         sf::FloatRect bounds = text.getGlobalBounds();
         if (bounds.contains(mousePos)) return true;

@@ -1,21 +1,21 @@
 //
 
 #include "GhostView.h"
+#include "Entity/DynamicEntity/AutomaticEntity/Ghost/Ghost.h"
+#include "PacManLogic/Helper/Random/Random.h"
+GhostView::GhostView(const std::weak_ptr<sf::RenderWindow> &window)
+    : DynamicEntityView(window, PMLogic::Helper::Random::GetInstance().lock()->GetRandomInteger(0,5),0,2) {}
 
-GhostView::GhostView(const Ghost &entity, const std::weak_ptr<sf::RenderWindow> &window) :
-        View<Ghost>(entity, window) {
-    Load();
-}
-
-void GhostView::Load() {
-    const sf::Vector2f size = window.lock()->getDefaultView().getSize();
-
-    PMLogic::Helper::Camera camera(
-            static_cast<unsigned int>(size.x),
-            static_cast<unsigned int>(size.y));
-
-    sprite = spriteSheet.GetSprite(0,0, camera.ProjectSize(entity));
-    const auto &startPos = camera.ProjectCurrentPosition(entity);
-
-    sprite.setPosition(startPos.GetX(), startPos.GetY());
+void GhostView::Update(const GhostModeChangeEvent& eventData) {
+    switch(eventData.newMode) {
+    case Mode_Fear:
+        spriteRow = 11;
+        spriteColumn = 0;
+        break;
+    default:
+        spriteRow = baseSpriteRow;
+        spriteColumn = baseSpriteColumn;
+        break;
+    }
+    UpdateSprite();
 }

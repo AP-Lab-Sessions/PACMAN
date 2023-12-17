@@ -4,15 +4,21 @@
 #include "Entity/DynamicEntity/PacMan/PacMan.h"
 #include "Entity/StaticEntity/Wall/Wall.h"
 #include "Helper/Random/Random.h"
+#include "Helper/StopWatch/StopWatch.h"
 
 
 const std::list<DiscreteDirection2D> directions2D = {Direction_Left, Direction_Right, Direction_Up, Direction_Down};
 
-Ghost::Ghost(const Coordinate2D::NormalizedCoordinate &startPosition) :
-AutomaticEntity(startPosition, {0.1f,0.1f}, 1, 0.7f), mode(Mode_Chase)
+Ghost::Ghost(const Coordinate2D::NormalizedCoordinate &startPosition, const float &stasisTime) :
+AutomaticEntity(startPosition, {0.1f,0.1f}, 1, 0.7f), mode(Mode_Stasis),
+    onModeChange(std::make_unique<GhostModeChangeEvent>(mode))
 {
     ResetViableDirections();
     SetIsKillable(false);
+    modeTimer = std::make_shared<PMLogic::Helper::Timer>([&]{
+                    SetMode(Mode_Chase);
+                }, stasisTime);
+    PMLogic::Helper::StopWatch::GetInstance().lock()->AddTimer(modeTimer);
 }
 
 void Ghost::Accept(const std::weak_ptr<IEntityVisitor>& visitor) {
@@ -45,13 +51,25 @@ GhostMode Ghost::GetMode() const {
 
 void Ghost::SetMode(const GhostMode &newMode) {
     mode = newMode;
-    if(GetMode() == Mode_Fear) {
+    switch(GetMode()) {
+    case Mode_Fear: {
+        SetIsKillable(true);
+        SetSpeed(GetDefaultSpeed() / 1.5f);
+        modeTimer = std::make_shared<PMLogic::Helper::Timer>([&]{
+            SetMode(Mode_Chase);
+        }, 10.0f);
+        PMLogic::Helper::StopWatch::GetInstance().lock()->AddTimer(modeTimer);
         ChooseDirection();
-        SetSpeed(GetDefaultSpeed()/1.5f);
+        break;
     }
-    else {
+    default: {
         SetSpeed(GetDefaultSpeed());
+        SetIsKillable(false);
+        break;
     }
+    }
+    onModeChange->newMode = newMode;
+    onModeChange->Notify(*onModeChange);
 }
 
 void Ghost::ResetViableDirections() {
@@ -132,7 +150,6 @@ void Ghost::Update(const EntityPositionChangeEvent& eventData) {
 void Ghost::Update(const EntityCollectedEvent& eventData) {
     if(eventData.collectedFruit) {
         SetMode(Mode_Fear);
-        SetIsKillable(true);
     }
 }
 

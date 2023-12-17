@@ -35,6 +35,8 @@ public:
 
     void Update();
 
+    int GetScore() const;
+
     void SetPlayerDirection(const DiscreteDirection2D &newDirection);
 };
 

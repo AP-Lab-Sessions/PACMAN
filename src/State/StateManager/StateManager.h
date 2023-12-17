@@ -14,7 +14,7 @@ public:
     StateManager() = default;
 
     void PushState(std::unique_ptr<State> &state);
-    void PopState();
+    void PopState(const int &times=1);
 
     void Update();
     void ProcessEvents(const sf::Event &event);

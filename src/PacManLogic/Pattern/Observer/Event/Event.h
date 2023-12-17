@@ -31,10 +31,10 @@ public:
             if(iter->lock() == observer) iter = observers.erase(iter);
         }
     }
-    virtual void Notify(const EventType &command) {
+    virtual void Notify(const EventType &eventData) {
         CleanUp();
         for(auto iter=observers.begin();iter!=observers.end();iter++) {
-            iter->lock()->Update(command);
+            iter->lock()->Update(eventData);
         }
     }
 };

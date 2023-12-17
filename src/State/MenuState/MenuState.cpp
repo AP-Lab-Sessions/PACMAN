@@ -14,25 +14,18 @@ std::string getHighScoreStr() {
     return highScoreStr;
 }
 
-sf::Vector2f getWindowSize(const std::weak_ptr<sf::RenderWindow> &window) {
-    sf::Vector2<unsigned int> size = window.lock()->getSize();
-    sf::Vector2f result {static_cast<float>(size.x), static_cast<float>(size.y)};
-    return result;
-}
 
 MenuState::MenuState(const std::weak_ptr<sf::RenderWindow> &window) : State(window),
-title(Button("PACMAN", mainFont, sf::Color::Yellow, 75, {getWindowSize(window).x/2.0f, 50})),
-play(Button("PLAY", mainFont, sf::Color::Yellow, 45, {getWindowSize(window).x/2.0f, 250})),
-quit(Button("QUIT", mainFont, sf::Color::Yellow, 45, {getWindowSize(window).x/2.0f, 350})),
-highScore(Button(getHighScoreStr(), secondaryFont, sf::Color::Yellow, 20,
-                 {200, getWindowSize(window).y-100}))
+title(ButtonWidget("PACMAN", mainFont, sf::Color::Yellow, 75, {sf::Vector2f(window.lock()->getSize()).x/2.0f, 50})),
+play(ButtonWidget("PLAY", mainFont, sf::Color::Yellow, 45, {sf::Vector2f(window.lock()->getSize()).x/2.0f, 250})),
+quit(ButtonWidget("QUIT", mainFont, sf::Color::Yellow, 45, {sf::Vector2f(window.lock()->getSize()).x/2.0f, 350})),
+highScore(ButtonWidget(getHighScoreStr(), secondaryFont, sf::Color::Yellow, 20,
+                 {200, (sf::Vector2f(window.lock()->getSize()).y)-100}))
 {
 
 }
 
-void MenuState::Update() {
-
-}
+void MenuState::Update() {}
 
 void MenuState::ProcessEvents(const sf::Event &event) {
     if(event.type == sf::Event::MouseButtonPressed) {

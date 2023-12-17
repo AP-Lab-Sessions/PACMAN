@@ -4,13 +4,13 @@
 #define PACMAN_MENUSTATE_H
 
 #include "State/State.h"
-#include "Game/Widgets/Button/Button.h"
+#include "Game/Widgets/ButtonWidget/ButtonWidget.h"
 
 #include <memory>
 
 class MenuState : public State {
 protected:
-    Button title, play, quit, highScore;
+    ButtonWidget title, play, quit, highScore;
 
 public:
     explicit MenuState(const std::weak_ptr<sf::RenderWindow> &window);

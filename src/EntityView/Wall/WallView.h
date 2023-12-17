@@ -3,17 +3,16 @@
 #ifndef PACMAN_WALLVIEW_H
 #define PACMAN_WALLVIEW_H
 
-#include "EntityView/View.h"
-#include "PacManLogic/Entity/StaticEntity/Wall/Wall.h"
+#include "EntityView/EntityView.h"
 
-class WallView final : public View<Wall> {
+class WallView final : public EntityView {
 protected:
     sf::RectangleShape wall;
 public:
-    WallView(const Wall &entity, const std::weak_ptr<sf::RenderWindow> &window);
+    explicit WallView(const std::weak_ptr<sf::RenderWindow> &window);
 
-    void Load() final;
-    void Render() override;
+    void Render() const override;
+    void Update(const EntityCreateEvent &eventData) final;
 };
 
 #endif // PACMAN_WALLVIEW_H

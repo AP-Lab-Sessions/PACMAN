@@ -6,8 +6,7 @@
 #include "Pattern/Observer/Event/Event.h"
 #include "Coordinate/Coordinate.h"
 
-class EntityPositionChangeEvent : public PMLogic::Event<EntityPositionChangeEvent> {
-public:
+struct EntityPositionChangeEvent : public PMLogic::Event<EntityPositionChangeEvent> {
     Coordinate2D::NormalizedCoordinate newPosition;
     explicit EntityPositionChangeEvent(Coordinate2D::NormalizedCoordinate newPosition)
     : newPosition(std::move(newPosition)) {}

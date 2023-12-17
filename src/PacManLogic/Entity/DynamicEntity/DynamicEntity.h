@@ -4,10 +4,8 @@
 #define PACMAN_DYNAMICENTITY_H
 
 #include "Entity/Entity.h"
-
-enum DiscreteDirection2D {
-    Direction_Left='L', Direction_Right='R', Direction_Up='U', Direction_Down='D'
-};
+#include "Events/EntityEvent/EntityPositionChangeEvent.h"
+#include "Events/EntityEvent/EntityDirectionChangeEvent.h"
 
 class DynamicEntity : public PMLogic::Entity {
 protected:
@@ -19,6 +17,10 @@ protected:
     bool canMove;
     bool isKillable;
 public:
+    std::unique_ptr<EntityPositionChangeEvent> onPositionChange;
+    std::unique_ptr<EntityDirectionChangeEvent> onDirectionChange;
+
+
 
     explicit DynamicEntity(const Coordinate2D::NormalizedCoordinate &startPosition,
                            const Coordinate2D::Coordinate &size,
@@ -26,6 +28,9 @@ public:
     ~DynamicEntity() override = default;
 
     void Move();
+
+    void SetPosition(const Coordinate2D::NormalizedCoordinate &newPosition);
+
 
     float GetSpeed() const;
     void SetSpeed(const float &newSpeed);
@@ -55,8 +60,6 @@ public:
     void CollideWith(Fruit &) override {}
     void CollideWith(Coin &) override {}
     void CollideWith(PMLogic::Entity &) override = 0;
-
-    void TurnOppositeDirection();
 };
 
 #endif // PACMAN_DYNAMICENTITY_H

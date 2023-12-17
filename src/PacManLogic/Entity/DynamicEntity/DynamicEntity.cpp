@@ -3,13 +3,15 @@
 #include "DynamicEntity.h"
 #include "Helper/StopWatch/StopWatch.h"
 #include "Entity/StaticEntity/Wall/Wall.h"
+#include "Events/EntityEvent/EntityDirectionChangeEvent.h"
 
 DynamicEntity::DynamicEntity(const Coordinate2D::NormalizedCoordinate& startPosition,
                              const Coordinate2D::Coordinate &size,
                              const unsigned int &lives, const float &defaultSpeed)
     : PMLogic::Entity(startPosition, size),lives(lives),  currentDirection(Direction_Right),
       defaultSpeed(defaultSpeed), speed(defaultSpeed),
-    canMove(true), isKillable(true) {}
+    canMove(true), isKillable(true), onPositionChange(std::make_unique<EntityPositionChangeEvent>(startPosition)),
+    onDirectionChange(std::make_unique<EntityDirectionChangeEvent>(currentDirection)) {}
 
 
 float move(const float &position, const float &speed, const float &length) {
@@ -23,8 +25,8 @@ float move(const float &position, const float &speed, const float &length) {
     return potentialResult;
 }
 void DynamicEntity::Move() {
-    if(GetCanMove()) {
-        const auto nextPosition = GetNextPosition();
+    const auto nextPosition = GetNextPosition();
+    if(GetCanMove() && nextPosition != GetPosition()) {
         SetPosition(nextPosition);
     }
 }
@@ -62,7 +64,11 @@ Coordinate2D::NormalizedCoordinate DynamicEntity::GetNextPosition(const Discrete
 Coordinate2D::NormalizedCoordinate DynamicEntity::GetNextPosition() const {
     return GetNextPosition(GetDirection());
 }
-
+void DynamicEntity::SetPosition(const Coordinate2D::NormalizedCoordinate &newPosition) {
+    position = newPosition;
+    onPositionChange->newPosition = newPosition;
+    onPositionChange->Notify(*onPositionChange);
+}
 float DynamicEntity::GetSpeed() const {
     return speed;
 }
@@ -77,6 +83,8 @@ unsigned int DynamicEntity::GetLives() const {
 
 void DynamicEntity::SetDirection(const DiscreteDirection2D &newDirection) {
     currentDirection = newDirection;
+    onDirectionChange->newDirection = newDirection;
+    onDirectionChange->Notify(*onDirectionChange);
 }
 
 DiscreteDirection2D DynamicEntity::GetDirection() const {
@@ -102,22 +110,6 @@ bool DynamicEntity::WillCollide(const PMLogic::Entity &entity) const {
 }
 bool DynamicEntity::WillCollide(const PMLogic::Entity& entity, const DiscreteDirection2D& direction) const {
     return Coordinate2D::IsOverlapping(GetNextPosition(direction), GetSize(), entity.GetPosition(), entity.GetSize());
-}
-void DynamicEntity::TurnOppositeDirection() {
-    switch(GetDirection()) {
-        case Direction_Up:
-            SetDirection(Direction_Down);
-            break;
-        case Direction_Down:
-            SetDirection(Direction_Up);
-            break;
-        case Direction_Left:
-            SetDirection(Direction_Right);
-            break;
-        default:
-            SetDirection(Direction_Left);
-            break;
-    }
 }
 
 float DynamicEntity::GetDefaultSpeed() const {

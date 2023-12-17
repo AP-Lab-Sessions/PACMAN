@@ -5,13 +5,17 @@
 
 #include "Entity/DynamicEntity/AutomaticEntity/AutomaticEntity.h"
 #include "Events/EntityEvent/EntityCollectedEvent.h"
+#include "Events/GhostEvent/GhostModeChangeEvent.h"
 
 #include <unordered_map>
 
-enum GhostMode {Mode_Stasis, Mode_Chase, Mode_Fear};
+enum GhostMode : short {Mode_Stasis, Mode_Chase, Mode_Fear};
 
 class Ghost : public AutomaticEntity,
-              public PMLogic::IEventListener<EntityCollectedEvent> {
+              public PMLogic::IEventListener<EntityCollectedEvent>
+{
+private:
+    std::shared_ptr<PMLogic::Helper::Timer> modeTimer;
 protected:
     GhostMode mode;
     std::list<DiscreteDirection2D> viableDirections;
@@ -19,7 +23,9 @@ protected:
     DiscreteDirection2D GetDirectionWithMinimumDistance() const;
     DiscreteDirection2D GetDirectionWithMaximumDistance() const;
 public:
-    explicit Ghost(const Coordinate2D::NormalizedCoordinate &startPosition);
+    std::unique_ptr<GhostModeChangeEvent> onModeChange;
+
+    explicit Ghost(const Coordinate2D::NormalizedCoordinate &startPosition, const float &stasisTime=0.0f);
     void Accept(const std::weak_ptr<IEntityVisitor> &visitor) override;
 
     void CollideWith(PacMan &) final;

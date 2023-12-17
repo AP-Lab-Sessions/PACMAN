@@ -4,9 +4,9 @@
 #define PACMAN_ENTITYFACTORY_H
 
 #include "AbstractFactory/AbstractFactory.h"
-#include "EntityView/View.h"
-#include <vector>
+#include "EntityView/EntityView.h"
 #include <SFML/Graphics.hpp>
+#include <vector>
 
 class EntityFactory : public PMLogic::AbstractFactory {
 protected:
@@ -15,6 +15,9 @@ protected:
 
     template<typename EntityType, typename EntityViewType>
     std::unique_ptr<EntityType> CreateEntity(const Coordinate2D::NormalizedCoordinate &startPosition) const;
+
+    template<typename DynamicEntityType, typename DynamicEntityViewType>
+    std::unique_ptr<DynamicEntityType> CreateDynamicEntity(const Coordinate2D::NormalizedCoordinate &startPosition) const;
 public:
     explicit EntityFactory(const std::weak_ptr<std::vector<std::function<void()>>> &observers_ptr,
                            const std::weak_ptr<sf::RenderWindow> &window);

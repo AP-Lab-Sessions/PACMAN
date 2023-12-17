@@ -3,17 +3,17 @@
 #ifndef PACMAN_COINVIEW_H
 #define PACMAN_COINVIEW_H
 
-#include "PacManLogic/Entity/StaticEntity/CollectableEntity/Coin/Coin.h"
-#include "EntityView/View.h"
+#include "EntityView/EntityView.h"
 
-class CoinView final : public View<Coin> {
+class CoinView final : public EntityView {
 protected:
     sf::RectangleShape coin;
 public:
-    CoinView(const Coin &entity, const std::weak_ptr<sf::RenderWindow> &window);
+    explicit CoinView(const std::weak_ptr<sf::RenderWindow> &window);
 
-    void Load() final;
-    void Render() override;
+    void Update(const EntityCreateEvent &eventData) final;
+
+    void Render() const override;
 };
 
 #endif // PACMAN_COINVIEW_H

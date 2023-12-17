@@ -29,7 +29,7 @@ PMLogic::World::World(std::unique_ptr<AbstractFactory> &factoryArg)
     entities.push_back(factory->CreateWall({-0.25f, -0.1f}, {0.5f, thickness}));
     entities.push_back(factory->CreateWall({-0.25f, thickness}, {0.5f, thickness}));
 
-    collectables.push_back(factory->CreateFruit({-0.0f, -0.6f}));
+    collectables.push_back(factory->CreateFruit({0.0f, -0.6f}));
     collectables.push_back(factory->CreateCoin({-0.1f, -0.5f}));
 
     for (auto &currentCollectable : collectables) {
@@ -80,4 +80,8 @@ void PMLogic::World::SetPlayerDirection(const DiscreteDirection2D &newDirection)
     if(!player.expired()) {
         player.lock()->SetDirection(newDirection);
     }
+}
+
+int PMLogic::World::GetScore() const {
+    return score->GetScore();
 }

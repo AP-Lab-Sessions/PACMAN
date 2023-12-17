@@ -8,9 +8,13 @@
 #include "Events/EntityEvent/EntityCollectedEvent.h"
 
 
-class PMLogic::Score : public IEventListener<EntityCollectedEvent> {
+class PMLogic::Score : public IEventListener<EntityCollectedEvent>{
+private:
+    std::shared_ptr<PMLogic::Helper::Timer> scoreTimer;
 protected:
     int currentScore;
+
+    void StartTimedDecrease();
 public:
     Score();
 

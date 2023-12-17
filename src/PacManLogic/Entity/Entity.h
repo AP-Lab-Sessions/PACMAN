@@ -7,8 +7,8 @@
 #include "IEntityVisitor/IEntityVisitor.h"
 
 #include "World/OnCollisionCommand/OnCollisionCommand.h"
-#include "Events/EntityEvent/EntityPositionChangeEvent.h"
 #include "Events/EntityEvent/EntityDestroyEvent.h"
+#include "Events/EntityEvent/EntityCreateEvent.h"
 
 #include <memory>
 
@@ -18,8 +18,8 @@ protected:
     const Coordinate2D::Coordinate size;
 
 public:
-    std::unique_ptr<EntityPositionChangeEvent> onPositionChange;
     std::unique_ptr<EntityDestroyEvent> onEntityDestroy;
+    std::unique_ptr<EntityCreateEvent> onEntityCreate;
     std::shared_ptr<OnCollisionCommand> onCollision;
 
 
@@ -29,8 +29,6 @@ public:
     virtual ~Entity();
 
     Coordinate2D::NormalizedCoordinate GetPosition() const;
-
-    void SetPosition(const Coordinate2D::NormalizedCoordinate &newPosition);
 
     virtual void Accept(const std::weak_ptr<IEntityVisitor> &visitor) = 0;
 
@@ -44,6 +42,8 @@ public:
     virtual void CollideWith(PMLogic::Entity &) = 0;
 
     void SetOnCollision(const std::shared_ptr<OnCollisionCommand> &onCollision);
+
+    void Create() const;
 };
 
 #endif // PACMAN_ENTITY_H

@@ -2,19 +2,16 @@
 
 #include "CoinView.h"
 
-CoinView::CoinView(const Coin &entity, const std::weak_ptr<sf::RenderWindow> &window) :
-        View<Coin>(entity, window) {
-    Load();
-}
+CoinView::CoinView(const std::weak_ptr<sf::RenderWindow> &window) : EntityView(window) {}
 
-void CoinView::Load() {
+void CoinView::Update(const EntityCreateEvent& eventData) {
     const sf::Vector2f viewSize = window.lock()->getDefaultView().getSize();
 
     PMLogic::Helper::Camera camera(
-            static_cast<unsigned int>(viewSize.x),
-            static_cast<unsigned int>(viewSize.y));
-    const auto &size = camera.ProjectSize(entity);
-    const auto &position = camera.ProjectCurrentPosition(entity);
+        static_cast<unsigned int>(viewSize.x),
+        static_cast<unsigned int>(viewSize.y));
+    const auto &size = camera.ProjectSize(eventData.size);
+    const auto &position = camera.Project(eventData.position);
 
     coin = sf::RectangleShape();
     coin.setFillColor(sf::Color::White);
@@ -22,7 +19,7 @@ void CoinView::Load() {
     coin.setPosition(position.GetX(), position.GetY());
 }
 
-void CoinView::Render() {
+void CoinView::Render() const {
     if(!entityDestroyed) {
         window.lock()->draw(coin);
     }

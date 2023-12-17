@@ -19,8 +19,9 @@ SET(LOGIC_SRC AbstractFactory/AbstractFactory.h
         Entity/IEntityVisitor/IEntityVisitor.h Entity/IEntityVisitor/IEntityVisitor.h
         World/OnCollisionCommand/OnCollisionCommand.h World/OnCollisionCommand/OnCollisionCommand.cpp
         Score/Score.cpp Events/EntityEvent/EntityPositionChangeEvent.h Events/EntityEvent/EntityDestroyEvent.h
-        Events/EntityEvent/EntityCollectedEvent.h Entity/DynamicEntity/AutomaticEntity/AutomaticEntity.h Entity/DynamicEntity/AutomaticEntity/AutomaticEntity.cpp
-        Events/EntityEvent/EntityCollectedEvent.cpp)
+        Events/EntityEvent/EntityCollectedEvent.h
+        Entity/DynamicEntity/AutomaticEntity/AutomaticEntity.h Entity/DynamicEntity/AutomaticEntity/AutomaticEntity.cpp
+         Events/EntityEvent/EntityDirectionChangeEvent.h Events/EntityEvent/EntityCreateEvent.h Events/GhostEvent/GhostModeChangeEvent.h Events/GhostEvent/GhostModeChangeEvent.cpp)
 
 add_executable(PacManLogicExec main.cpp ${LOGIC_SRC})
 add_library(PacManLogicLib ${LOGIC_SRC})

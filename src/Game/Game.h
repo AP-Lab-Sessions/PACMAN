@@ -21,6 +21,7 @@ protected:
     void Update();
     void Render();
     void ProcessEvents();
+
 public:
     Game(const unsigned int &width, const unsigned int &height);
     void Run();

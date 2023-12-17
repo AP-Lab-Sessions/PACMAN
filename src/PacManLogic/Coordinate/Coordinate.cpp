@@ -32,12 +32,6 @@ void Coordinate2D::NormalizedCoordinate::SetY(const float& newY) {
     y = newY;
 }
 
-Coordinate2D::Coordinate Coordinate2D::Project(
-    const Coordinate2D::NormalizedCoordinate& coord, const unsigned int& width, const unsigned int& height) {
-    const float x = static_cast<float>(width)/2*(coord.GetX()+1);
-    const float y = static_cast<float>(height)/2*(coord.GetY()+1);
-    return Coordinate{x,y};
-}
 
 bool Coordinate2D::IsOverlapping(const Coordinate2D::NormalizedCoordinate &pos1, const Coordinate2D::Coordinate &size1,
                                  const Coordinate2D::NormalizedCoordinate &pos2,
@@ -49,4 +43,8 @@ bool Coordinate2D::IsOverlapping(const Coordinate2D::NormalizedCoordinate &pos1,
 float Coordinate2D::GetManhattanDistance(const Coordinate2D::NormalizedCoordinate& coord1,
                                          const Coordinate2D::NormalizedCoordinate& coord2) {
     return std::abs(coord2.GetX()-coord1.GetX()) + std::abs(coord2.GetY()-coord1.GetY());
+}
+
+bool Coordinate2D::Coordinate::operator==(const Coordinate2D::Coordinate& other) const {
+    return GetX() == other.GetX() && GetY() == other.GetY();
 }

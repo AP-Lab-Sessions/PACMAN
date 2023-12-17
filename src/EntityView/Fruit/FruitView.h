@@ -3,14 +3,11 @@
 #ifndef PACMAN_FRUITVIEW_H
 #define PACMAN_FRUITVIEW_H
 
-#include "PacManLogic/Entity/StaticEntity/CollectableEntity/Fruit/Fruit.h"
-#include "EntityView/View.h"
+#include "EntityView/EntityView.h"
 
-class FruitView final : public View<Fruit> {
+class FruitView final : public EntityView {
 public:
-    FruitView(const Fruit &entity, const std::weak_ptr<sf::RenderWindow> &window);
-
-    void Load() final;
+    explicit FruitView(const std::weak_ptr<sf::RenderWindow> &window);
 };
 
 #endif // PACMAN_FRUITVIEW_H

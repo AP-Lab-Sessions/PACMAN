@@ -19,6 +19,8 @@ public:
                 const unsigned int &horizontalPadding=0, const unsigned int &verticalPadding=0,
                 const unsigned int &horizontalOffset=0, const unsigned int &verticalOffset=0);
     sf::Sprite GetSprite(const  int &x, const int &y, const Coordinate2D::Coordinate &projected) const;
+
+    sf::IntRect GetTextureRect(const int &column, const int &row) const;
 };
 
 

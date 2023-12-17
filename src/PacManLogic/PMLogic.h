@@ -64,6 +64,11 @@ namespace PMLogic {
           */
          class StopWatch;
 
+         class Timer;
+
+         /**
+          * @brief
+          */
          class Camera;
          }
 }
