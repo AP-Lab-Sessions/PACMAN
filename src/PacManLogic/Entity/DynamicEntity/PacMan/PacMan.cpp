@@ -5,8 +5,8 @@
 #include "Entity/StaticEntity/CollectableEntity/Fruit/Fruit.h"
 #include "Entity/StaticEntity/CollectableEntity/Coin/Coin.h"
 
-PacMan::PacMan(const Coordinate2D::NormalizedCoordinate &startPosition) :
-DynamicEntity(startPosition, {0.1f,0.1f}, 3, 0.75f) {
+PacMan::PacMan(const Coordinate2D::NormalizedCoordinate &startPosition, const Coordinate2D::Coordinate &size) :
+DynamicEntity(startPosition, size, 3, 0.75f), nextDirection(currentDirection) {
     SetIsKillable(true);
 }
 
@@ -30,7 +30,8 @@ void PacMan::CollideWith(Fruit & fruit) {
     }
 }
 
-void PacMan::CollideWith(Ghost &ghost) {}
+void PacMan::CollideWith(Ghost &ghost) {
+}
 
 void PacMan::CollideWith(PMLogic::Entity &entity) {
     entity.CollideWith(*this);

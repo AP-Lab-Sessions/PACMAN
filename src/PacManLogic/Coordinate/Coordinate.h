@@ -40,6 +40,12 @@ public:
 bool IsOverlapping(const NormalizedCoordinate &pos1, const Coordinate &size1,
                    const NormalizedCoordinate &pos2, const Coordinate &size2);
 
+/*Coordinate2D::NormalizedCoordinate GetNonCollidingPosition(const NormalizedCoordinate &posBefore,
+                                                           const NormalizedCoordinate &posAfter,
+                                                           const Coordinate &size,
+                                                           const NormalizedCoordinate &collidedWithPos,
+                                                           const Coordinate &collidedWithSize)*/
+
 float GetManhattanDistance(const NormalizedCoordinate &coord1, const NormalizedCoordinate &coord2);
 }
 

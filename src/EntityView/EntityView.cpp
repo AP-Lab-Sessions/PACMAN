@@ -17,6 +17,7 @@ void EntityView::Update(const EntityCreateEvent& eventData) {
 
     sprite = spriteSheet.GetSprite(spriteColumn,spriteRow, camera.ProjectSize(eventData.size));
     sprite.setPosition(pos.GetX(), pos.GetY());
+
 }
 void EntityView::Update(const EntityDestroyEvent& event) {
     entityDestroyed = true;

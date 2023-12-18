@@ -7,7 +7,7 @@
 
 class Fruit : public CollectableEntity {
 public:
-    explicit Fruit(const Coordinate2D::NormalizedCoordinate &startPosition);
+    explicit Fruit(const Coordinate2D::NormalizedCoordinate &startPosition,  const Coordinate2D::Coordinate &size);
 
     void Accept(const std::weak_ptr<IEntityVisitor> &visitor) override;
 

@@ -1,6 +1,6 @@
 //
 #include "DynamicEntityView.h"
-#include "PacManLogic/Helper/StopWatch/StopWatch.h"
+#include "PacManLogic/Helper/DeltaTime/DeltaTime.h"
 
 DynamicEntityView::DynamicEntityView(const std::weak_ptr<sf::RenderWindow>& window,
                                      const int& spriteColumn, const int& spriteRow,
@@ -18,7 +18,7 @@ void DynamicEntityView::Animate() {
         Animate();
     };
     animateTimer = std::make_shared<PMLogic::Helper::Timer>(callback, 0.15f);
-    PMLogic::Helper::StopWatch::GetInstance().lock()->AddTimer(animateTimer);
+    PMLogic::Helper::DeltaTime::GetInstance().lock()->AddTimer(animateTimer);
 }
 
 void DynamicEntityView::Update(const EntityPositionChangeEvent& eventData) {

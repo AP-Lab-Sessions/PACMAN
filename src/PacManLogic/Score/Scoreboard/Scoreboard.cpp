@@ -6,15 +6,6 @@
 #include <iostream>
 
 
-std::shared_ptr<PMLogic::Scoreboard> PMLogic::Scoreboard::instance{nullptr};
-
-std::weak_ptr<PMLogic::Scoreboard> PMLogic::Scoreboard::GetInstance() {
-    if(instance == nullptr) {
-        std::shared_ptr<PMLogic::Scoreboard> createdInstance{new PMLogic::Scoreboard()};
-        instance = createdInstance;
-    }
-    return instance;
-}
 
 using nlohmann::json;
 

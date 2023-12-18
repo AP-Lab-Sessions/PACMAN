@@ -7,10 +7,10 @@
 #include "AbstractFactory/AbstractFactory.h"
 #include "UpdateVisitor/UpdateVisitor.h"
 #include "Score/Score.h"
+#include "Events/EntityEvent/EntityDestroyEvent.h"
 
 #include <functional>
 #include <list>
-
 
 class PMLogic::World {
 private:
@@ -28,9 +28,13 @@ protected:
 
     std::shared_ptr<Score> score;
 
+    float difficultyFactor;
+
     void DestroyDestructables();
 
 public:
+    void ImportLevel(const std::string &levelStr);
+
     explicit World(std::unique_ptr<AbstractFactory> &factory);
 
     void Update();

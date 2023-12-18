@@ -7,9 +7,11 @@
 #include "Entity/StaticEntity/CollectableEntity/CollectableEntity.h"
 
 class PacMan : public DynamicEntity {
+protected:
+    DiscreteDirection2D nextDirection;
 public:
 
-    explicit PacMan(const Coordinate2D::NormalizedCoordinate &startPosition);
+    explicit PacMan(const Coordinate2D::NormalizedCoordinate &startPosition, const Coordinate2D::Coordinate &size);
 
     void Eat(const CollectableEntity &collectable);
     void Accept(const std::weak_ptr<IEntityVisitor> &visitor) override;

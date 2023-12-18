@@ -25,7 +25,9 @@ highScore(ButtonWidget(getHighScoreStr(), secondaryFont, sf::Color::Yellow, 20,
 
 }
 
-void MenuState::Update() {}
+void MenuState::Update() {
+    highScore.text.setString(getHighScoreStr());
+}
 
 void MenuState::ProcessEvents(const sf::Event &event) {
     if(event.type == sf::Event::MouseButtonPressed) {

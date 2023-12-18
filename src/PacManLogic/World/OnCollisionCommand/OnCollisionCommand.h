@@ -22,7 +22,7 @@ public:
     void Execute() override;
     void ExecuteAndNotify() override;
 
-    void SetColliders(const PacMan &pacMan, const Ghost &ghost);
+    void SetColliders(PacMan &pacMan, Ghost &ghost);
     void SetColliders(const CollectableEntity &collectable);
 };
 #endif //PACMAN_ONCOLLISIONCOMMAND_H

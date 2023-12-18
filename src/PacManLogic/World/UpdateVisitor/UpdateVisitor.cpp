@@ -11,6 +11,7 @@ void UpdateVisitor::Visit(Wall &wall) const {}
 void UpdateVisitor::Visit(Fruit &fruit) const {}
 
 void UpdateVisitor::Visit(Ghost &ghost) const {
+    //ghost.ChooseDirection();
     ghost.Move();
     ghost.SetCanMove(true);
     ghost.ResetViableDirections();

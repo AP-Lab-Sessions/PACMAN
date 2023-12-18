@@ -6,17 +6,20 @@
 #include "PMLogic.h"
 #include "Pattern/Observer/EventListener/IEventListener.h"
 #include "Events/EntityEvent/EntityCollectedEvent.h"
+#include "Helper/DeltaTime/DeltaTime.h"
 
 
 class PMLogic::Score : public IEventListener<EntityCollectedEvent>{
 private:
     std::shared_ptr<PMLogic::Helper::Timer> scoreTimer;
+    std::shared_ptr<PMLogic::Helper::StopWatch> stopWatch;
 protected:
     int currentScore;
 
     void StartTimedDecrease();
 public:
     Score();
+    ~Score() override;
 
     void IncreaseScore(const int &amount);
     void DecreaseScore(const int &amount);

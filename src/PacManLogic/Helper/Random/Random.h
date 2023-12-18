@@ -4,34 +4,19 @@
 #define PACMAN_RANDOM_H
 
 #include "PMLogic.h"
+#include "Pattern/Singleton/Singleton.h"
 #include <random>
-#include <memory>
 
 
 
 /**
  * @brief A Singleton helper class that generates a random integer between x and y
  */
-class PMLogic::Helper::Random {
-private:
+class PMLogic::Helper::Random : public PMLogic::Singleton<PMLogic::Helper::Random> {
+protected:
     std::mt19937 generator;
     Random();
-    static std::shared_ptr<PMLogic::Helper::Random> instance;
 public:
-    /**
-     * @brief Make the assignment operator deleted
-     */
-    void operator=(const PMLogic::Helper::Random &) = delete;
-    /**
-     * @brief Make the copy constructor deleted
-     */
-    Random(PMLogic::Helper::Random &) = delete;
-
-    /**
-     * @brief Gets the single instance of the class
-     * @return The pointer to the instance
-     */
-    static std::weak_ptr<PMLogic::Helper::Random> GetInstance();
     /**
      * @brief Generates a pseudo-random integer between min and max
      * @param min
@@ -40,6 +25,12 @@ public:
      */
     int GetRandomInteger(const int &min=1, const int &max=100);
 
+    /**
+     * @briwf
+     * @param min
+     * @param max
+     * @return
+     */
     float GetRandomFloat(const float &min=0.0f, const float &max=1.0f);
 };
 

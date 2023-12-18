@@ -1,19 +1,28 @@
 //
 
 #include "Score.h"
-#include "Helper/StopWatch/StopWatch.h"
+#include "Helper/DeltaTime/DeltaTime.h"
+#include "Score/Scoreboard/Scoreboard.h"
 
 void PMLogic::Score::StartTimedDecrease() {
     const std::function<void()> callback = [&]() {
-        DecreaseScore(10);
+        DecreaseScore(5);
         StartTimedDecrease();
     };
-    scoreTimer = std::make_shared<PMLogic::Helper::Timer>(callback, 5.0f);
-    PMLogic::Helper::StopWatch::GetInstance().lock()->AddTimer(scoreTimer);
+    scoreTimer = std::make_shared<PMLogic::Helper::Timer>(callback, 2.5f);
+    PMLogic::Helper::DeltaTime::GetInstance().lock()->AddTimer(scoreTimer);
+    stopWatch->Start();
 }
 
-PMLogic::Score::Score() : currentScore(0){
+PMLogic::Score::Score() :  stopWatch(std::make_shared<Helper::StopWatch>()), currentScore(0){
     StartTimedDecrease();
+    PMLogic::Helper::DeltaTime::GetInstance().lock()->AddStopWatch(stopWatch);
+}
+
+PMLogic::Score::~Score() {
+    const auto &scoreboard = PMLogic::Scoreboard::GetInstance().lock();
+    scoreboard->AddScore(currentScore);
+    scoreboard->SaveHighScore();
 }
 
 int PMLogic::Score::GetScore() const {
@@ -29,5 +38,7 @@ void PMLogic::Score::DecreaseScore(const int& amount) {
 }
 
 void PMLogic::Score::Update(const EntityCollectedEvent &eventData) {
-    IncreaseScore(eventData.reward);
+    const int divider = (stopWatch->GetCurrentTime() <= 1.0f) ? 1 : static_cast<int>(stopWatch->GetCurrentTime());
+    IncreaseScore(eventData.reward/divider);
+    stopWatch->Start();
 }

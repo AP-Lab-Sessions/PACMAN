@@ -9,6 +9,8 @@
 
 class DynamicEntity : public PMLogic::Entity {
 protected:
+    const Coordinate2D::NormalizedCoordinate spawn;
+
     unsigned int lives;
     DiscreteDirection2D currentDirection;
 
@@ -60,6 +62,8 @@ public:
     void CollideWith(Fruit &) override {}
     void CollideWith(Coin &) override {}
     void CollideWith(PMLogic::Entity &) override = 0;
+
+    Coordinate2D::NormalizedCoordinate GetSpawn() const;
 };
 
 #endif // PACMAN_DYNAMICENTITY_H

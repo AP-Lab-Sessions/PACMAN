@@ -4,39 +4,23 @@
 #define PACMAN_SCOREBOARD_H
 
 #include "PMLogic.h"
-#include <memory>
+#include "Pattern/Singleton/Singleton.h"
 #include <set>
 
-#define HIGHSCORE_PATH "src/json/highScore.json"
+#define HIGHSCORE_PATH "src/config/highScore.json"
 
 /**
  * @brief A singleton which loads and writes to a file keeping top 5 high scores of all time.
  */
-class PMLogic::Scoreboard {
-private:
+class PMLogic::Scoreboard : public PMLogic::Singleton<PMLogic::Scoreboard> {
+protected:
     Scoreboard();
 
-    static std::shared_ptr<PMLogic::Scoreboard> instance;
     /**
      * @brief High scores
      */
     std::set<int> highScore;
 public:
-    /**
-     * @brief Make the assignment operator deleted
-     */
-     void operator=(const PMLogic::Scoreboard &) = delete;
-
-     /**
-     * @brief Make the copy constructor deleted
-      */
-     Scoreboard(PMLogic::Scoreboard &) = delete;
-
-     /**
-     * @brief Gets the single instance of the class
-     * @return The pointer to the instance
-      */
-     static std::weak_ptr<PMLogic::Scoreboard> GetInstance();
 
      /**
       * @brief Returns the 5 highest scores

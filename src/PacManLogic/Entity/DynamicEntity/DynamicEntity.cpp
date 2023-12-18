@@ -1,14 +1,14 @@
 //
 
 #include "DynamicEntity.h"
-#include "Helper/StopWatch/StopWatch.h"
 #include "Entity/StaticEntity/Wall/Wall.h"
 #include "Events/EntityEvent/EntityDirectionChangeEvent.h"
+#include "Helper/DeltaTime/DeltaTime.h"
 
 DynamicEntity::DynamicEntity(const Coordinate2D::NormalizedCoordinate& startPosition,
                              const Coordinate2D::Coordinate &size,
                              const unsigned int &lives, const float &defaultSpeed)
-    : PMLogic::Entity(startPosition, size),lives(lives),  currentDirection(Direction_Right),
+    : PMLogic::Entity(startPosition, size), spawn(startPosition), lives(lives),  currentDirection(Direction_Right),
       defaultSpeed(defaultSpeed), speed(defaultSpeed),
     canMove(true), isKillable(true), onPositionChange(std::make_unique<EntityPositionChangeEvent>(startPosition)),
     onDirectionChange(std::make_unique<EntityDirectionChangeEvent>(currentDirection)) {}
@@ -40,7 +40,7 @@ bool DynamicEntity::GetCanMove() const {
 }
 
 Coordinate2D::NormalizedCoordinate DynamicEntity::GetNextPosition(const DiscreteDirection2D& direction) const {
-    const float deltaTime = PMLogic::Helper::StopWatch::GetInstance().lock()->GetDeltaTime();
+    const float deltaTime = PMLogic::Helper::DeltaTime::GetInstance().lock()->GetDeltaTime();
     Coordinate2D::NormalizedCoordinate newPosition = GetPosition();
     switch(direction) {
     case Direction_Left:
@@ -101,6 +101,22 @@ void DynamicEntity::SetIsKillable(const bool &newIsKillable) {
 
 void DynamicEntity::CollideWith(Wall & wall) {
     if(WillCollide(wall)) {
+        // set the position right before the wall
+        const auto &nextPosition = GetNextPosition();
+        switch(GetDirection()) {
+        case Direction_Right:
+            SetPosition({wall.GetPosition().GetX()-GetSize().GetX(), nextPosition.GetY()});
+            break;
+        case Direction_Left:
+            SetPosition({wall.GetPosition().GetX()+wall.GetSize().GetX(),nextPosition.GetY()});
+            break;
+        case Direction_Up:
+            SetPosition({nextPosition.GetX(), wall.GetPosition().GetY()+wall.GetSize().GetY()});
+            break;
+        case Direction_Down:
+            SetPosition({nextPosition.GetX(), wall.GetPosition().GetY()-GetSize().GetY()});
+            break;
+        }
         SetCanMove(false);
     }
 }
@@ -114,4 +130,8 @@ bool DynamicEntity::WillCollide(const PMLogic::Entity& entity, const DiscreteDir
 
 float DynamicEntity::GetDefaultSpeed() const {
     return defaultSpeed;
+}
+
+Coordinate2D::NormalizedCoordinate DynamicEntity::GetSpawn() const {
+    return spawn;
 }

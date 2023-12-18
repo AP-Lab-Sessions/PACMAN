@@ -2,7 +2,6 @@
 
 #include "Random.h"
 
-std::shared_ptr<PMLogic::Helper::Random> PMLogic::Helper::Random::instance{nullptr};
 
 PMLogic::Helper::Random::Random() : generator(std::random_device{}()){}
 
@@ -14,12 +13,4 @@ int PMLogic::Helper::Random::GetRandomInteger(const int& min, const int& max) {
 float PMLogic::Helper::Random::GetRandomFloat(const float& min, const float& max) {
     std::uniform_real_distribution<float> distribution(min,max);
     return distribution(generator);
-}
-
-std::weak_ptr<PMLogic::Helper::Random> PMLogic::Helper::Random::GetInstance() {
-    if(instance == nullptr) {
-        std::shared_ptr<PMLogic::Helper::Random> createdInstance{new PMLogic::Helper::Random()};
-        instance = createdInstance;
-    }
-    return instance;
 }

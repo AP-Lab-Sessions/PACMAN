@@ -9,9 +9,10 @@
 OnCollisionCommand::OnCollisionCommand(std::vector<std::reference_wrapper<const PMLogic::Entity>> &destructables)
         : destructables(destructables) {}
 
-void OnCollisionCommand::SetColliders(const PacMan &pacMan, const Ghost &ghost) {
+void OnCollisionCommand::SetColliders(PacMan &pacMan, Ghost &ghost) {
     if(ghost.GetIsKillable()) {
-        destructables.emplace_back(ghost);
+        ghost.Respawn();
+        ghost.onEntityCollected->Notify(*ghost.onEntityCollected);
     }
     else if(pacMan.GetIsKillable()) {
         destructables.emplace_back(pacMan);

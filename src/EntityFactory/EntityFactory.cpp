@@ -16,8 +16,9 @@
 // TODO: make this neater (much less repetition, much less includes if possible)
 
 template<typename EntityType, typename EntityViewType>
-std::unique_ptr<EntityType> EntityFactory::CreateEntity(const Coordinate2D::NormalizedCoordinate &startPosition) const {
-    std::unique_ptr<EntityType> entity {new EntityType(startPosition)};
+std::unique_ptr<EntityType> EntityFactory::CreateEntity(const Coordinate2D::NormalizedCoordinate &startPosition,
+                                                        const Coordinate2D::Coordinate &size) const {
+    std::unique_ptr<EntityType> entity {new EntityType(startPosition, size)};
     std::shared_ptr<EntityViewType> view{new EntityViewType(window)};
 
     std::function<void()> callback = [view](){view->Render();};
@@ -30,8 +31,9 @@ std::unique_ptr<EntityType> EntityFactory::CreateEntity(const Coordinate2D::Norm
     return entity;
 }
 template<typename DynamicEntityType, typename DynamicEntityViewType>
-std::unique_ptr<DynamicEntityType> EntityFactory::CreateDynamicEntity(const Coordinate2D::NormalizedCoordinate &startPosition) const {
-    std::unique_ptr<DynamicEntityType> entity {new DynamicEntityType(startPosition)};
+std::unique_ptr<DynamicEntityType> EntityFactory::CreateDynamicEntity(const Coordinate2D::NormalizedCoordinate &startPosition,
+                                                                      const Coordinate2D::Coordinate &size) const {
+    std::unique_ptr<DynamicEntityType> entity {new DynamicEntityType(startPosition, size)};
     std::shared_ptr<DynamicEntityViewType> view{new DynamicEntityViewType(window)};
 
     std::function<void()> callback = [view](){view->Render();};
@@ -52,27 +54,28 @@ EntityFactory::EntityFactory(const std::weak_ptr<std::vector<std::function<void(
 
 
 std::unique_ptr<PacMan> EntityFactory::CreatePacMan(
-        const Coordinate2D::NormalizedCoordinate &startPosition
+        const Coordinate2D::NormalizedCoordinate &startPosition,  const Coordinate2D::Coordinate &size
         ) const {
-    return CreateDynamicEntity<PacMan, PacManView>(startPosition);
+    return CreateDynamicEntity<PacMan, PacManView>(startPosition, size);
 }
 
 std::unique_ptr<Coin> EntityFactory::CreateCoin(
-        const Coordinate2D::NormalizedCoordinate &startPosition
+        const Coordinate2D::NormalizedCoordinate &startPosition,  const Coordinate2D::Coordinate &size
         ) const {
-    return CreateEntity<Coin, CoinView>(startPosition);
+    return CreateEntity<Coin, CoinView>(startPosition, size);
 }
 
 std::unique_ptr<Fruit> EntityFactory::CreateFruit(
-        const Coordinate2D::NormalizedCoordinate &startPosition
+        const Coordinate2D::NormalizedCoordinate &startPosition,  const Coordinate2D::Coordinate &size
         ) const {
-    auto fruit = CreateEntity<Fruit, FruitView>(startPosition);
+    auto fruit = CreateEntity<Fruit, FruitView>(startPosition, size);
     return fruit;
 }
 
 std::unique_ptr<Ghost> EntityFactory::CreateGhost(
-        const Coordinate2D::NormalizedCoordinate &startPosition) const {
-    std::unique_ptr<Ghost> entity {new Ghost(startPosition)};
+        const Coordinate2D::NormalizedCoordinate &startPosition,
+    const Coordinate2D::Coordinate &size, const float &power) const {
+    std::unique_ptr<Ghost> entity {new Ghost(startPosition, size, power)};
     std::shared_ptr<GhostView> view{new GhostView(window)};
 
     std::function<void()> callback = [view](){view->Render();};

@@ -2,8 +2,8 @@
 
 #include "Coin.h"
 
-Coin::Coin(const Coordinate2D::NormalizedCoordinate &startPosition) :
-CollectableEntity(startPosition,  {0.05, 0.05f},  5) {}
+Coin::Coin(const Coordinate2D::NormalizedCoordinate &startPosition, const Coordinate2D::Coordinate &size) :
+CollectableEntity(startPosition,  size,  5) {}
 
 void Coin::Accept(const std::weak_ptr<IEntityVisitor>& visitor) {
     visitor.lock()->Visit(*this);

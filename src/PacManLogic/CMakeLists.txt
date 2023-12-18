@@ -4,7 +4,7 @@ SET(LOGIC_SRC AbstractFactory/AbstractFactory.h
         Pattern/Observer/Event/Event.h
         World/World.cpp
         PMLogic.h
-        Helper/Random/Random.h Helper/Random/Random.cpp Helper/StopWatch/StopWatch.h Helper/StopWatch/StopWatch.cpp
+        Helper/Random/Random.h Helper/Random/Random.cpp Helper/DeltaTime/DeltaTime.h Helper/DeltaTime/DeltaTime.cpp
         Score/Score.h Score/Scoreboard/Scoreboard.h Score/Scoreboard/Scoreboard.cpp Entity/Entity.h
         Helper/Camera/Camera.h Helper/Camera/Camera.cpp Coordinate/Coordinate.h Coordinate/Coordinate.cpp Entity/Entity.cpp
         Entity/DynamicEntity/DynamicEntity.h Entity/DynamicEntity/DynamicEntity.cpp
@@ -21,7 +21,9 @@ SET(LOGIC_SRC AbstractFactory/AbstractFactory.h
         Score/Score.cpp Events/EntityEvent/EntityPositionChangeEvent.h Events/EntityEvent/EntityDestroyEvent.h
         Events/EntityEvent/EntityCollectedEvent.h
         Entity/DynamicEntity/AutomaticEntity/AutomaticEntity.h Entity/DynamicEntity/AutomaticEntity/AutomaticEntity.cpp
-         Events/EntityEvent/EntityDirectionChangeEvent.h Events/EntityEvent/EntityCreateEvent.h Events/GhostEvent/GhostModeChangeEvent.h Events/GhostEvent/GhostModeChangeEvent.cpp)
+         Events/EntityEvent/EntityDirectionChangeEvent.h Events/EntityEvent/EntityCreateEvent.h
+        Events/GhostEvent/GhostModeChangeEvent.h Events/GhostEvent/GhostModeChangeEvent.cpp
+        Pattern/Singleton/Singleton.h)
 
 add_executable(PacManLogicExec main.cpp ${LOGIC_SRC})
 add_library(PacManLogicLib ${LOGIC_SRC})

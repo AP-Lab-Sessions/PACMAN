@@ -17,15 +17,19 @@ class Ghost : public AutomaticEntity,
 private:
     std::shared_ptr<PMLogic::Helper::Timer> modeTimer;
 protected:
+    const float fearDuration;
     GhostMode mode;
     std::list<DiscreteDirection2D> viableDirections;
 
     DiscreteDirection2D GetDirectionWithMinimumDistance() const;
     DiscreteDirection2D GetDirectionWithMaximumDistance() const;
+
 public:
     std::unique_ptr<GhostModeChangeEvent> onModeChange;
+    std::unique_ptr<EntityCollectedEvent> onEntityCollected;
 
-    explicit Ghost(const Coordinate2D::NormalizedCoordinate &startPosition, const float &stasisTime=0.0f);
+    explicit Ghost(const Coordinate2D::NormalizedCoordinate &startPosition, const Coordinate2D::Coordinate &size,
+                   const float &power, const float &stasisTime=0.0f);
     void Accept(const std::weak_ptr<IEntityVisitor> &visitor) override;
 
     void CollideWith(PacMan &) final;
@@ -46,6 +50,8 @@ public:
     void Update(const EntityCollectedEvent &eventData) override;
 
     using AutomaticEntity::Update;
+
+    void Respawn();
 };
 
 #endif // PACMAN_GHOST_H

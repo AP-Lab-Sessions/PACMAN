@@ -36,6 +36,9 @@ namespace PMLogic {
 
     class AbstractFactory;
 
+    template<typename Type>
+    class Singleton;
+
     /**
      * @brief The world class
      */
@@ -62,9 +65,11 @@ namespace PMLogic {
          /**
           * @brief Keeps the difference in time between current update step and the previous one.
           */
-         class StopWatch;
+         class DeltaTime;
 
          class Timer;
+
+         class StopWatch;
 
          /**
           * @brief

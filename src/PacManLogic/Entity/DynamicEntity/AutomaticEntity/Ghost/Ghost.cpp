@@ -4,21 +4,23 @@
 #include "Entity/DynamicEntity/PacMan/PacMan.h"
 #include "Entity/StaticEntity/Wall/Wall.h"
 #include "Helper/Random/Random.h"
-#include "Helper/StopWatch/StopWatch.h"
-
+#include "Helper/DeltaTime/DeltaTime.h"
 
 const std::list<DiscreteDirection2D> directions2D = {Direction_Left, Direction_Right, Direction_Up, Direction_Down};
 
-Ghost::Ghost(const Coordinate2D::NormalizedCoordinate &startPosition, const float &stasisTime) :
-AutomaticEntity(startPosition, {0.1f,0.1f}, 1, 0.7f), mode(Mode_Stasis),
-    onModeChange(std::make_unique<GhostModeChangeEvent>(mode))
+Ghost::Ghost(const Coordinate2D::NormalizedCoordinate &startPosition,const Coordinate2D::Coordinate &size,
+             const float &power,
+             const float &stasisTime) :
+AutomaticEntity(startPosition, size, 1, 0.75f*power),  fearDuration(10.0f/power), mode(Mode_Stasis),
+    onModeChange(std::make_unique<GhostModeChangeEvent>(mode)),
+    onEntityCollected(std::make_unique<EntityCollectedEvent>(50,false))
 {
     ResetViableDirections();
     SetIsKillable(false);
     modeTimer = std::make_shared<PMLogic::Helper::Timer>([&]{
                     SetMode(Mode_Chase);
                 }, stasisTime);
-    PMLogic::Helper::StopWatch::GetInstance().lock()->AddTimer(modeTimer);
+    PMLogic::Helper::DeltaTime::GetInstance().lock()->AddTimer(modeTimer);
 }
 
 void Ghost::Accept(const std::weak_ptr<IEntityVisitor>& visitor) {
@@ -37,6 +39,7 @@ void Ghost::CollideWith(PMLogic::Entity &entity) {
 }
 
 void Ghost::CollideWith(Wall& wall) {
+    DynamicEntity::WillCollide(wall);
     for(const auto &direction : directions2D) {
         if(WillCollide(wall, direction)) {
             viableDirections.remove(direction);
@@ -57,8 +60,8 @@ void Ghost::SetMode(const GhostMode &newMode) {
         SetSpeed(GetDefaultSpeed() / 1.5f);
         modeTimer = std::make_shared<PMLogic::Helper::Timer>([&]{
             SetMode(Mode_Chase);
-        }, 10.0f);
-        PMLogic::Helper::StopWatch::GetInstance().lock()->AddTimer(modeTimer);
+        }, fearDuration);
+        PMLogic::Helper::DeltaTime::GetInstance().lock()->AddTimer(modeTimer);
         ChooseDirection();
         break;
     }
@@ -117,26 +120,30 @@ DiscreteDirection2D Ghost::GetDirectionWithMaximumDistance() const {
     return result[random.lock()->GetRandomInteger(0, static_cast<int>(result.size()-1))];
 }
 void Ghost::ChooseDirection() {
-    const auto& random = PMLogic::Helper::Random::GetInstance();
-    const bool computeManhattanDistance = random.lock()->GetRandomFloat(0.0f, 1.0f) <= 0.5f;
-    DiscreteDirection2D bestDirection;
+    viableDirections.remove(currentDirection);
+    if(!viableDirections.empty()) {
+        const auto& random = PMLogic::Helper::Random::GetInstance();
+        const bool computeManhattanDistance = random.lock()->GetRandomFloat(0.0f, 1.0f) <= 0.5f;
+        DiscreteDirection2D bestDirection;
 
-    if (!target || !computeManhattanDistance || GetMode() == Mode_Stasis) {
-        auto directionIter = viableDirections.begin();
-        const int advancer = random.lock()->GetRandomInteger(0, static_cast<int>(viableDirections.size()-1));
-        std::advance(directionIter,advancer);
-        bestDirection = *directionIter;
-    } else {
-        switch (mode) {
-        case Mode_Chase:
-            bestDirection = GetDirectionWithMinimumDistance();
-            break;
-        default:
-            bestDirection = GetDirectionWithMaximumDistance();
-            break;
+        if (!target || !computeManhattanDistance || GetMode() == Mode_Stasis) {
+            auto directionIter = viableDirections.begin();
+            const int advancer = random.lock()->GetRandomInteger(0, static_cast<int>(viableDirections.size() - 1));
+            std::advance(directionIter, advancer);
+            bestDirection = *directionIter;
+        } else {
+            switch (mode) {
+            case Mode_Chase:
+                bestDirection = GetDirectionWithMinimumDistance();
+                break;
+            default:
+                bestDirection = GetDirectionWithMaximumDistance();
+                break;
+            }
         }
-     }
-    SetDirection(bestDirection);
+        SetDirection(bestDirection);
+    }
+    else SetCanMove(false);
 }
 
 void Ghost::Update(const EntityPositionChangeEvent& eventData) {
@@ -153,3 +160,8 @@ void Ghost::Update(const EntityCollectedEvent& eventData) {
     }
 }
 
+void Ghost::Respawn() {
+    SetMode(Mode_Chase);
+    SetPosition(GetSpawn());
+    ChooseDirection();
+}

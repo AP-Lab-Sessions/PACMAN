@@ -2,11 +2,10 @@
 
 #include "LevelState.h"
 
-#include "State/StateManager/StateManager.h"
-#include "State/PausedState/PausedState.h"
 #include "EntityFactory/EntityFactory.h"
-#include "Helper/StopWatch/StopWatch.h"
-
+#include "Helper/DeltaTime/DeltaTime.h"
+#include "State/PausedState/PausedState.h"
+#include "State/StateManager/StateManager.h"
 
 LevelState::LevelState(const std::weak_ptr<sf::RenderWindow> &window) : State(window),
 renderCallbacks(new std::vector<std::function<void()>>()),
@@ -50,7 +49,7 @@ void LevelState::ProcessEvents(const sf::Event &event) {
                 break;
             }
             case sf::Keyboard::Key::Escape: {
-                PMLogic::Helper::StopWatch::GetInstance().lock()->Reset();
+                PMLogic::Helper::DeltaTime::GetInstance().lock()->Pause();
                 std::unique_ptr<State> newState{new PausedState(window)};
                 manager.lock()->PushState(newState);
                 break;
