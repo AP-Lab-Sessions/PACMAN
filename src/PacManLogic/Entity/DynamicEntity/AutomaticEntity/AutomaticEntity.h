@@ -16,8 +16,7 @@ protected:
     std::unique_ptr<Coordinate2D::NormalizedCoordinate> target;
 public:
     AutomaticEntity(const Coordinate2D::NormalizedCoordinate &startPosition,
-                                           const Coordinate2D::Coordinate &size,
-                                           const unsigned int &lives, const float &speed);
+                                           const Coordinate2D::Coordinate &size, const float &speed);
     virtual void ChooseDirection() = 0;
 
     void Update(const EntityPositionChangeEvent &eventData) override = 0;

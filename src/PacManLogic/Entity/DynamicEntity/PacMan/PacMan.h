@@ -7,10 +7,7 @@
 #include "Entity/StaticEntity/CollectableEntity/CollectableEntity.h"
 
 class PacMan : public DynamicEntity {
-protected:
-    DiscreteDirection2D nextDirection;
 public:
-
     explicit PacMan(const Coordinate2D::NormalizedCoordinate &startPosition, const Coordinate2D::Coordinate &size);
 
     void Eat(const CollectableEntity &collectable);

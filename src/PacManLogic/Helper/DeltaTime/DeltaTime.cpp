@@ -10,30 +10,30 @@ PMLogic::Helper::Timer::Timer(const std::function<void()>& callback, const float
 
 
 PMLogic::Helper::StopWatch::StopWatch() : isPaused(false),
-                                          startTime(std::chrono::high_resolution_clock::now()),
-                                          capturedTime(std::chrono::high_resolution_clock::now()) {}
+                                          startTime(std::chrono::steady_clock::now()),
+                                          capturedTime(std::chrono::steady_clock::now()) {}
 
 void PMLogic::Helper::StopWatch::Start() {
     isPaused = false;
-    startTime = std::chrono::high_resolution_clock::now();
+    startTime = std::chrono::steady_clock::now();
 }
 
 float PMLogic::Helper::StopWatch::GetCurrentTime() {
-    auto captured = isPaused ? capturedTime : std::chrono::high_resolution_clock::now();
+    auto captured = isPaused ? capturedTime : std::chrono::steady_clock::now();
     return std::chrono::duration<float>(captured - startTime).count();
 }
 
 void PMLogic::Helper::StopWatch::Pause() {
     if (!isPaused) {
         isPaused = true;
-        capturedTime = std::chrono::high_resolution_clock::now();
+        capturedTime = std::chrono::steady_clock::now();
     }
 }
 
 void PMLogic::Helper::StopWatch::Resume() {
     if (isPaused) {
         isPaused = false;
-        startTime += std::chrono::high_resolution_clock::now() - capturedTime;
+        startTime += std::chrono::steady_clock::now() - capturedTime;
     }
 }
 
@@ -42,7 +42,7 @@ bool PMLogic::Helper::StopWatch::GetIsPaused() const {
 }
 
 void PMLogic::Helper::DeltaTime::Pause() {
-    stopWatch.Pause();
+    stopWatch->Pause();
     for(auto iter = stopWatches.begin(); iter != stopWatches.end(); iter++) {
         if(!iter->expired()) {
             iter->lock()->Pause();
@@ -51,12 +51,11 @@ void PMLogic::Helper::DeltaTime::Pause() {
     }
 }
 
-PMLogic::Helper::DeltaTime::DeltaTime() {
-    stopWatch.Start();
-}
+PMLogic::Helper::DeltaTime::DeltaTime() {}
 void PMLogic::Helper::DeltaTime::Tick() {
-    if(stopWatch.GetIsPaused()) {
-        stopWatch.Resume();
+    if(!stopWatch) stopWatch = std::make_unique<PMLogic::Helper::StopWatch>();
+    if(stopWatch->GetIsPaused()) {
+        stopWatch->Resume();
         for(auto iter = stopWatches.begin(); iter != stopWatches.end(); iter++) {
             if(!iter->expired()) {
                 iter->lock()->Resume();
@@ -64,8 +63,8 @@ void PMLogic::Helper::DeltaTime::Tick() {
             else iter = stopWatches.erase(iter);
         }
     }
-    deltaTime = stopWatch.GetCurrentTime();
-    stopWatch.Start();
+    deltaTime = stopWatch->GetCurrentTime();
+    stopWatch->Start();
 
     for(auto timerIter = timers.begin(); timerIter != timers.end(); timerIter++) {
         if(!timerIter->expired()) {

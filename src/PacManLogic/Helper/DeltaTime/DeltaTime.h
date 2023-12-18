@@ -23,7 +23,7 @@ public:
 class PMLogic::Helper::StopWatch {
 protected:
     bool isPaused;
-    std::chrono::time_point<std::chrono::high_resolution_clock> startTime, capturedTime;
+    std::chrono::time_point<std::chrono::steady_clock> startTime, capturedTime;
 public:
     StopWatch();
     void Start();
@@ -45,7 +45,7 @@ protected:
     DeltaTime();
 
     float deltaTime;
-    PMLogic::Helper::StopWatch stopWatch;
+    std::unique_ptr<PMLogic::Helper::StopWatch> stopWatch;
 
     std::list<std::weak_ptr<PMLogic::Helper::Timer>> timers;
     std::list<std::weak_ptr<PMLogic::Helper::StopWatch>> stopWatches;

@@ -7,6 +7,7 @@ EntityView::EntityView(const std::weak_ptr<sf::RenderWindow>& window, const int&
       baseSpriteColumn(spriteColumn), baseSpriteRow(spriteRow), spriteColumn(spriteColumn), spriteRow(spriteRow) {}
 
 void EntityView::Update(const EntityCreateEvent& eventData) {
+    entityDestroyed = false;
     const sf::Vector2f size = window.lock()->getDefaultView().getSize();
 
     PMLogic::Helper::Camera camera(

@@ -5,20 +5,32 @@
 #include "EntityFactory/EntityFactory.h"
 #include "Helper/DeltaTime/DeltaTime.h"
 #include "State/PausedState/PausedState.h"
+#include "State/GameOverState/GameOverState.h"
 #include "State/StateManager/StateManager.h"
 
 LevelState::LevelState(const std::weak_ptr<sf::RenderWindow> &window) : State(window),
 renderCallbacks(new std::vector<std::function<void()>>()),
-score(ButtonWidget("SCORE: ", secondaryFont, sf::Color::Yellow, 30, {0, 0}))
+score(TextWidget("SCORE: ", secondaryFont, sf::Color::Yellow, 30, {0, 0})),
+lives(TextWidget("LIVES: ", secondaryFont, sf::Color::Yellow, 30, {window.lock()->getDefaultView().getSize().x-250, 0}))
 {
     std::unique_ptr<PMLogic::AbstractFactory> factory {std::make_unique<EntityFactory>(renderCallbacks, window)};
     world = std::make_unique<PMLogic::World>(factory);
+
     score.text.setOrigin(0, 0);
+    lives.text.setOrigin(0, 0);
 }
 
 void LevelState::Update() {
-   world->Update();
-   score.text.setString("SCORE: "+std::to_string(world->GetScore()));
+    if(!world->GetLives()) {
+        PMLogic::Helper::DeltaTime::GetInstance().lock()->Pause();
+        std::unique_ptr<State> newState{new GameOverState(window)};
+        manager.lock()->PushState(newState);
+    }
+    else {
+        world->Update();
+        score.text.setString("SCORE: " + std::to_string(world->GetScore()));
+        lives.text.setString("LIVES: " + std::to_string(world->GetLives()));
+    }
 }
 
 void LevelState::Render() {
@@ -27,6 +39,7 @@ void LevelState::Render() {
         if(currentRenderCallback) currentRenderCallback();
     }
     renderWindow->draw(score.text);
+    renderWindow->draw(lives.text);
 }
 
 void LevelState::ProcessEvents(const sf::Event &event) {

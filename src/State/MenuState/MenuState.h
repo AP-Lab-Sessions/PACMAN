@@ -3,14 +3,12 @@
 #ifndef PACMAN_MENUSTATE_H
 #define PACMAN_MENUSTATE_H
 
+#include "Game/Widgets/TextWidget/TextWidget.h"
 #include "State/State.h"
-#include "Game/Widgets/ButtonWidget/ButtonWidget.h"
-
-#include <memory>
 
 class MenuState : public State {
 protected:
-    ButtonWidget title, play, quit, highScore;
+    TextWidget title, play, quit, highScore;
 
 public:
     explicit MenuState(const std::weak_ptr<sf::RenderWindow> &window);

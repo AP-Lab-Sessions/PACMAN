@@ -6,13 +6,13 @@
 #include "Entity/StaticEntity/CollectableEntity/Coin/Coin.h"
 
 PacMan::PacMan(const Coordinate2D::NormalizedCoordinate &startPosition, const Coordinate2D::Coordinate &size) :
-DynamicEntity(startPosition, size, 3, 0.75f), nextDirection(currentDirection) {
+DynamicEntity(startPosition, size, 0.75f) {
     SetIsKillable(true);
 }
 
 void PacMan::Eat(const CollectableEntity& collectable) {
-    onCollision->SetColliders(collectable);
     collectable.onEntityCollected->Notify(*collectable.onEntityCollected);
+    collectable.onEntityDestroy->Notify(*collectable.onEntityDestroy);
 }
 void PacMan::Accept(const std::weak_ptr<IEntityVisitor>& visitor) {
     visitor.lock()->Visit(*this);

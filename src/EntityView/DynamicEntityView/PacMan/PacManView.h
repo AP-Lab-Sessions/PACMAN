@@ -3,7 +3,7 @@
 #ifndef PAC_MAN_PACMANVIEW_H
 #define PAC_MAN_PACMANVIEW_H
 
-#include "EntityView/DynamicEntityView.h"
+#include "EntityView/DynamicEntityView/DynamicEntityView.h"
 
 class PacManView final : public DynamicEntityView {
 protected:

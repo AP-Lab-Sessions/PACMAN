@@ -16,10 +16,10 @@ std::string getHighScoreStr() {
 
 
 MenuState::MenuState(const std::weak_ptr<sf::RenderWindow> &window) : State(window),
-title(ButtonWidget("PACMAN", mainFont, sf::Color::Yellow, 75, {sf::Vector2f(window.lock()->getSize()).x/2.0f, 50})),
-play(ButtonWidget("PLAY", mainFont, sf::Color::Yellow, 45, {sf::Vector2f(window.lock()->getSize()).x/2.0f, 250})),
-quit(ButtonWidget("QUIT", mainFont, sf::Color::Yellow, 45, {sf::Vector2f(window.lock()->getSize()).x/2.0f, 350})),
-highScore(ButtonWidget(getHighScoreStr(), secondaryFont, sf::Color::Yellow, 20,
+title(TextWidget("PACMAN", mainFont, sf::Color::Yellow, 75, {sf::Vector2f(window.lock()->getSize()).x/2.0f, 50})),
+play(TextWidget("PLAY", mainFont, sf::Color::Yellow, 45, {sf::Vector2f(window.lock()->getSize()).x/2.0f, 250})),
+quit(TextWidget("QUIT", mainFont, sf::Color::Yellow, 45, {sf::Vector2f(window.lock()->getSize()).x/2.0f, 350})),
+highScore(TextWidget(getHighScoreStr(), secondaryFont, sf::Color::Yellow, 20,
                  {200, (sf::Vector2f(window.lock()->getSize()).y)-100}))
 {
 

@@ -7,12 +7,13 @@
 
 DynamicEntity::DynamicEntity(const Coordinate2D::NormalizedCoordinate& startPosition,
                              const Coordinate2D::Coordinate &size,
-                             const unsigned int &lives, const float &defaultSpeed)
-    : PMLogic::Entity(startPosition, size), spawn(startPosition), lives(lives),  currentDirection(Direction_Right),
+                              const float &defaultSpeed)
+    : PMLogic::Entity(startPosition, size), spawn(startPosition),
+      currentDirection(Direction_Right), nextDirection(currentDirection), viableDirections(directions2D),
       defaultSpeed(defaultSpeed), speed(defaultSpeed),
-    canMove(true), isKillable(true), onPositionChange(std::make_unique<EntityPositionChangeEvent>(startPosition)),
-    onDirectionChange(std::make_unique<EntityDirectionChangeEvent>(currentDirection)) {}
-
+      isKillable(true), onPositionChange(std::make_unique<EntityPositionChangeEvent>(startPosition)),
+    onDirectionChange(std::make_unique<EntityDirectionChangeEvent>(currentDirection)) {
+}
 
 float move(const float &position, const float &speed, const float &length) {
     const float potentialResult {position+speed};
@@ -25,18 +26,13 @@ float move(const float &position, const float &speed, const float &length) {
     return potentialResult;
 }
 void DynamicEntity::Move() {
-    const auto nextPosition = GetNextPosition();
-    if(GetCanMove() && nextPosition != GetPosition()) {
-        SetPosition(nextPosition);
+    if(std::find(viableDirections.begin(), viableDirections.end(), nextDirection) != viableDirections.end()) {
+        SetDirection(nextDirection);
     }
-}
-
-void DynamicEntity::SetCanMove(const bool &newCanMove) {
-    canMove = newCanMove;
-}
-
-bool DynamicEntity::GetCanMove() const {
-    return canMove;
+    if(std::find(viableDirections.begin(), viableDirections.end(), GetDirection()) != viableDirections.end()) {
+        SetPosition(GetNextPosition());
+    }
+    viableDirections = directions2D;
 }
 
 Coordinate2D::NormalizedCoordinate DynamicEntity::GetNextPosition(const DiscreteDirection2D& direction) const {
@@ -77,10 +73,10 @@ void DynamicEntity::SetSpeed(const float &newSpeed) {
     speed = newSpeed;
 }
 
-unsigned int DynamicEntity::GetLives() const {
-    return lives;
-}
 
+void DynamicEntity::SetNextDirection(const DiscreteDirection2D& newDirection) {
+    nextDirection = newDirection;
+}
 void DynamicEntity::SetDirection(const DiscreteDirection2D &newDirection) {
     currentDirection = newDirection;
     onDirectionChange->newDirection = newDirection;
@@ -100,8 +96,7 @@ void DynamicEntity::SetIsKillable(const bool &newIsKillable) {
 }
 
 void DynamicEntity::CollideWith(Wall & wall) {
-    if(WillCollide(wall)) {
-        // set the position right before the wall
+     if(WillCollide(wall)) {
         const auto &nextPosition = GetNextPosition();
         switch(GetDirection()) {
         case Direction_Right:
@@ -117,7 +112,11 @@ void DynamicEntity::CollideWith(Wall & wall) {
             SetPosition({nextPosition.GetX(), wall.GetPosition().GetY()-GetSize().GetY()});
             break;
         }
-        SetCanMove(false);
+    }
+    for(const auto &direction : directions2D) {
+        if(WillCollide(wall, direction)) {
+            viableDirections.remove(direction);
+        }
     }
 }
 
@@ -134,4 +133,10 @@ float DynamicEntity::GetDefaultSpeed() const {
 
 Coordinate2D::NormalizedCoordinate DynamicEntity::GetSpawn() const {
     return spawn;
+}
+
+
+void DynamicEntity::Respawn() {
+    SetPosition(GetSpawn());
+    onEntityCreate->Notify(*onEntityCreate);
 }

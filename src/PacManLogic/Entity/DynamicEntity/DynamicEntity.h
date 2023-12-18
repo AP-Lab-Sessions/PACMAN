@@ -9,14 +9,16 @@
 
 class DynamicEntity : public PMLogic::Entity {
 protected:
+
     const Coordinate2D::NormalizedCoordinate spawn;
 
-    unsigned int lives;
     DiscreteDirection2D currentDirection;
+    DiscreteDirection2D nextDirection;
+
+    std::list<DiscreteDirection2D> viableDirections;
 
     float defaultSpeed, speed;
 
-    bool canMove;
     bool isKillable;
 public:
     std::unique_ptr<EntityPositionChangeEvent> onPositionChange;
@@ -26,7 +28,7 @@ public:
 
     explicit DynamicEntity(const Coordinate2D::NormalizedCoordinate &startPosition,
                            const Coordinate2D::Coordinate &size,
-                           const unsigned int &lives, const float &speed);
+                           const float &speed);
     ~DynamicEntity() override = default;
 
     void Move();
@@ -39,16 +41,12 @@ public:
 
     float GetDefaultSpeed() const;
 
-    unsigned int GetLives() const;
-
+    void SetNextDirection(const DiscreteDirection2D &newDirection);
     void SetDirection(const DiscreteDirection2D &newDirection);
     DiscreteDirection2D GetDirection() const;
 
     Coordinate2D::NormalizedCoordinate GetNextPosition() const;
     Coordinate2D::NormalizedCoordinate GetNextPosition(const DiscreteDirection2D &direction) const;
-
-    bool GetCanMove() const;
-    void SetCanMove(const bool &newCanMove);
 
     bool GetIsKillable() const;
     void SetIsKillable(const bool &newIsKillable);
@@ -64,6 +62,8 @@ public:
     void CollideWith(PMLogic::Entity &) override = 0;
 
     Coordinate2D::NormalizedCoordinate GetSpawn() const;
+
+    void Respawn() override;
 };
 
 #endif // PACMAN_DYNAMICENTITY_H

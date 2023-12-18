@@ -5,7 +5,7 @@
 
 #include "Entity/DynamicEntity/AutomaticEntity/AutomaticEntity.h"
 #include "Events/EntityEvent/EntityCollectedEvent.h"
-#include "Events/GhostEvent/GhostModeChangeEvent.h"
+#include "Events/EntityEvent/GhostEvent/GhostModeChangeEvent.h"
 
 #include <unordered_map>
 
@@ -19,7 +19,8 @@ private:
 protected:
     const float fearDuration;
     GhostMode mode;
-    std::list<DiscreteDirection2D> viableDirections;
+
+    std::list<DiscreteDirection2D> previousViableDirections;
 
     DiscreteDirection2D GetDirectionWithMinimumDistance() const;
     DiscreteDirection2D GetDirectionWithMaximumDistance() const;
@@ -43,15 +44,13 @@ public:
 
     void ChooseDirection() override;
 
-    void ResetViableDirections();
-
     void Update(const EntityPositionChangeEvent &eventData) override;
 
     void Update(const EntityCollectedEvent &eventData) override;
 
     using AutomaticEntity::Update;
 
-    void Respawn();
+    void Respawn() override;
 };
 
 #endif // PACMAN_GHOST_H

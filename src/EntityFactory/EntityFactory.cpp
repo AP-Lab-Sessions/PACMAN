@@ -7,8 +7,8 @@
 #include "Entity/StaticEntity/CollectableEntity/Fruit/Fruit.h"
 #include "Entity/StaticEntity/Wall/Wall.h"
 
-#include "EntityView/PacMan/PacManView.h"
-#include "EntityView/Ghost/GhostView.h"
+#include "EntityView/DynamicEntityView/PacMan/PacManView.h"
+#include "EntityView/DynamicEntityView/Ghost/GhostView.h"
 #include "EntityView/Wall/WallView.h"
 #include "EntityView/Coin/CoinView.h"
 #include "EntityView/Fruit/FruitView.h"

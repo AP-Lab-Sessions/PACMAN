@@ -3,7 +3,7 @@
 #ifndef PACMAN_DYNAMICENTITYVIEW_H
 #define PACMAN_DYNAMICENTITYVIEW_H
 
-#include "EntityView.h"
+#include "EntityView/EntityView.h"
 #include "Events/EntityEvent/EntityDirectionChangeEvent.h"
 #include "Events/EntityEvent/EntityPositionChangeEvent.h"
 

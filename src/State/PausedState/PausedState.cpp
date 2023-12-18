@@ -6,13 +6,13 @@
 
 PausedState::PausedState(const std::weak_ptr<sf::RenderWindow>& window)
     : State(window),
-      description(ButtonWidget("You paused the game.", secondaryFont, sf::Color::Yellow, 30,
+      description(TextWidget("You paused the game.", secondaryFont, sf::Color::Yellow, 30,
                                {sf::Vector2f(window.lock()->getDefaultView().getSize()).x/2.0f,
                                 sf::Vector2f(window.lock()->getDefaultView().getSize()).y/2.0f-200.0f})),
-      resume(ButtonWidget("Resume", secondaryFont, sf::Color::Yellow, 30,
+      resume(TextWidget("Resume", secondaryFont, sf::Color::Yellow, 30,
                             {sf::Vector2f(window.lock()->getDefaultView().getSize()).x/2.0f,
                              sf::Vector2f(window.lock()->getDefaultView().getSize()).y/2.0f-50.0f})),
-      goToMenu(ButtonWidget("Exit to menu", secondaryFont, sf::Color::Yellow, 30,
+      goToMenu(TextWidget("Exit to menu", secondaryFont, sf::Color::Yellow, 30,
                           {sf::Vector2f(window.lock()->getDefaultView().getSize()).x/2.0f,
                            sf::Vector2f(window.lock()->getDefaultView().getSize()).y/2.0f+50.f}))
 {}

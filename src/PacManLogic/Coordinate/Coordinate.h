@@ -3,10 +3,12 @@
 #ifndef PACMAN_COORDINATE_H
 #define PACMAN_COORDINATE_H
 
+#include <list>
 
 enum DiscreteDirection2D {
     Direction_Left='L', Direction_Right='R', Direction_Up='U', Direction_Down='D'
 };
+const std::list<DiscreteDirection2D> directions2D = {Direction_Left, Direction_Right, Direction_Up, Direction_Down};
 
 namespace Coordinate2D {
 class Coordinate {

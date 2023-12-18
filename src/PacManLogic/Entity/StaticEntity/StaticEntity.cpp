@@ -9,3 +9,4 @@ StaticEntity::StaticEntity(const Coordinate2D::NormalizedCoordinate &startPositi
 bool StaticEntity::WillCollide(const PMLogic::Entity &entity) const {
     return Coordinate2D::IsOverlapping(GetPosition(), GetSize(), entity.GetPosition(), entity.GetSize());
 }
+

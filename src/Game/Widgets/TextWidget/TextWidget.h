@@ -5,11 +5,11 @@
 
 #include <SFML/Graphics.hpp>
 
-class ButtonWidget {
+class TextWidget {
 public:
     sf::Text text;
 
-    ButtonWidget(const std::string &str, const sf::Font &font, const sf::Color &fillColor,
+    TextWidget(const std::string &str, const sf::Font &font, const sf::Color &fillColor,
            const int &size,  const sf::Vector2f &position);
     bool IsClicked(const sf::Vector2f &mousePos) const;
 };

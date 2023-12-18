@@ -1,6 +1,6 @@
 #include "Game/Game.h"
 
-// TODO: Intersection detection for both pacman and ghost, 
+// TODO: Intersection detection for both pacman and ghost,
 //  game over and victory,
 //  next level, audio, documentation,
 //  Exception handling,

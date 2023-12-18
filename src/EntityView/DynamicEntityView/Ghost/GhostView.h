@@ -3,8 +3,8 @@
 #ifndef PACMAN_GHOSTVIEW_H
 #define PACMAN_GHOSTVIEW_H
 
-#include "EntityView/DynamicEntityView.h"
-#include "Events/GhostEvent/GhostModeChangeEvent.h"
+#include "EntityView/DynamicEntityView/DynamicEntityView.h"
+#include "Events/EntityEvent/GhostEvent/GhostModeChangeEvent.h"
 
 class GhostView final : public DynamicEntityView,
                         public PMLogic::IEventListener<GhostModeChangeEvent>{

@@ -6,16 +6,13 @@
 #include "Helper/Random/Random.h"
 #include "Helper/DeltaTime/DeltaTime.h"
 
-const std::list<DiscreteDirection2D> directions2D = {Direction_Left, Direction_Right, Direction_Up, Direction_Down};
-
 Ghost::Ghost(const Coordinate2D::NormalizedCoordinate &startPosition,const Coordinate2D::Coordinate &size,
              const float &power,
              const float &stasisTime) :
-AutomaticEntity(startPosition, size, 1, 0.75f*power),  fearDuration(10.0f/power), mode(Mode_Stasis),
+AutomaticEntity(startPosition, size, 0.75f*power),  fearDuration(10.0f/power), mode(Mode_Stasis),
     onModeChange(std::make_unique<GhostModeChangeEvent>(mode)),
     onEntityCollected(std::make_unique<EntityCollectedEvent>(50,false))
 {
-    ResetViableDirections();
     SetIsKillable(false);
     modeTimer = std::make_shared<PMLogic::Helper::Timer>([&]{
                     SetMode(Mode_Chase);
@@ -29,8 +26,12 @@ void Ghost::Accept(const std::weak_ptr<IEntityVisitor>& visitor) {
 
 void Ghost::CollideWith(PacMan &pacMan) {
     if(WillCollide(pacMan)) {
-        if (onCollision)
-            onCollision->SetColliders(pacMan, *this);
+        if(GetIsKillable()) {
+            Respawn();
+        }
+        else if(pacMan.GetIsKillable()) {
+            pacMan.onEntityDestroy->Notify(*pacMan.onEntityDestroy);
+        }
     }
 }
 
@@ -39,13 +40,8 @@ void Ghost::CollideWith(PMLogic::Entity &entity) {
 }
 
 void Ghost::CollideWith(Wall& wall) {
-    DynamicEntity::WillCollide(wall);
-    for(const auto &direction : directions2D) {
-        if(WillCollide(wall, direction)) {
-            viableDirections.remove(direction);
-        }
-    }
-    if(WillCollide(wall)) ChooseDirection();
+    DynamicEntity::CollideWith(wall);
+    //if(WillCollide(wall)) ChooseDirection();
 }
 
 GhostMode Ghost::GetMode() const {
@@ -73,10 +69,6 @@ void Ghost::SetMode(const GhostMode &newMode) {
     }
     onModeChange->newMode = newMode;
     onModeChange->Notify(*onModeChange);
-}
-
-void Ghost::ResetViableDirections() {
-    viableDirections = directions2D;
 }
 
 
@@ -120,7 +112,6 @@ DiscreteDirection2D Ghost::GetDirectionWithMaximumDistance() const {
     return result[random.lock()->GetRandomInteger(0, static_cast<int>(result.size()-1))];
 }
 void Ghost::ChooseDirection() {
-    viableDirections.remove(currentDirection);
     if(!viableDirections.empty()) {
         const auto& random = PMLogic::Helper::Random::GetInstance();
         const bool computeManhattanDistance = random.lock()->GetRandomFloat(0.0f, 1.0f) <= 0.5f;
@@ -143,7 +134,7 @@ void Ghost::ChooseDirection() {
         }
         SetDirection(bestDirection);
     }
-    else SetCanMove(false);
+    previousViableDirections = viableDirections;
 }
 
 void Ghost::Update(const EntityPositionChangeEvent& eventData) {
@@ -165,3 +156,4 @@ void Ghost::Respawn() {
     SetPosition(GetSpawn());
     ChooseDirection();
 }
+
