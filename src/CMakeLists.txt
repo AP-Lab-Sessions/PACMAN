@@ -1,5 +1,4 @@
 add_subdirectory(PacManLogic)
-add_subdirectory(lib/googletest)
 
 SET(VIEW_SRC EntityView/DynamicEntityView/PacMan/PacManView.cpp EntityFactory/EntityFactory.h EntityFactory/EntityFactory.h
         EntityFactory/EntityFactory.h EntityFactory/EntityFactory.cpp

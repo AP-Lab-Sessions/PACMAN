@@ -14,7 +14,6 @@ SET(LOGIC_SRC Pattern/AbstractFactory/AbstractFactory.h
         Entity/StaticEntity/CollectableEntity/Coin/Coin.h Entity/StaticEntity/CollectableEntity/Coin/Coin.cpp
         Entity/StaticEntity/Wall/Wall.h Entity/StaticEntity/Wall/Wall.cpp Entity/StaticEntity/CollectableEntity/CollectableEntity.cpp
         Pattern/Visitor/IVisitor.h Entity/DynamicEntity/PacMan/PacMan.cpp Entity/DynamicEntity/AutomaticEntity/Ghost/Ghost.cpp
-        Pattern/Command/ICommand.h
         World/Level/UpdateVisitor/UpdateVisitor.h World/Level/UpdateVisitor/UpdateVisitor.cpp
         Entity/IEntityVisitor/IEntityVisitor.h Entity/IEntityVisitor/IEntityVisitor.h
         Score/Score.cpp Events/EntityEvent/EntityPositionChangeEvent.h Events/EntityEvent/EntityDestroyEvent.h
