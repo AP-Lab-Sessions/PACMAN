@@ -1,5 +1,5 @@
 PROJECT(PacManLogic)
-SET(LOGIC_SRC AbstractFactory/AbstractFactory.h
+SET(LOGIC_SRC Pattern/AbstractFactory/AbstractFactory.h
         Pattern/Observer/EventListener/IEventListener.h
         Pattern/Observer/Event/Event.h
         World/World.cpp

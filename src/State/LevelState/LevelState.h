@@ -10,7 +10,7 @@
 
 class LevelState : public State {
 protected:
-    const std::shared_ptr<std::vector<std::function<void()>>> renderCallbacks;
+    std::vector<std::shared_ptr<EntityView>> views;
     std::unique_ptr<PMLogic::World> world;
     TextWidget score, lives;
 public:

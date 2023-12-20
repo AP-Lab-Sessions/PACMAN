@@ -19,3 +19,7 @@ Coordinate2D::Coordinate PMLogic::Entity::GetSize() const {
 void PMLogic::Entity::Create() const {
     onEntityCreate->Notify(*onEntityCreate);
 }
+
+PMLogic::Entity::~Entity() {
+    onEntityDestroy->Notify(*onEntityDestroy);
+}

@@ -24,7 +24,7 @@ public:
     Coordinate2D::Coordinate GetSize() const;
 
     explicit Entity(Coordinate2D::NormalizedCoordinate startPosition, const Coordinate2D::Coordinate &size);
-    virtual ~Entity() = default;
+    virtual ~Entity();
 
     Coordinate2D::NormalizedCoordinate GetPosition() const;
 

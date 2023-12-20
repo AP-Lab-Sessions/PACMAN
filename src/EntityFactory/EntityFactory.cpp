@@ -21,9 +21,7 @@ std::unique_ptr<EntityType> EntityFactory::CreateEntity(const Coordinate2D::Norm
     std::unique_ptr<EntityType> entity {new EntityType(startPosition, size)};
     std::shared_ptr<EntityViewType> view{new EntityViewType(window)};
 
-    std::function<void()> callback = [view](){view->Render();};
-
-    renderCallbacks.lock()->push_back(callback);
+    viewsRef.push_back(view);
     entity->onEntityDestroy->Attach(view);
     entity->onEntityCreate->Attach(view);
 
@@ -36,9 +34,8 @@ std::unique_ptr<DynamicEntityType> EntityFactory::CreateDynamicEntity(const Coor
     std::unique_ptr<DynamicEntityType> entity {new DynamicEntityType(startPosition, size)};
     std::shared_ptr<DynamicEntityViewType> view{new DynamicEntityViewType(window)};
 
-    std::function<void()> callback = [view](){view->Render();};
 
-    renderCallbacks.lock()->push_back(callback);
+    viewsRef.push_back(view);
     entity->onEntityDestroy->Attach(view);
     entity->onEntityCreate->Attach(view);
     entity->onPositionChange->Attach(view);
@@ -48,9 +45,9 @@ std::unique_ptr<DynamicEntityType> EntityFactory::CreateDynamicEntity(const Coor
     return entity;
 }
 
-EntityFactory::EntityFactory(const std::weak_ptr<std::vector<std::function<void()>>>& callbacks,
+EntityFactory::EntityFactory(std::vector<std::shared_ptr<EntityView>> &viewsRef,
                              const std::weak_ptr<sf::RenderWindow> &window)
-: renderCallbacks(callbacks), window(window) {}
+: viewsRef(viewsRef), window(window) {}
 
 
 std::unique_ptr<PacMan> EntityFactory::CreatePacMan(
@@ -78,9 +75,8 @@ std::unique_ptr<Ghost> EntityFactory::CreateGhost(
     std::unique_ptr<Ghost> entity {new Ghost(startPosition, size, power)};
     std::shared_ptr<GhostView> view{new GhostView(window)};
 
-    std::function<void()> callback = [view](){view->Render();};
 
-    renderCallbacks.lock()->push_back(callback);
+    viewsRef.push_back(view);
     entity->onEntityDestroy->Attach(view);
     entity->onEntityCreate->Attach(view);
     entity->onPositionChange->Attach(view);
@@ -97,8 +93,7 @@ std::unique_ptr<Wall> EntityFactory::CreateWall(
     std::unique_ptr<Wall> entity {new Wall(startPosition, size)};
     std::shared_ptr<WallView> view{new WallView(window)};
 
-    std::function<void()> callback = [view](){view->Render();};
-    renderCallbacks.lock()->push_back(callback);
+    viewsRef.push_back(view);
     entity->onEntityCreate->Attach(view);
     entity->onEntityDestroy->Attach(view);
 

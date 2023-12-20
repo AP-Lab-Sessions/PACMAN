@@ -3,14 +3,14 @@
 #ifndef PACMAN_ENTITYFACTORY_H
 #define PACMAN_ENTITYFACTORY_H
 
-#include "AbstractFactory/AbstractFactory.h"
+#include "Pattern/AbstractFactory/AbstractFactory.h"
 #include "EntityView/EntityView.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
 class EntityFactory : public PMLogic::AbstractFactory {
 protected:
-    const std::weak_ptr<std::vector<std::function<void()>>> renderCallbacks;
+    std::vector<std::shared_ptr<EntityView>> &viewsRef;
     const std::weak_ptr<sf::RenderWindow> window;
 
     template<typename EntityType, typename EntityViewType>
@@ -21,7 +21,7 @@ protected:
     std::unique_ptr<DynamicEntityType> CreateDynamicEntity(const Coordinate2D::NormalizedCoordinate &startPosition,
                                                            const Coordinate2D::Coordinate &size) const;
 public:
-    explicit EntityFactory(const std::weak_ptr<std::vector<std::function<void()>>> &observers_ptr,
+    explicit EntityFactory( std::vector<std::shared_ptr<EntityView>> &viewsRef,
                            const std::weak_ptr<sf::RenderWindow> &window);
 
     std::unique_ptr<PacMan> CreatePacMan(

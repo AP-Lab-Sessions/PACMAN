@@ -3,11 +3,11 @@
 #include "Game.h"
 #include "State/MenuState/MenuState.h"
 // TODO: score system, states, animations, multiple lives, gameover
-Game::Game(const unsigned int &width, const unsigned int &height) : view(sf::View()), width(width), height(height)
+Game::Game(const unsigned int &width, const unsigned int &height) : width(width), height(height)
 {
     window = std::make_shared<sf::RenderWindow>(sf::VideoMode(width,height), "PacMan",
                                                 sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize);
-
+    view = window->getDefaultView();
     view.setCenter(static_cast<float>(window->getSize().x)/2, static_cast<float>(window->getSize().y)/2);
     view.setSize(static_cast<float>(window->getSize().x), static_cast<float>(window->getSize().y));
     window->setFramerateLimit(144);

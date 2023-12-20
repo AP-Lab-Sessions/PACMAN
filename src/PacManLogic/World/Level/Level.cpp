@@ -25,6 +25,7 @@ Coordinate2D::Coordinate GetLevelSize(const std::string &levelStrArg) {
     return {width, height};
 }
 void Level::Load() {
+
     std::shared_ptr<PMLogic::AbstractFactory> factoryPtr = factory.lock();
     std::vector<std::unique_ptr<CollectableEntity>> collectables;
     std::vector<std::shared_ptr<Ghost>> ghosts;
@@ -83,7 +84,9 @@ void Level::Load() {
         for (auto& currentGhost : ghosts) {
             currentCollectable->onEntityCollected->Attach(currentGhost);
         }
+        collectablesCount++;
         currentCollectable->onEntityCollected->Attach(score.lock());
+        currentCollectable->onEntityCollected->Attach(shared_from_this());
         entities.push_back(std::move(currentCollectable));
     }
     for (auto& currentGhost : ghosts) {
@@ -106,7 +109,7 @@ Level::Level(const std::string &levelStr, const std::weak_ptr<PMLogic::AbstractF
              const float &difficulty)
     : levelStr(levelStr), levelSize(GetLevelSize(levelStr)), factory(factory), score(score), lives(lives),
       updateVisitor(std::make_shared<UpdateVisitor>()),
-      difficultyFactor(difficulty)
+      difficultyFactor(difficulty), collectablesCount(0)
 {}
 
 void Level::Restart() {
@@ -137,7 +140,15 @@ void Level::Update() {
         currentEntity->Accept(updateVisitor);
     }
 
-    if(pacManDied && *lives.lock()) Restart();
+    if(!collectablesCount) {
+        PMLogic::Helper::DeltaTime::GetInstance().lock()->Pause();
+        entities.clear();
+        Load();
+    }
+    else if(pacManDied && *lives.lock()) {
+        PMLogic::Helper::DeltaTime::GetInstance().lock()->Pause();
+        Restart();
+    }
 }
 
 
@@ -147,5 +158,9 @@ std::weak_ptr<PacMan> Level::GetPlayer() const {
 
 void Level::Update(const EntityDestroyEvent& eventData) {
         destructables.emplace_back(eventData.entity);
+}
+
+void Level::Update(const EntityCollectedEvent& entityCollected) {
+        collectablesCount--;
 }
 

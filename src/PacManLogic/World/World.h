@@ -3,7 +3,7 @@
 #ifndef WORLD_H
 #define WORLD_H
 
-#include "AbstractFactory/AbstractFactory.h"
+#include "Pattern/AbstractFactory/AbstractFactory.h"
 #include "Level/Level.h"
 
 

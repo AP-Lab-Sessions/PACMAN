@@ -22,6 +22,7 @@ void EntityView::Update(const EntityCreateEvent& eventData) {
 }
 void EntityView::Update(const EntityDestroyEvent& event) {
     entityDestroyed = true;
+
 }
 
 void EntityView::Render() const {

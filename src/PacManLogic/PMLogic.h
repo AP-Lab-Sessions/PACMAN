@@ -21,17 +21,6 @@ namespace PMLogic {
 
     class IVisitor;
 
-
-    // Command design pattern
-
-    template<typename CommandType>
-    class ICommand;
-
-    class Receiver;
-
-    class Invoker;
-
-
     class Entity;
 
     class AbstractFactory;

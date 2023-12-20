@@ -9,11 +9,10 @@
 #include "State/StateManager/StateManager.h"
 
 LevelState::LevelState(const std::weak_ptr<sf::RenderWindow> &window) : State(window),
-renderCallbacks(new std::vector<std::function<void()>>()),
 score(TextWidget("SCORE: ", secondaryFont, sf::Color::Yellow, 30, {0, 0})),
 lives(TextWidget("LIVES: ", secondaryFont, sf::Color::Yellow, 30, {window.lock()->getDefaultView().getSize().x-250, 0}))
 {
-    std::unique_ptr<PMLogic::AbstractFactory> factory {std::make_unique<EntityFactory>(renderCallbacks, window)};
+    std::unique_ptr<PMLogic::AbstractFactory> factory {std::make_unique<EntityFactory>(views, window)};
     world = std::make_unique<PMLogic::World>(factory);
 
     score.text.setOrigin(0, 0);
@@ -35,8 +34,8 @@ void LevelState::Update() {
 
 void LevelState::Render() {
     const auto &renderWindow = window.lock();
-    for(const auto &currentRenderCallback : *renderCallbacks) {
-        if(currentRenderCallback) currentRenderCallback();
+    for(const auto &currentView : views) {
+        currentView->Render();
     }
     renderWindow->draw(score.text);
     renderWindow->draw(lives.text);
