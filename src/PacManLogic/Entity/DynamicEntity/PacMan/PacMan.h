@@ -13,7 +13,6 @@ public:
     void Eat(const CollectableEntity &collectable);
     void Accept(const std::weak_ptr<IEntityVisitor> &visitor) override;
 
-    void CollideWith(Ghost &) final;
     void CollideWith(Fruit &) final;
     void CollideWith(Coin &) final;
 

@@ -23,7 +23,6 @@ protected:
 
     const int baseSpriteColumn, baseSpriteRow;
     int spriteColumn, spriteRow;
-
 public:
     virtual void Render() const;
 

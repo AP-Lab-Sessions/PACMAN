@@ -51,7 +51,7 @@ void PMLogic::Helper::DeltaTime::Pause() {
     }
 }
 
-PMLogic::Helper::DeltaTime::DeltaTime() {}
+PMLogic::Helper::DeltaTime::DeltaTime() : deltaTime(0.0) {}
 void PMLogic::Helper::DeltaTime::Tick() {
     if(!stopWatch) stopWatch = std::make_unique<PMLogic::Helper::StopWatch>();
     if(stopWatch->GetIsPaused()) {

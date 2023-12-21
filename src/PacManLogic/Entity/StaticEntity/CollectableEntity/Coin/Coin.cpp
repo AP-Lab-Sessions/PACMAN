@@ -9,8 +9,6 @@ void Coin::Accept(const std::weak_ptr<IEntityVisitor>& visitor) {
     visitor.lock()->Visit(*this);
 }
 
-void Coin::CollideWith(PacMan &) {}
-
 void Coin::CollideWith(PMLogic::Entity &entity) {
     entity.CollideWith(*this);
 }

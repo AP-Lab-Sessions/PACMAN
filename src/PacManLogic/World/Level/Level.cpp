@@ -24,6 +24,9 @@ Coordinate2D::Coordinate GetLevelSize(const std::string &levelStrArg) {
     width = (width / height)+1;
     return {width, height};
 }
+
+
+
 void Level::Load() {
 
     std::shared_ptr<PMLogic::AbstractFactory> factoryPtr = factory.lock();
@@ -34,11 +37,13 @@ void Level::Load() {
         (Coordinate2D::normalizedMax-Coordinate2D::normalizedMin)/levelSize.GetX(),
         (Coordinate2D::normalizedMax-Coordinate2D::normalizedMin)/levelSize.GetY()
     };
-
     float currentX = Coordinate2D::normalizedMin+(size.GetX() / 2.0f),
           currentY = Coordinate2D::normalizedMin;
     for (const char& currentChar : levelStr) {
         const Coordinate2D::NormalizedCoordinate position{(currentX),(currentY)};
+        if(currentChar != '#') {
+
+        }
         switch (currentChar) {
         case '\n': {
             currentY += size.GetY();
@@ -60,18 +65,17 @@ void Level::Load() {
             break;
         }
         case 'p': {
-            const std::shared_ptr<PacMan> pacMan = factoryPtr->CreatePacMan(position, {size.GetX()/1.05f, size.GetY()/1.05f});
+            const std::shared_ptr<PacMan> pacMan = factoryPtr->CreatePacMan(position, size);
             player = pacMan;
             entities.push_back(pacMan);
             break;
         }
         case 'g': {
-            for(int i=0;i<4;i++) ghosts.push_back(factoryPtr->CreateGhost(position, {size.GetX()/1.1f, size.GetY()/1.1f},
-                                                         difficultyFactor));
+            for(int i=0;i<4;i++) ghosts.push_back(factoryPtr->CreateGhost(position, size, currentDifficulty));
             break;
         }
         case '#': {
-            entities.push_back(factoryPtr->CreateWall(position, {size.GetX(), size.GetY()}));
+            entities.push_back(factoryPtr->CreateWall(position, size));
             break;
         }
         default:
@@ -105,11 +109,9 @@ Coordinate2D::Coordinate Level::GetSize() const {
 }
 
 Level::Level(const std::string &levelStr, const std::weak_ptr<PMLogic::AbstractFactory> &factory,
-             const std::weak_ptr<PMLogic::Score> &score, const std::weak_ptr<int> &lives,
-             const float &difficulty)
+             const std::weak_ptr<PMLogic::Score> &score, const std::weak_ptr<int> &lives)
     : levelStr(levelStr), levelSize(GetLevelSize(levelStr)), factory(factory), score(score), lives(lives),
-      updateVisitor(std::make_shared<UpdateVisitor>()),
-      difficultyFactor(difficulty), collectablesCount(0)
+      updateVisitor(std::make_shared<UpdateVisitor>()), currentDifficulty(1.0f), collectablesCount(0)
 {}
 
 void Level::Restart() {
@@ -143,6 +145,7 @@ void Level::Update() {
     if(!collectablesCount) {
         PMLogic::Helper::DeltaTime::GetInstance().lock()->Pause();
         entities.clear();
+        currentDifficulty *= 1.25;
         Load();
     }
     else if(pacManDied && *lives.lock()) {
@@ -160,7 +163,7 @@ void Level::Update(const EntityDestroyEvent& eventData) {
         destructables.emplace_back(eventData.entity);
 }
 
-void Level::Update(const EntityCollectedEvent& entityCollected) {
+void Level::Update(const EntityCollectedEvent&) {
         collectablesCount--;
 }
 

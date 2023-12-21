@@ -29,15 +29,14 @@ protected:
 
     std::shared_ptr<IEntityVisitor> updateVisitor;
 
-    float difficultyFactor;
+    float currentDifficulty;
     int collectablesCount;
 public:
 
 
     Level(const std::string &levelPath,
           const std::weak_ptr<PMLogic::AbstractFactory> &factory,
-          const std::weak_ptr<PMLogic::Score> &score, const std::weak_ptr<int> &lives,
-          const float &difficulty);
+          const std::weak_ptr<PMLogic::Score> &score, const std::weak_ptr<int> &lives);
 
     Coordinate2D::Coordinate GetSize() const;
 

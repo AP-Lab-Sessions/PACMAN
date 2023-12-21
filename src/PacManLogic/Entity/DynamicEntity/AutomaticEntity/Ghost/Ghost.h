@@ -20,10 +20,8 @@ protected:
     const float fearDuration;
     GhostMode mode;
 
-    std::list<DiscreteDirection2D> previousViableDirections;
-
-    DiscreteDirection2D GetDirectionWithMinimumDistance() const;
-    DiscreteDirection2D GetDirectionWithMaximumDistance() const;
+    Coordinate2D::DiscreteDirection2D GetDirectionWithMinimumDistance() const;
+    Coordinate2D::DiscreteDirection2D GetDirectionWithMaximumDistance() const;
 
 public:
     std::unique_ptr<GhostModeChangeEvent> onModeChange;

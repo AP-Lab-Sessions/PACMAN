@@ -2,7 +2,8 @@
 
 #include "Game.h"
 #include "State/MenuState/MenuState.h"
-// TODO: score system, states, animations, multiple lives, gameover
+
+// TODO: valgrind "conditional jump/moves depends on uninitialised value(s), simplify entityfactory
 Game::Game(const unsigned int &width, const unsigned int &height) : width(width), height(height)
 {
     window = std::make_shared<sf::RenderWindow>(sf::VideoMode(width,height), "PacMan",

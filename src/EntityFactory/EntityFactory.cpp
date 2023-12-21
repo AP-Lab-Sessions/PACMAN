@@ -59,14 +59,31 @@ std::unique_ptr<PacMan> EntityFactory::CreatePacMan(
 std::unique_ptr<Coin> EntityFactory::CreateCoin(
         const Coordinate2D::NormalizedCoordinate &startPosition,  const Coordinate2D::Coordinate &size
         ) const {
-    return CreateEntity<Coin, CoinView>(startPosition, size);
+    std::unique_ptr<Coin> entity {new Coin(startPosition, size)};
+    std::shared_ptr<CoinView> view{new CoinView(window)};
+
+    viewsRef.push_back(view);
+    entity->onEntityDestroy->Attach(view);
+    entity->onEntityCreate->Attach(view);
+    entity->onEntityCollected->Attach(view);
+
+    entity->Create();
+    return entity;
 }
 
 std::unique_ptr<Fruit> EntityFactory::CreateFruit(
         const Coordinate2D::NormalizedCoordinate &startPosition,  const Coordinate2D::Coordinate &size
         ) const {
-    auto fruit = CreateEntity<Fruit, FruitView>(startPosition, size);
-    return fruit;
+    std::unique_ptr<Fruit> entity {new Fruit(startPosition, size)};
+    std::shared_ptr<FruitView> view{new FruitView(window)};
+
+    viewsRef.push_back(view);
+    entity->onEntityDestroy->Attach(view);
+    entity->onEntityCreate->Attach(view);
+    entity->onEntityCollected->Attach(view);
+
+    entity->Create();
+    return entity;
 }
 
 std::unique_ptr<Ghost> EntityFactory::CreateGhost(
@@ -82,6 +99,7 @@ std::unique_ptr<Ghost> EntityFactory::CreateGhost(
     entity->onPositionChange->Attach(view);
     entity->onDirectionChange->Attach(view);
     entity->onModeChange->Attach(view);
+    entity->onEntityCollected->Attach(view);
 
     entity->Create();
     return entity;

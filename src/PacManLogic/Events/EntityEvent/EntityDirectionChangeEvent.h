@@ -7,9 +7,9 @@
 #include "Coordinate/Coordinate.h"
 
 struct EntityDirectionChangeEvent : public PMLogic::Event<EntityDirectionChangeEvent> {
-    DiscreteDirection2D newDirection;
+    Coordinate2D::DiscreteDirection2D newDirection;
 
-    explicit EntityDirectionChangeEvent(const DiscreteDirection2D &newDirection) : newDirection(newDirection) {}
+    explicit EntityDirectionChangeEvent(const Coordinate2D::DiscreteDirection2D &newDirection) : newDirection(newDirection) {}
 };
 
 #endif // PACMAN_ENTITYDIRECTIONCHANGEEVENT_H

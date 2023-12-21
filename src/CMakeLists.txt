@@ -14,9 +14,9 @@ SET(VIEW_SRC EntityView/DynamicEntityView/PacMan/PacManView.cpp EntityFactory/En
         Game/Widgets/TextWidget/TextWidget.h Game/Widgets/TextWidget/TextWidget.cpp
         State/LevelState/LevelState.h State/LevelState/LevelState.cpp
         Game/SpriteSheet/SpriteSheet.h Game/SpriteSheet/SpriteSheet.cpp
-        EntityView/DynamicEntityView/DynamicEntityView.h EntityView/EntityView.cpp EntityView/DynamicEntityView/DynamicEntityView.cpp State/PausedState/PausedState.h State/PausedState/PausedState.cpp State/GameOverState/GameOverState.h State/GameOverState/GameOverState.cpp)
+        EntityView/DynamicEntityView/DynamicEntityView.h EntityView/EntityView.cpp EntityView/DynamicEntityView/DynamicEntityView.cpp State/PausedState/PausedState.h State/PausedState/PausedState.cpp State/GameOverState/GameOverState.h State/GameOverState/GameOverState.cpp Game/SoundManager/SoundManager.h Game/SoundManager/SoundManager.cpp)
 
 
 add_executable(PacMan main.cpp ${VIEW_SRC})
-target_link_libraries(PacMan PUBLIC PacManLogicLib sfml-system sfml-graphics sfml-window)
+target_link_libraries(PacMan PUBLIC PacManLogicLib sfml-system sfml-graphics sfml-window sfml-audio)
 target_include_directories(PacManLogicLib PUBLIC PacManLogic ${CMAKE_CURRENT_SOURCE_DIR})

@@ -19,8 +19,6 @@ protected:
     std::shared_ptr<Score> score;
 
     std::shared_ptr<int> lives;
-
-    float currentDifficulty;
 public:
     explicit World(std::unique_ptr<AbstractFactory> &factory);
 
@@ -30,7 +28,7 @@ public:
 
     int GetLives() const;
 
-    void SetPlayerDirection(const DiscreteDirection2D &direction);
+    void SetPlayerDirection(const Coordinate2D::DiscreteDirection2D &direction);
 };
 
 #endif

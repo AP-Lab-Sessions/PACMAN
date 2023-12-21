@@ -9,8 +9,6 @@ void Fruit::Accept(const std::weak_ptr<IEntityVisitor>& visitor) {
     visitor.lock()->Visit(*this);
 }
 
-void Fruit::CollideWith(PacMan &) {}
-
 void Fruit::CollideWith(PMLogic::Entity &entity) {
     entity.CollideWith(*this);
 }

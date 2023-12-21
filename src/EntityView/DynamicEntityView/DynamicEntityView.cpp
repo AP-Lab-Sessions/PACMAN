@@ -37,8 +37,8 @@ void DynamicEntityView::UpdateSprite() {
         spriteSheet.GetTextureRect(spriteColumn,  (spriteRow+currentDirection*spritesPerAnim)+currentAnim));
 }
 void DynamicEntityView::Update(const EntityDirectionChangeEvent& eventData) {
-    const std::array<DiscreteDirection2D,4> directions
-        = {Direction_Right, Direction_Down, Direction_Left, Direction_Up};
+    const std::array<Coordinate2D::DiscreteDirection2D,4> directions
+        = {Coordinate2D::Direction_Right, Coordinate2D::Direction_Down, Coordinate2D::Direction_Left, Coordinate2D::Direction_Up};
 
     int factor=0;
     for(;eventData.newDirection!=directions[factor];factor++);

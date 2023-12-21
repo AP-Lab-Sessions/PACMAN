@@ -30,6 +30,8 @@ void LevelState::Update() {
         score.text.setString("SCORE: " + std::to_string(world->GetScore()));
         lives.text.setString("LIVES: " + std::to_string(world->GetLives()));
     }
+    std::weak_ptr<PMLogic::Helper::DeltaTime> stopWatch = PMLogic::Helper::DeltaTime::GetInstance();
+    stopWatch.lock()->Tick();
 }
 
 void LevelState::Render() {
@@ -45,19 +47,19 @@ void LevelState::ProcessEvents(const sf::Event &event) {
     if(event.type == sf::Event::KeyPressed) {
         switch(event.key.code) {
             case sf::Keyboard::Key::Left: {
-                world->SetPlayerDirection(Direction_Left);
+                world->SetPlayerDirection(Coordinate2D::Direction_Left);
                 break;
             }
             case sf::Keyboard::Key::Right: {
-                world->SetPlayerDirection(Direction_Right);
+                world->SetPlayerDirection(Coordinate2D::Direction_Right);
                 break;
             }
             case sf::Keyboard::Key::Up: {
-                world->SetPlayerDirection(Direction_Up);
+                world->SetPlayerDirection(Coordinate2D::Direction_Up);
                 break;
             }
             case sf::Keyboard::Key::Down: {
-                world->SetPlayerDirection(Direction_Down);
+                world->SetPlayerDirection(Coordinate2D::Direction_Down);
                 break;
             }
             case sf::Keyboard::Key::Escape: {

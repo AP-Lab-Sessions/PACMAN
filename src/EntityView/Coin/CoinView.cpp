@@ -1,6 +1,7 @@
 //
 
 #include "CoinView.h"
+#include "Game/SoundManager/SoundManager.h"
 
 CoinView::CoinView(const std::weak_ptr<sf::RenderWindow> &window) : EntityView(window) {}
 
@@ -23,4 +24,9 @@ void CoinView::Render() const {
     if(!entityDestroyed) {
         window.lock()->draw(coin);
     }
+}
+
+void CoinView::Update(const EntityCollectedEvent&) {
+    const auto &soundBuffer = SoundManager::GetInstance().lock();
+    soundBuffer->Play("assets/audio/pacman_chomp.wav");
 }

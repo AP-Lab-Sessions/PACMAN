@@ -14,6 +14,8 @@ class PMLogic::Event {
 protected:
     std::list<std::weak_ptr<PMLogic::IEventListener<EventType>>> observers;
 public:
+    Event() : observers({}) {}
+
     virtual ~Event() = default;
 
     virtual void Attach(const std::shared_ptr<PMLogic::IEventListener<EventType>> &observer) {

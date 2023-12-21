@@ -5,10 +5,6 @@
 
 #include <list>
 
-enum DiscreteDirection2D {
-    Direction_Left='L', Direction_Right='R', Direction_Up='U', Direction_Down='D'
-};
-const std::list<DiscreteDirection2D> directions2D = {Direction_Left, Direction_Right, Direction_Up, Direction_Down};
 
 namespace Coordinate2D {
 class Coordinate {
@@ -26,7 +22,11 @@ public:
     bool operator==(const Coordinate &other) const;
 };
 
-const float normalizedMin=-1.0f, normalizedMax=1.0f;
+enum DiscreteDirection2D {
+    Direction_Left='L', Direction_Right='R', Direction_Up='U', Direction_Down='D'
+};
+
+const float normalizedMin{-1.0f}, normalizedMax{1.0f};
 
 bool IsNormalized(const float &n);
 bool IsNormalized(const Coordinate &coordinate);
@@ -42,14 +42,17 @@ public:
 bool IsOverlapping(const NormalizedCoordinate &pos1, const Coordinate &size1,
                    const NormalizedCoordinate &pos2, const Coordinate &size2);
 
-/*Coordinate2D::NormalizedCoordinate GetNonCollidingPosition(const NormalizedCoordinate &posBefore,
-                                                           const NormalizedCoordinate &posAfter,
-                                                           const Coordinate &size,
-                                                           const NormalizedCoordinate &collidedWithPos,
-                                                           const Coordinate &collidedWithSize)*/
-
 float GetManhattanDistance(const NormalizedCoordinate &coord1, const NormalizedCoordinate &coord2);
+
+Coordinate2D::NormalizedCoordinate GetCeiledCoordinate(const Coordinate2D::NormalizedCoordinate &position,
+                                                        const Coordinate2D::Coordinate &size);
 }
+
+const std::list<Coordinate2D::DiscreteDirection2D> directions2D {
+    {Coordinate2D::Direction_Left,
+     Coordinate2D::Direction_Right,
+     Coordinate2D::Direction_Up,
+     Coordinate2D::Direction_Down}};
 
 
 

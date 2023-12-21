@@ -12,10 +12,10 @@ protected:
 
     const Coordinate2D::NormalizedCoordinate spawn;
 
-    DiscreteDirection2D currentDirection;
-    DiscreteDirection2D nextDirection;
+    Coordinate2D::DiscreteDirection2D currentDirection;
+    Coordinate2D::DiscreteDirection2D nextDirection;
 
-    std::list<DiscreteDirection2D> viableDirections;
+    std::list<Coordinate2D::DiscreteDirection2D> viableDirections;
 
     float defaultSpeed, speed;
 
@@ -41,18 +41,18 @@ public:
 
     float GetDefaultSpeed() const;
 
-    void SetNextDirection(const DiscreteDirection2D &newDirection);
-    void SetDirection(const DiscreteDirection2D &newDirection);
-    DiscreteDirection2D GetDirection() const;
+    void SetNextDirection(const Coordinate2D::DiscreteDirection2D &newDirection);
+    void SetDirection(const Coordinate2D::DiscreteDirection2D &newDirection);
+    Coordinate2D::DiscreteDirection2D GetDirection() const;
 
     Coordinate2D::NormalizedCoordinate GetNextPosition() const;
-    Coordinate2D::NormalizedCoordinate GetNextPosition(const DiscreteDirection2D &direction) const;
+    Coordinate2D::NormalizedCoordinate GetNextPosition(const Coordinate2D::DiscreteDirection2D &direction) const;
 
     bool GetIsKillable() const;
     void SetIsKillable(const bool &newIsKillable);
 
     bool WillCollide(const PMLogic::Entity &entity) const override;
-    bool WillCollide(const PMLogic::Entity &entity, const DiscreteDirection2D &direction) const;
+    bool WillCollide(const PMLogic::Entity &entity, const Coordinate2D::DiscreteDirection2D &direction) const;
 
     void CollideWith(Wall &) override;
     void CollideWith(PacMan &) override {}

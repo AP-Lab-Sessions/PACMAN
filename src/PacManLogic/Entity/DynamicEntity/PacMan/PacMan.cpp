@@ -30,9 +30,6 @@ void PacMan::CollideWith(Fruit & fruit) {
     }
 }
 
-void PacMan::CollideWith(Ghost &ghost) {
-}
-
 void PacMan::CollideWith(PMLogic::Entity &entity) {
     entity.CollideWith(*this);
 }

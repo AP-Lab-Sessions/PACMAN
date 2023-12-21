@@ -8,14 +8,13 @@
 #include "Entity/DynamicEntity/AutomaticEntity/Ghost/Ghost.h"
 #include "Entity/StaticEntity/Wall/Wall.h"
 
-void UpdateVisitor::Visit(Coin &coin) const {}
+void UpdateVisitor::Visit(Coin &) const {}
 
-void UpdateVisitor::Visit(Wall &wall) const {}
+void UpdateVisitor::Visit(Wall &) const {}
 
-void UpdateVisitor::Visit(Fruit &fruit) const {}
+void UpdateVisitor::Visit(Fruit &) const {}
 
 void UpdateVisitor::Visit(Ghost &ghost) const {
-    ghost.ChooseDirection();
     ghost.Move();
 }
 

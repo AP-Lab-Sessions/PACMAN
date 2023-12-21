@@ -4,7 +4,7 @@
 EntityView::EntityView(const std::weak_ptr<sf::RenderWindow>& window, const int& spriteColumn, const int& spriteRow)
     : window(window), spriteSheet(SpriteSheet("assets/images/Sprites.png", 19,19, 14,14,0,3)),
       entityDestroyed(false),
-      baseSpriteColumn(spriteColumn), baseSpriteRow(spriteRow), spriteColumn(spriteColumn), spriteRow(spriteRow) {}
+      baseSpriteColumn(spriteColumn), baseSpriteRow(spriteRow), spriteColumn(spriteColumn), spriteRow(spriteRow){}
 
 void EntityView::Update(const EntityCreateEvent& eventData) {
     entityDestroyed = false;
@@ -20,9 +20,8 @@ void EntityView::Update(const EntityCreateEvent& eventData) {
     sprite.setPosition(pos.GetX(), pos.GetY());
 
 }
-void EntityView::Update(const EntityDestroyEvent& event) {
+void EntityView::Update(const EntityDestroyEvent&) {
     entityDestroyed = true;
-
 }
 
 void EntityView::Render() const {

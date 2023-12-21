@@ -9,6 +9,6 @@ AutomaticEntity::AutomaticEntity(const Coordinate2D::NormalizedCoordinate& start
 
 }
 
-void AutomaticEntity::Update(const EntityDestroyEvent& eventData) {
+void AutomaticEntity::Update(const EntityDestroyEvent&) {
     target.reset();
 }

@@ -6,7 +6,6 @@
 #include "Pattern/Observer/Event/Event.h"
 
 struct EntityDestroyEvent : public PMLogic::Event<EntityDestroyEvent> {
-public:
     std::weak_ptr<PMLogic::Entity> entity;
 };
 
