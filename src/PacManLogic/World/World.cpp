@@ -12,11 +12,13 @@ PMLogic::World::World(std::unique_ptr<AbstractFactory> &factoryArg)
       lives(std::make_shared<int>(3)) {
 
     std::ifstream levelFile(DEFAULT_LEVEL_PATH);
-    std::string levelStr{std::istreambuf_iterator<char>(levelFile), std::istreambuf_iterator<char>()};
+    if(levelFile) {
+        std::string levelStr{std::istreambuf_iterator<char>(levelFile), std::istreambuf_iterator<char>()};
+        level = std::make_shared<Level>(levelStr, factory, score, lives);
+        level->Load();
+    }
+    else throw std::runtime_error("Cannot open level .txt file");
     levelFile.close();
-
-    level = std::make_shared<Level>(levelStr, factory, score, lives);
-    level->Load();
 }
 
 void PMLogic::World::Update() {

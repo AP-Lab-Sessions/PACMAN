@@ -21,7 +21,7 @@ SET(LOGIC_SRC Pattern/AbstractFactory/AbstractFactory.h
         Entity/DynamicEntity/AutomaticEntity/AutomaticEntity.h Entity/DynamicEntity/AutomaticEntity/AutomaticEntity.cpp
          Events/EntityEvent/EntityDirectionChangeEvent.h Events/EntityEvent/EntityCreateEvent.h
         Events/EntityEvent/GhostEvent/GhostModeChangeEvent.h Events/EntityEvent/GhostEvent/GhostModeChangeEvent.cpp
-        Pattern/Singleton/Singleton.h World/Level/Level.cpp)
+        Pattern/Singleton/Singleton.h World/Level/Level.cpp Entity/StaticEntity/Intersection/Intersection.h Entity/StaticEntity/Intersection/Intersection.cpp)
 
 add_executable(PacManLogicExec main.cpp ${LOGIC_SRC})
 add_library(PacManLogicLib ${LOGIC_SRC})

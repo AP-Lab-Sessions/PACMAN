@@ -17,7 +17,7 @@ private:
     std::vector<std::weak_ptr<PMLogic::Entity>> destructables;
 protected:
     const std::string levelStr;
-    const Coordinate2D::Coordinate levelSize;
+    const std::pair<int, int> levelSize;
 
     const std::weak_ptr<PMLogic::AbstractFactory> factory;
 
@@ -31,14 +31,21 @@ protected:
 
     float currentDifficulty;
     int collectablesCount;
+
+    void DetectAllCollisions();
+    void Reload();
+    void AddIntersections(const Coordinate2D::Coordinate &intersectionSize,
+                          Coordinate2D::NormalizedCoordinate startPosition);
+    std::list<Coordinate2D::DiscreteDirection2D> GetIntersectionDirections(const int &x, const int &y) const;
+    char GetLevelChar(const int &x, const int &y) const;
+    bool CharIsPath(const char &c) const;
+
 public:
 
 
     Level(const std::string &levelPath,
           const std::weak_ptr<PMLogic::AbstractFactory> &factory,
           const std::weak_ptr<PMLogic::Score> &score, const std::weak_ptr<int> &lives);
-
-    Coordinate2D::Coordinate GetSize() const;
 
     std::weak_ptr<PacMan> GetPlayer() const;
 

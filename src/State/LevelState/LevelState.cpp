@@ -20,6 +20,8 @@ lives(TextWidget("LIVES: ", secondaryFont, sf::Color::Yellow, 30, {window.lock()
 }
 
 void LevelState::Update() {
+    std::weak_ptr<PMLogic::Helper::DeltaTime> stopWatch = PMLogic::Helper::DeltaTime::GetInstance();
+    stopWatch.lock()->Tick();
     if(!world->GetLives()) {
         PMLogic::Helper::DeltaTime::GetInstance().lock()->Pause();
         std::unique_ptr<State> newState{new GameOverState(window)};
@@ -30,8 +32,6 @@ void LevelState::Update() {
         score.text.setString("SCORE: " + std::to_string(world->GetScore()));
         lives.text.setString("LIVES: " + std::to_string(world->GetLives()));
     }
-    std::weak_ptr<PMLogic::Helper::DeltaTime> stopWatch = PMLogic::Helper::DeltaTime::GetInstance();
-    stopWatch.lock()->Tick();
 }
 
 void LevelState::Render() {

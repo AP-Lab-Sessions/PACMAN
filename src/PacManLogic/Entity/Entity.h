@@ -4,12 +4,19 @@
 #define PACMAN_ENTITY_H
 
 #include "Coordinate/Coordinate.h"
-#include "IEntityVisitor/IEntityVisitor.h"
 
 #include "Events/EntityEvent/EntityDestroyEvent.h"
 #include "Events/EntityEvent/EntityCreateEvent.h"
 
 #include <memory>
+
+class IEntityVisitor;
+class PacMan;
+class Ghost;
+class Fruit;
+class Coin;
+class Wall;
+class Intersection;
 
 class PMLogic::Entity {
 protected:
@@ -34,11 +41,12 @@ public:
 
     // dynamic double dispatch for collision
 
-    virtual void CollideWith(PacMan &) {}
-    virtual void CollideWith(Ghost &) {}
-    virtual void CollideWith(Fruit &) {}
-    virtual void CollideWith(Coin &) {}
-    virtual void CollideWith(Wall &) {}
+    virtual void CollideWith(PacMan &);
+    virtual void CollideWith(Ghost &);
+    virtual void CollideWith(Fruit &);
+    virtual void CollideWith(Coin &);
+    virtual void CollideWith(Wall &);
+    virtual void CollideWith(const Intersection &);
     virtual void CollideWith(PMLogic::Entity &) = 0;
 
     virtual void Respawn() {}

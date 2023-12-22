@@ -8,7 +8,6 @@
 #include <SFML/Audio.hpp>
 
 #include <unordered_map>
-#include <deque>
 
 class SoundManager : public PMLogic::Singleton<SoundManager> {
 protected:
@@ -16,6 +15,8 @@ protected:
     public:
         sf::SoundBuffer buffer;
         sf::Sound sound;
+
+        SoundPlayer() : buffer(sf::SoundBuffer()), sound(sf::Sound(buffer)) {}
     };
 
     std::unordered_map<std::string, SoundPlayer> soundPlayers;

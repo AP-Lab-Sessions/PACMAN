@@ -1,11 +1,8 @@
 #include "Game/Game.h"
 
 // TODO: Intersection detection for both pacman and ghost,
-//  game over and victory,
-//  next level, audio, documentation,
-//  Exception handling,
+//  documentation,
 //  namespace encapsulation,
-//  check that all primitive types are explicitly initialized
 int main() {
     Game game(960,540);
     game.Run();

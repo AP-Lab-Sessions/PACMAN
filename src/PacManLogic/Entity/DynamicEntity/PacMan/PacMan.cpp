@@ -1,9 +1,10 @@
-//
+    //
 
 #include "PacMan.h"
 
 #include "Entity/StaticEntity/CollectableEntity/Fruit/Fruit.h"
 #include "Entity/StaticEntity/CollectableEntity/Coin/Coin.h"
+#include "Entity/IEntityVisitor/IEntityVisitor.h"
 
 PacMan::PacMan(const Coordinate2D::NormalizedCoordinate &startPosition, const Coordinate2D::Coordinate &size) :
 DynamicEntity(startPosition, size, 0.75f) {

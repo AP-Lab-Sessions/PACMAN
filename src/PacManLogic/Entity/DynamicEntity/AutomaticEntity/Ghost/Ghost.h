@@ -8,6 +8,8 @@
 #include "Events/EntityEvent/GhostEvent/GhostModeChangeEvent.h"
 
 #include <unordered_map>
+#include "Entity/StaticEntity/Intersection/Intersection.h"
+
 
 enum GhostMode : short {Mode_Stasis, Mode_Chase, Mode_Fear};
 
@@ -23,6 +25,7 @@ protected:
     Coordinate2D::DiscreteDirection2D GetDirectionWithMinimumDistance() const;
     Coordinate2D::DiscreteDirection2D GetDirectionWithMaximumDistance() const;
 
+    std::list<Intersection> collidingWithIntersection;
 public:
     std::unique_ptr<GhostModeChangeEvent> onModeChange;
     std::unique_ptr<EntityCollectedEvent> onEntityCollected;
@@ -36,6 +39,9 @@ public:
     void CollideWith(PMLogic::Entity &) override;
 
     void CollideWith(Wall &) override;
+
+    void CollideWith(const Intersection &) override;
+
 
     GhostMode GetMode() const;
     void SetMode(const GhostMode &);

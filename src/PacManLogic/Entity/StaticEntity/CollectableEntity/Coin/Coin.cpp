@@ -1,6 +1,8 @@
 //
 
 #include "Coin.h"
+#include "Entity/IEntityVisitor/IEntityVisitor.h"
+
 
 Coin::Coin(const Coordinate2D::NormalizedCoordinate &startPosition, const Coordinate2D::Coordinate &size) :
 CollectableEntity(startPosition,  size,  5) {}

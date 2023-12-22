@@ -3,8 +3,8 @@
 #include "Game.h"
 #include "State/MenuState/MenuState.h"
 
-// TODO: valgrind "conditional jump/moves depends on uninitialised value(s), simplify entityfactory
-Game::Game(const unsigned int &width, const unsigned int &height) : width(width), height(height)
+// simplify entityfactory,
+Game::Game(const unsigned int &width, const unsigned int &height)
 {
     window = std::make_shared<sf::RenderWindow>(sf::VideoMode(width,height), "PacMan",
                                                 sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize);

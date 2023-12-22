@@ -14,8 +14,6 @@ protected:
 
     sf::View view;
 
-    const unsigned int width,height;
-
     sf::RectangleShape background;
 
     void Update();

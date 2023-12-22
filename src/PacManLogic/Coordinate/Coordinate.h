@@ -44,8 +44,9 @@ bool IsOverlapping(const NormalizedCoordinate &pos1, const Coordinate &size1,
 
 float GetManhattanDistance(const NormalizedCoordinate &coord1, const NormalizedCoordinate &coord2);
 
-Coordinate2D::NormalizedCoordinate GetCeiledCoordinate(const Coordinate2D::NormalizedCoordinate &position,
-                                                        const Coordinate2D::Coordinate &size);
+float Normalize(const float &position, const float &length);
+Coordinate2D::NormalizedCoordinate Normalize(const Coordinate2D::Coordinate &coordinate,
+                                             const Coordinate2D::Coordinate &size);
 }
 
 const std::list<Coordinate2D::DiscreteDirection2D> directions2D {

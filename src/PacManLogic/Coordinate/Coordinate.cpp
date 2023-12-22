@@ -49,8 +49,17 @@ bool Coordinate2D::Coordinate::operator==(const Coordinate2D::Coordinate& other)
     return GetX() == other.GetX() && GetY() == other.GetY();
 }
 
-Coordinate2D::NormalizedCoordinate Coordinate2D::GetCeiledCoordinate(const Coordinate2D::NormalizedCoordinate& position,
-                                                                      const Coordinate2D::Coordinate& size) {
-    return {position.GetX()+size.GetX()-(std::fmod(position.GetX(), size.GetX())),
-             position.GetY()+size.GetY()-(std::fmod(position.GetY(), size.GetY()))};
+float Coordinate2D::Normalize(const float& position, const float& length) {
+    if(position+length > Coordinate2D::normalizedMax) {
+        return Coordinate2D::normalizedMin;
+    }
+    else if(position < Coordinate2D::normalizedMin) {
+        return Coordinate2D::normalizedMax-length;
+    }
+    return position;
+}
+
+Coordinate2D::NormalizedCoordinate Coordinate2D::Normalize(const Coordinate2D::Coordinate& coordinate,
+                                                           const Coordinate2D::Coordinate& size) {
+    return { Normalize(coordinate.GetX(), size.GetX()), Normalize(coordinate.GetY(), size.GetY())};
 }

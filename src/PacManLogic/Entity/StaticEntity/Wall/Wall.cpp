@@ -1,6 +1,8 @@
 //
 
 #include "Wall.h"
+#include "Entity/IEntityVisitor/IEntityVisitor.h"
+
 
 Wall::Wall(const Coordinate2D::NormalizedCoordinate &startPosition, const Coordinate2D::Coordinate &size
 ) : StaticEntity(startPosition, size) {

@@ -23,3 +23,15 @@ void PMLogic::Entity::Create() const {
 PMLogic::Entity::~Entity() {
     onEntityDestroy->Notify(*onEntityDestroy);
 }
+
+void PMLogic::Entity::CollideWith(const Intersection&) {}
+
+void PMLogic::Entity::CollideWith(Coin&) {}
+
+void PMLogic::Entity::CollideWith(Wall&) {}
+
+void PMLogic::Entity::CollideWith(Fruit&) {}
+
+void PMLogic::Entity::CollideWith(Ghost&) {}
+
+void PMLogic::Entity::CollideWith(PacMan&) {}

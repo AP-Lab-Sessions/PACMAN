@@ -5,6 +5,8 @@
 #include "Entity/StaticEntity/Wall/Wall.h"
 #include "Helper/Random/Random.h"
 #include "Helper/DeltaTime/DeltaTime.h"
+#include "Entity/IEntityVisitor/IEntityVisitor.h"
+
 
 Ghost::Ghost(const Coordinate2D::NormalizedCoordinate &startPosition,const Coordinate2D::Coordinate &size,
              const float &power,
@@ -42,7 +44,19 @@ void Ghost::CollideWith(PMLogic::Entity &entity) {
 
 void Ghost::CollideWith(Wall& wall) {
     DynamicEntity::CollideWith(wall);
-    if(GetMode() != Mode_Stasis && WillCollide(wall)) ChooseDirection();
+    if(WillCollide(wall)) ChooseDirection();
+}
+
+void Ghost::CollideWith(const Intersection& intersection) {
+    const auto& intersectionIter =
+        std::find(collidingWithIntersection.begin(), collidingWithIntersection.end(), intersection);
+    if(WillCollide(intersection) && intersectionIter == collidingWithIntersection.end()) {
+        collidingWithIntersection.push_back(intersection);
+        ChooseDirection();
+        DynamicEntity::CollideWith(intersection);
+    }
+    else if(!WillCollide(intersection) && intersectionIter != collidingWithIntersection.end())
+        collidingWithIntersection.remove(intersection);
 }
 
 GhostMode Ghost::GetMode() const {
@@ -132,7 +146,7 @@ void Ghost::ChooseDirection() {
                 break;
             }
         }
-        SetDirection(bestDirection);
+        SetNextDirection(bestDirection);
     }
 }
 

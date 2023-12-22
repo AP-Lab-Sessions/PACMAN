@@ -20,6 +20,7 @@ protected:
     float defaultSpeed, speed;
 
     bool isKillable;
+
 public:
     std::unique_ptr<EntityPositionChangeEvent> onPositionChange;
     std::unique_ptr<EntityDirectionChangeEvent> onDirectionChange;
@@ -33,7 +34,7 @@ public:
 
     void Move();
 
-    void SetPosition(const Coordinate2D::NormalizedCoordinate &newPosition);
+    void SetPosition(const Coordinate2D::Coordinate &newPosition);
 
 
     float GetSpeed() const;
@@ -55,6 +56,7 @@ public:
     bool WillCollide(const PMLogic::Entity &entity, const Coordinate2D::DiscreteDirection2D &direction) const;
 
     void CollideWith(Wall &) override;
+    void CollideWith(const Intersection &) override;
     void CollideWith(PacMan &) override {}
     void CollideWith(Ghost &) override {}
     void CollideWith(Fruit &) override {}

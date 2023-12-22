@@ -1,6 +1,6 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.22.1)
 PROJECT(PacMan)
-SET(CMAKE_CXX_FLAGS "-Wall -Werror -Wmaybe-uninitialized -Wuninitialized -Wextra -pedantic") # -Wshadow
+SET(CMAKE_CXX_FLAGS "-Wall -Werror -Wmaybe-uninitialized -Wuninitialized -Wextra -pedantic")
 SET(CMAKE_CXX_STANDARD 20)
 ADD_SUBDIRECTORY(src)
 INSTALL(TARGETS PacMan DESTINATION bin)
