@@ -1,10 +1,10 @@
 //
 
 #include "Game.h"
-#include "State/MenuState/MenuState.h"
+#include "View/State/MenuState/MenuState.h"
 
 // simplify entityfactory,
-Game::Game(const unsigned int& width, const unsigned int& height) {
+PMGame::Game::Game(const unsigned int& width, const unsigned int& height) {
     window = std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), "PacMan",
                                                 sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize);
     view = window->getDefaultView();
@@ -13,8 +13,8 @@ Game::Game(const unsigned int& width, const unsigned int& height) {
     window->setFramerateLimit(144);
     window->setView(view);
 
-    std::unique_ptr<State> startState{std::make_unique<MenuState>(window)};
-    std::shared_ptr<StateManager> manager{new StateManager()};
+    std::unique_ptr<View::State> startState{std::make_unique<View::MenuState>(window)};
+    std::shared_ptr<View::StateManager> manager{new View::StateManager()};
     manager->PushState(startState);
     stateManager = manager;
 
@@ -24,14 +24,14 @@ Game::Game(const unsigned int& width, const unsigned int& height) {
     outline.setFillColor(sf::Color::Transparent);
     outline.setOutlineThickness(1.0f);
 }
-void Game::Update() { stateManager->Update(); }
-void Game::Render() {
+void PMGame::Game::Update() { stateManager->Update(); }
+void PMGame::Game::Render() {
     window->clear();
     window->draw(outline);
     stateManager->Render();
     window->display();
 }
-void Game::ProcessEvents() {
+void PMGame::Game::ProcessEvents() {
     sf::Event event{};
     while (window->pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
@@ -44,7 +44,7 @@ void Game::ProcessEvents() {
         stateManager->ProcessEvents(event);
     }
 }
-void Game::Run() {
+void PMGame::Game::Run() {
     while (window->isOpen()) {
         ProcessEvents();
         Update();

@@ -7,20 +7,21 @@
 #include "Entity/StaticEntity/CollectableEntity/Fruit/Fruit.h"
 #include "Entity/StaticEntity/Wall/Wall.h"
 
-#include "EntityView/Coin/CoinView.h"
-#include "EntityView/DynamicEntityView/Ghost/GhostView.h"
-#include "EntityView/DynamicEntityView/PacMan/PacManView.h"
-#include "EntityView/Fruit/FruitView.h"
-#include "EntityView/Wall/WallView.h"
+#include "View/EntityView/Coin/CoinView.h"
+#include "View/EntityView/DynamicEntityView/Ghost/GhostView.h"
+#include "View/EntityView/DynamicEntityView/PacMan/PacManView.h"
+#include "View/EntityView/Fruit/FruitView.h"
+#include "View/EntityView/Wall/WallView.h"
 
-EntityFactory::EntityFactory(std::vector<std::shared_ptr<EntityView>>& viewsRef,
-                             const std::weak_ptr<sf::RenderWindow>& window)
+PMGame::EntityFactory::EntityFactory(std::vector<std::shared_ptr<View::EntityView>>& viewsRef,
+                                     const std::weak_ptr<sf::RenderWindow>& window)
     : viewsRef(viewsRef), window(window) {}
 
-std::unique_ptr<PacMan> EntityFactory::CreatePacMan(const Coordinate2D::NormalizedCoordinate& startPosition,
-                                                    const Coordinate2D::Coordinate& size) const {
-    std::unique_ptr<PacMan> entity{new PacMan(startPosition, size)};
-    std::shared_ptr<PacManView> view{new PacManView(window)};
+std::unique_ptr<PMGame::Logic::PacMan> PMGame::EntityFactory::CreatePacMan(
+    const PMGame::Logic::Coordinate2D::NormalizedCoordinate& startPosition,
+    const PMGame::Logic::Coordinate2D::Coordinate& size) const {
+    std::unique_ptr<PMGame::Logic::PacMan> entity{new PMGame::Logic::PacMan(startPosition, size)};
+    std::shared_ptr<View::PacManView> view{new View::PacManView(window)};
 
     viewsRef.push_back(view);
     entity->onEntityDestroy->Attach(view);
@@ -32,10 +33,11 @@ std::unique_ptr<PacMan> EntityFactory::CreatePacMan(const Coordinate2D::Normaliz
     return entity;
 }
 
-std::unique_ptr<Coin> EntityFactory::CreateCoin(const Coordinate2D::NormalizedCoordinate& startPosition,
-                                                const Coordinate2D::Coordinate& size) const {
-    std::unique_ptr<Coin> entity{new Coin(startPosition, size)};
-    std::shared_ptr<CoinView> view{new CoinView(window)};
+std::unique_ptr<PMGame::Logic::Coin> PMGame::EntityFactory::CreateCoin(
+    const PMGame::Logic::Coordinate2D::NormalizedCoordinate& startPosition,
+    const PMGame::Logic::Coordinate2D::Coordinate& size) const {
+    std::unique_ptr<PMGame::Logic::Coin> entity{new PMGame::Logic::Coin(startPosition, size)};
+    std::shared_ptr<View::CoinView> view{new View::CoinView(window)};
 
     viewsRef.push_back(view);
     entity->onEntityDestroy->Attach(view);
@@ -46,10 +48,11 @@ std::unique_ptr<Coin> EntityFactory::CreateCoin(const Coordinate2D::NormalizedCo
     return entity;
 }
 
-std::unique_ptr<Fruit> EntityFactory::CreateFruit(const Coordinate2D::NormalizedCoordinate& startPosition,
-                                                  const Coordinate2D::Coordinate& size) const {
-    std::unique_ptr<Fruit> entity{new Fruit(startPosition, size)};
-    std::shared_ptr<FruitView> view{new FruitView(window)};
+std::unique_ptr<PMGame::Logic::Fruit> PMGame::EntityFactory::CreateFruit(
+    const PMGame::Logic::Coordinate2D::NormalizedCoordinate& startPosition,
+    const PMGame::Logic::Coordinate2D::Coordinate& size) const {
+    std::unique_ptr<PMGame::Logic::Fruit> entity{new PMGame::Logic::Fruit(startPosition, size)};
+    std::shared_ptr<View::FruitView> view{new View::FruitView(window)};
 
     viewsRef.push_back(view);
     entity->onEntityDestroy->Attach(view);
@@ -60,11 +63,11 @@ std::unique_ptr<Fruit> EntityFactory::CreateFruit(const Coordinate2D::Normalized
     return entity;
 }
 
-std::unique_ptr<Ghost> EntityFactory::CreateGhost(const Coordinate2D::NormalizedCoordinate& startPosition,
-                                                  const Coordinate2D::Coordinate& size, const float& power,
-                                                  const float& stasisTime) const {
-    std::unique_ptr<Ghost> entity{new Ghost(startPosition, size, power, stasisTime)};
-    std::shared_ptr<GhostView> view{new GhostView(window)};
+std::unique_ptr<PMGame::Logic::Ghost> PMGame::EntityFactory::CreateGhost(
+    const PMGame::Logic::Coordinate2D::NormalizedCoordinate& startPosition,
+    const PMGame::Logic::Coordinate2D::Coordinate& size, const float& power, const float& stasisTime) const {
+    std::unique_ptr<PMGame::Logic::Ghost> entity{new PMGame::Logic::Ghost(startPosition, size, power, stasisTime)};
+    std::shared_ptr<View::GhostView> view{new View::GhostView(window)};
 
     viewsRef.push_back(view);
     entity->onEntityDestroy->Attach(view);
@@ -78,10 +81,11 @@ std::unique_ptr<Ghost> EntityFactory::CreateGhost(const Coordinate2D::Normalized
     return entity;
 }
 
-std::unique_ptr<Wall> EntityFactory::CreateWall(const Coordinate2D::NormalizedCoordinate& startPosition,
-                                                const Coordinate2D::Coordinate& size) const {
-    std::unique_ptr<Wall> entity{new Wall(startPosition, size)};
-    std::shared_ptr<WallView> view{new WallView(window)};
+std::unique_ptr<PMGame::Logic::Wall> PMGame::EntityFactory::CreateWall(
+    const PMGame::Logic::Coordinate2D::NormalizedCoordinate& startPosition,
+    const PMGame::Logic::Coordinate2D::Coordinate& size) const {
+    std::unique_ptr<PMGame::Logic::Wall> entity{new PMGame::Logic::Wall(startPosition, size)};
+    std::shared_ptr<View::WallView> view{new View::WallView(window)};
 
     viewsRef.push_back(view);
     entity->onEntityCreate->Attach(view);

@@ -3,17 +3,18 @@
 #ifndef PACMAN_ENTITYFACTORY_H
 #define PACMAN_ENTITYFACTORY_H
 
-#include "EntityView/EntityView.h"
 #include "Pattern/AbstractFactory/AbstractFactory.h"
+#include "View/EntityView/EntityView.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
+namespace PMGame {
 /**
  * @brief concrete factory which produces the necessary entities and corresponding views
  */
-class EntityFactory : public PMLogic::AbstractFactory {
+class EntityFactory : public Logic::AbstractFactory {
 protected:
-    std::vector<std::shared_ptr<EntityView>>& viewsRef;
+    std::vector<std::shared_ptr<View::EntityView>>& viewsRef;
     const std::weak_ptr<sf::RenderWindow> window;
 
 public:
@@ -22,24 +23,30 @@ public:
      * @param viewsRef reference to the views of the game so whenever a view gets added it's added into the game
      * @param window the render window of the game
      */
-    explicit EntityFactory(std::vector<std::shared_ptr<EntityView>>& viewsRef,
+    explicit EntityFactory(std::vector<std::shared_ptr<View::EntityView>>& viewsRef,
                            const std::weak_ptr<sf::RenderWindow>& window);
 
-    std::unique_ptr<PacMan> CreatePacMan(const Coordinate2D::NormalizedCoordinate& startPosition,
-                                         const Coordinate2D::Coordinate& size) const override;
+    std::unique_ptr<PMGame::Logic::PacMan> CreatePacMan(
+        const PMGame::Logic::Coordinate2D::NormalizedCoordinate& startPosition,
+        const PMGame::Logic::Coordinate2D::Coordinate& size) const override;
 
-    std::unique_ptr<Ghost> CreateGhost(const Coordinate2D::NormalizedCoordinate& startPosition,
-                                       const Coordinate2D::Coordinate& size, const float& power,
-                                       const float& stasisTime) const override;
+    std::unique_ptr<PMGame::Logic::Ghost> CreateGhost(
+        const PMGame::Logic::Coordinate2D::NormalizedCoordinate& startPosition,
+        const PMGame::Logic::Coordinate2D::Coordinate& size, const float& power,
+        const float& stasisTime) const override;
 
-    std::unique_ptr<Wall> CreateWall(const Coordinate2D::NormalizedCoordinate& startPosition,
-                                     const Coordinate2D::Coordinate& size) const override;
+    std::unique_ptr<PMGame::Logic::Wall> CreateWall(
+        const PMGame::Logic::Coordinate2D::NormalizedCoordinate& startPosition,
+        const PMGame::Logic::Coordinate2D::Coordinate& size) const override;
 
-    std::unique_ptr<Fruit> CreateFruit(const Coordinate2D::NormalizedCoordinate& startPosition,
-                                       const Coordinate2D::Coordinate& size) const override;
+    std::unique_ptr<PMGame::Logic::Fruit> CreateFruit(
+        const PMGame::Logic::Coordinate2D::NormalizedCoordinate& startPosition,
+        const PMGame::Logic::Coordinate2D::Coordinate& size) const override;
 
-    std::unique_ptr<Coin> CreateCoin(const Coordinate2D::NormalizedCoordinate& startPosition,
-                                     const Coordinate2D::Coordinate& size) const override;
+    std::unique_ptr<PMGame::Logic::Coin> CreateCoin(
+        const PMGame::Logic::Coordinate2D::NormalizedCoordinate& startPosition,
+        const PMGame::Logic::Coordinate2D::Coordinate& size) const override;
 };
+} // namespace PMGame
 
 #endif // PACMAN_ENTITYFACTORY_H

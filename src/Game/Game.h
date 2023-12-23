@@ -3,10 +3,11 @@
 #ifndef PACMAN_GAME_H
 #define PACMAN_GAME_H
 
-#include "PacManLogic/Coordinate/Coordinate.h"
-#include "State/StateManager/StateManager.h"
+#include "Logic/Coordinate/Coordinate.h"
+#include "View/StateManager/StateManager.h"
 #include <SFML/Graphics.hpp>
 
+namespace PMGame {
 /**
  * @brief The PacMan Game class which holds the view aspect of the game and the logic aspect.
  */
@@ -19,7 +20,7 @@ protected:
     /**
      * @brief The state manager.
      */
-    std::shared_ptr<StateManager> stateManager;
+    std::shared_ptr<View::StateManager> stateManager;
 
     /**
      * @brief The view of the render window.
@@ -57,5 +58,5 @@ public:
      */
     void Run();
 };
-
+} // namespace PMGame
 #endif // PACMAN_GAME_H

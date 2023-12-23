@@ -1,22 +1,22 @@
-add_subdirectory(PacManLogic)
+add_subdirectory(Logic)
 
-SET(VIEW_SRC EntityView/DynamicEntityView/PacMan/PacManView.cpp EntityFactory/EntityFactory.h EntityFactory/EntityFactory.h
+SET(VIEW_SRC View/EntityView/DynamicEntityView/PacMan/PacManView.cpp EntityFactory/EntityFactory.h EntityFactory/EntityFactory.h
         EntityFactory/EntityFactory.h EntityFactory/EntityFactory.cpp
         Game/Game.h
-        EntityView/DynamicEntityView/Ghost/GhostView.h EntityView/DynamicEntityView/Ghost/GhostView.cpp
-        EntityView/Fruit/FruitView.h EntityView/Fruit/FruitView.cpp
-        EntityView/Coin/CoinView.h EntityView/Coin/CoinView.cpp
-        EntityView/Wall/WallView.h EntityView/Wall/WallView.cpp
-        EntityView/EntityView.h
-        State/State.h State/State.cpp
-        State/StateManager/StateManager.h State/StateManager/StateManager.cpp
-        State/MenuState/MenuState.h State/MenuState/MenuState.cpp Game/Game.cpp
-        Game/Widgets/TextWidget/TextWidget.h Game/Widgets/TextWidget/TextWidget.cpp
-        State/LevelState/LevelState.h State/LevelState/LevelState.cpp
-        Game/SpriteSheet/SpriteSheet.h Game/SpriteSheet/SpriteSheet.cpp
-        EntityView/DynamicEntityView/DynamicEntityView.h EntityView/EntityView.cpp EntityView/DynamicEntityView/DynamicEntityView.cpp State/PausedState/PausedState.h State/PausedState/PausedState.cpp State/GameOverState/GameOverState.h State/GameOverState/GameOverState.cpp Game/SoundManager/SoundManager.h Game/SoundManager/SoundManager.cpp)
+        View/EntityView/DynamicEntityView/Ghost/GhostView.h View/EntityView/DynamicEntityView/Ghost/GhostView.cpp
+        View/EntityView/Fruit/FruitView.h View/EntityView/Fruit/FruitView.cpp
+        View/EntityView/Coin/CoinView.h View/EntityView/Coin/CoinView.cpp
+        View/EntityView/Wall/WallView.h View/EntityView/Wall/WallView.cpp
+        View/EntityView/EntityView.h
+        View/State/State.h View/State/State.cpp
+        View/StateManager/StateManager.h View/StateManager/StateManager.cpp
+        View/State/MenuState/MenuState.h View/State/MenuState/MenuState.cpp Game/Game.cpp
+        View/Widgets/TextWidget/TextWidget.h View/Widgets/TextWidget/TextWidget.cpp
+        View/State/LevelState/LevelState.h View/State/LevelState/LevelState.cpp
+        View/SpriteSheet/SpriteSheet.h View/SpriteSheet/SpriteSheet.cpp
+        View/EntityView/DynamicEntityView/DynamicEntityView.h View/EntityView/EntityView.cpp View/EntityView/DynamicEntityView/DynamicEntityView.cpp View/State/PausedState/PausedState.h View/State/PausedState/PausedState.cpp View/State/GameOverState/GameOverState.h View/State/GameOverState/GameOverState.cpp View/SoundManager/SoundManager.h View/SoundManager/SoundManager.cpp)
 
 
 add_executable(PacMan main.cpp ${VIEW_SRC})
 target_link_libraries(PacMan PUBLIC PacManLogicLib sfml-system sfml-graphics sfml-window sfml-audio)
-target_include_directories(PacManLogicLib PUBLIC PacManLogic ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(PacManLogicLib PUBLIC Logic ${CMAKE_CURRENT_SOURCE_DIR})
