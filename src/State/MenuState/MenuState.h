@@ -14,9 +14,9 @@ protected:
     TextWidget title, play, quit, highScore;
 
 public:
-    explicit MenuState(const std::weak_ptr<sf::RenderWindow> &window);
+    explicit MenuState(const std::weak_ptr<sf::RenderWindow>& window);
 
-    void ProcessEvents(const sf::Event &event) override;
+    void ProcessEvents(const sf::Event& event) override;
     void Render() override;
     void Update() override;
 };

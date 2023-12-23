@@ -4,7 +4,7 @@ SET(LOGIC_SRC Pattern/AbstractFactory/AbstractFactory.h
         Pattern/Observer/Event/Event.h
         World/World.cpp
         PMLogic.h
-        Helper/Random/Random.h Helper/Random/Random.cpp Helper/DeltaTime/DeltaTime.h Helper/DeltaTime/DeltaTime.cpp
+        Helper/Random/Random.h Helper/Random/Random.cpp Helper/TimeManager/TimeManager.h Helper/TimeManager/TimeManager.cpp
         Score/Score.h Score/Scoreboard/Scoreboard.h Score/Scoreboard/Scoreboard.cpp Entity/Entity.h
         Helper/Camera/Camera.h Helper/Camera/Camera.cpp Coordinate/Coordinate.h Coordinate/Coordinate.cpp Entity/Entity.cpp
         Entity/DynamicEntity/DynamicEntity.h Entity/DynamicEntity/DynamicEntity.cpp

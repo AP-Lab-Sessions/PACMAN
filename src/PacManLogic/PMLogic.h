@@ -8,48 +8,45 @@
  */
 namespace PMLogic {
 
-    // Observer design pattern
+// Observer design pattern
 
-    template<typename EventType>
-    class IEventListener;
+template <typename EventType>
+class IEventListener;
 
-    template<typename EventType>
-    class Event;
+template <typename EventType>
+class Event;
 
+// Visitor design pattern
 
-    // Visitor design pattern
+class IVisitor;
 
-    class IVisitor;
+class Entity;
 
+class AbstractFactory;
 
-    class Entity;
+template <typename Type>
+class Singleton;
 
-    class AbstractFactory;
+class World;
 
-    template<typename Type>
-    class Singleton;
+class Score;
 
-    class World;
+class Scoreboard;
 
-    class Score;
+/**
+ * @brief Utility classes
+ */
+namespace Helper {
 
-    class Scoreboard;
+class Random;
 
-    /**
-     * @brief Utility classes
-     */
-     namespace Helper {
+class TimeManager;
 
-         class Random;
+class Timer;
 
-         class DeltaTime;
+class StopWatch;
 
-
-         class Timer;
-
-         class StopWatch;
-
-         class Camera;
-         }
-}
+class Camera;
+} // namespace Helper
+} // namespace PMLogic
 #endif // PACMAN_PMLOGIC_H

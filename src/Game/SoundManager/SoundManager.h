@@ -25,12 +25,13 @@ protected:
     };
 
     std::unordered_map<std::string, SoundPlayer> soundPlayers;
+
 public:
     /**
      * @brief Plays a sound on a separate buffer given the path of a sound file.
      * @param soundPath The path to the sound file.
      */
-    void Play(const std::string &soundPath);
+    void Play(const std::string& soundPath);
 };
 
 #endif // PACMAN_SOUNDMANAGER_H

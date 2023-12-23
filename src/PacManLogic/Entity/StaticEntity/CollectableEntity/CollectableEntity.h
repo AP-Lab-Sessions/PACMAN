@@ -15,6 +15,7 @@ protected:
      * @brief An optional reward upon collection (for pacman)
      */
     int reward;
+
 public:
     std::unique_ptr<EntityCollectedEvent> onEntityCollected;
 
@@ -27,9 +28,8 @@ public:
      * @param reward The reward.
      * @param isFruit Boolean denoting if the entity is a fruit.
      */
-    CollectableEntity(const Coordinate2D::NormalizedCoordinate &startPosition,
-                      const Coordinate2D::Coordinate &size, const int &reward,
-                      const bool &isFruit=false);
+    CollectableEntity(const Coordinate2D::NormalizedCoordinate& startPosition, const Coordinate2D::Coordinate& size,
+                      const int& reward, const bool& isFruit = false);
 
     /**
      * @brief Gets the reward.

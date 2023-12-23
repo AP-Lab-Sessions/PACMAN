@@ -20,24 +20,24 @@ protected:
      * @brief High scores
      */
     std::set<int> highScore;
+
 public:
+    /**
+     * @brief Returns the 5 highest scores
+     * @return 5 highest scores.
+     */
+    std::array<int, 5> GetHighScore() const;
 
-     /**
-      * @brief Returns the 5 highest scores
-      * @return 5 highest scores.
-      */
-     std::array<int, 5> GetHighScore() const;
+    /**
+     * @brief Add a score to the set of scores
+     * @param score The given score.
+     */
+    void AddScore(const int& score);
 
-     /**
-      * @brief Add a score to the set of scores
-      * @param score The given score.
-      */
-     void AddScore(const int &score);
-
-     /**
-      * @brief Writes the high scores to a file.
-      */
-     void SaveHighScore() const;
+    /**
+     * @brief Writes the high scores to a file.
+     */
+    void SaveHighScore() const;
 };
 
 #endif // PACMAN_SCOREBOARD_H

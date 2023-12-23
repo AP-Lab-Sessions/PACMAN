@@ -4,7 +4,7 @@
 //  documentation,
 //  namespace encapsulation,
 int main() {
-    Game game(960,540);
+    Game game(960, 540);
     game.Run();
     return EXIT_SUCCESS;
 }

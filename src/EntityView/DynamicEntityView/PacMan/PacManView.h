@@ -11,7 +11,7 @@
 class PacManView final : public DynamicEntityView {
 protected:
 public:
-    explicit PacManView(const std::weak_ptr<sf::RenderWindow> &window);
+    explicit PacManView(const std::weak_ptr<sf::RenderWindow>& window);
 
     using DynamicEntityView::Update;
 
@@ -19,7 +19,7 @@ public:
      * @brief Listens to the creation of PacMan entity and plays a sound.
      * @param event
      */
-    void Update(const EntityCreateEvent &event) final;
+    void Update(const EntityCreateEvent& event) final;
 };
 
 #endif // PAC_MAN_PACMANVIEW_H

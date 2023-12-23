@@ -3,11 +3,10 @@
 #ifndef PACMAN_IVISITOR_H
 #define PACMAN_IVISITOR_H
 
-
 #include "PMLogic.h"
 
 /**
-* @brief Abstract visitor
+ * @brief Abstract visitor
  */
 class PMLogic::IVisitor {
 public:

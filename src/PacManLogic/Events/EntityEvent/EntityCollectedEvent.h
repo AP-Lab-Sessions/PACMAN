@@ -12,8 +12,8 @@ struct EntityCollectedEvent : public PMLogic::Event<EntityCollectedEvent> {
     const int reward;
     const bool collectedFruit;
 
-    explicit EntityCollectedEvent(const int &reward, const bool &collectedFruit)
+    explicit EntityCollectedEvent(const int& reward, const bool& collectedFruit)
         : reward(reward), collectedFruit(collectedFruit) {}
 };
 
-#endif //PACMAN_ENTITYCOLLECTEDEVENT_H
+#endif // PACMAN_ENTITYCOLLECTEDEVENT_H

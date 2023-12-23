@@ -11,11 +11,12 @@
  */
 class PausedState : public State {
 protected:
-    TextWidget description, resume,goToMenu;
-public:
-    explicit PausedState(const std::weak_ptr<sf::RenderWindow> &window);
+    TextWidget description, resume, goToMenu;
 
-    void ProcessEvents(const sf::Event &event) override;
+public:
+    explicit PausedState(const std::weak_ptr<sf::RenderWindow>& window);
+
+    void ProcessEvents(const sf::Event& event) override;
     void Render() override;
     void Update() override;
 };

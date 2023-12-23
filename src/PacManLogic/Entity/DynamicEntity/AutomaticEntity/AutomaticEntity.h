@@ -4,21 +4,22 @@
 #define PACMAN_AUTOMATICENTITY_H
 
 #include "Entity/DynamicEntity/DynamicEntity.h"
+#include "Events/EntityEvent/EntityDestroyEvent.h"
 #include "Events/EntityEvent/EntityPositionChangeEvent.h"
 #include "Pattern/Observer/EventListener/IEventListener.h"
-#include "Events/EntityEvent/EntityDestroyEvent.h"
 
 /**
  * @brief A dynamic entity that has a target it needs to automatically follow.
  */
 class AutomaticEntity : public DynamicEntity,
                         public PMLogic::IEventListener<EntityPositionChangeEvent>,
-                        public PMLogic::IEventListener<EntityDestroyEvent>{
+                        public PMLogic::IEventListener<EntityDestroyEvent> {
 protected:
     /**
      * @brief The target to follow.
      */
     std::unique_ptr<Coordinate2D::NormalizedCoordinate> target;
+
 public:
     /**
      *
@@ -26,9 +27,8 @@ public:
      * @param size The size.
      * @param speed The default speed.
      */
-    AutomaticEntity(const Coordinate2D::NormalizedCoordinate &startPosition,
-                                           const Coordinate2D::Coordinate &size, const float &speed);
-
+    AutomaticEntity(const Coordinate2D::NormalizedCoordinate& startPosition, const Coordinate2D::Coordinate& size,
+                    const float& speed);
 
     /**
      * @brief Chooses next direction using the position of the target.
@@ -39,12 +39,12 @@ public:
      * @brief Called when the target changes position.
      * @param eventData Information about the target's position
      */
-    void Update(const EntityPositionChangeEvent &eventData) override = 0;
+    void Update(const EntityPositionChangeEvent& eventData) override = 0;
     /**
      * @brief Called when the target gets destroyed.
      * @param eventData
      */
-    void Update(const EntityDestroyEvent &eventData) override;
+    void Update(const EntityDestroyEvent& eventData) override;
 };
 
 #endif // PACMAN_AUTOMATICENTITY_H

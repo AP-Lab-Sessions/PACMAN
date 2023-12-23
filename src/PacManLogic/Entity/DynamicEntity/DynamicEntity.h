@@ -4,8 +4,8 @@
 #define PACMAN_DYNAMICENTITY_H
 
 #include "Entity/Entity.h"
-#include "Events/EntityEvent/EntityPositionChangeEvent.h"
 #include "Events/EntityEvent/EntityDirectionChangeEvent.h"
+#include "Events/EntityEvent/EntityPositionChangeEvent.h"
 
 /**
  * @brief An entity that is dynamic (can change positions/move) and can also be killable by other dynamic entities
@@ -50,11 +50,8 @@ public:
     std::unique_ptr<EntityPositionChangeEvent> onPositionChange;
     std::unique_ptr<EntityDirectionChangeEvent> onDirectionChange;
 
-
-
-    explicit DynamicEntity(const Coordinate2D::NormalizedCoordinate &startPosition,
-                           const Coordinate2D::Coordinate &size,
-                           const float &speed);
+    explicit DynamicEntity(const Coordinate2D::NormalizedCoordinate& startPosition,
+                           const Coordinate2D::Coordinate& size, const float& speed);
     ~DynamicEntity() override = default;
 
     /**
@@ -66,8 +63,7 @@ public:
      * @brief Set the position.
      * @param newPosition The new position.
      */
-    void SetPosition(const Coordinate2D::Coordinate &newPosition);
-
+    void SetPosition(const Coordinate2D::Coordinate& newPosition);
 
     /**
      * @brief Gets the current speed.
@@ -78,7 +74,7 @@ public:
      * @brief Sets the current speed.
      * @param newSpeed The new current speed.
      */
-    void SetSpeed(const float &newSpeed);
+    void SetSpeed(const float& newSpeed);
 
     /**
      * @brief Gets the default speed.
@@ -90,12 +86,12 @@ public:
      * @brief Sets the next direction (not necessarily the current direction yet)
      * @param newDirection The new next direction
      */
-    void SetNextDirection(const Coordinate2D::DiscreteDirection2D &newDirection);
+    void SetNextDirection(const Coordinate2D::DiscreteDirection2D& newDirection);
     /**
      * @brief Sets current direction
      * @param newDirection The new current direction.
      */
-    void SetDirection(const Coordinate2D::DiscreteDirection2D &newDirection);
+    void SetDirection(const Coordinate2D::DiscreteDirection2D& newDirection);
     /**
      * @brief Gets current direction
      * @return The current direction
@@ -112,7 +108,7 @@ public:
      * @param direction The given direction.
      * @return The next position.
      */
-    Coordinate2D::NormalizedCoordinate GetNextPosition(const Coordinate2D::DiscreteDirection2D &direction) const;
+    Coordinate2D::NormalizedCoordinate GetNextPosition(const Coordinate2D::DiscreteDirection2D& direction) const;
 
     /**
      * @brief Tells if the dynamic entity is killable.
@@ -123,55 +119,54 @@ public:
      * @brief Sets the killable boolean of the dynamic entity.
      * @param newIsKillable The new killable boolean.
      */
-    void SetIsKillable(const bool &newIsKillable);
+    void SetIsKillable(const bool& newIsKillable);
 
     /**
      * @brief Tells if the dynamic entity will collide with another entity in the next position/move.
      * @param entity
      * @return Boolean denoting if the dynamic entity will collide with another entity.
      */
-    bool WillCollide(const PMLogic::Entity &entity) const override;
+    bool WillCollide(const PMLogic::Entity& entity) const override;
     /**
      * @brief Tells if the dynamic entity will collide with another entity in the position in a given direction.
      * @param entity
      * @return Boolean denoting if the dynamic entity will collide with another entity given a direction.
      */
-    bool WillCollide(const PMLogic::Entity &entity, const Coordinate2D::DiscreteDirection2D &direction) const;
-
+    bool WillCollide(const PMLogic::Entity& entity, const Coordinate2D::DiscreteDirection2D& direction) const;
 
     // dynamic double dispatch for collisions
 
     /**
      * @brief Handle collision with itself and wall
      */
-    void CollideWith(Wall &) override;
+    void CollideWith(Wall&) override;
     /**
      * @brief Handle collision with itself and intersection
      */
-    void CollideWith(Intersection &) override;
+    void CollideWith(Intersection&) override;
 
     /**
      * @brief Handle collision with itself and ghost
      */
-    void CollideWith(PacMan &) override {}
+    void CollideWith(PacMan&) override {}
 
     /**
      * @brief Handle collision with itself and ghost
      */
-    void CollideWith(Ghost &) override {}
+    void CollideWith(Ghost&) override {}
 
     /**
      * @brief Handle collision with itself and fruit
      */
-    void CollideWith(Fruit &) override {}
+    void CollideWith(Fruit&) override {}
     /**
      * @brief Handle collision with itself and coin
      */
-    void CollideWith(Coin &) override {}
+    void CollideWith(Coin&) override {}
     /**
      * @brief Handle collision with itself and an entity
      */
-    void CollideWith(PMLogic::Entity &) override = 0;
+    void CollideWith(PMLogic::Entity&) override = 0;
 
     /**
      * @brief Retrieve the starting position.

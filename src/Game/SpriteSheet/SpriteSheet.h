@@ -3,9 +3,9 @@
 #ifndef PACMAN_SPRITESHEET_H
 #define PACMAN_SPRITESHEET_H
 
-#include <memory>
-#include <SFML/Graphics.hpp>
 #include "Coordinate/Coordinate.h"
+#include <SFML/Graphics.hpp>
+#include <memory>
 
 /**
  * @brief A spritesheet 'helper' class that helps with obtaining a certain sprite from a given spritesheet.
@@ -16,9 +16,9 @@ protected:
      * @brief The sprite sheet.
      */
     sf::Texture sheet;
-    const unsigned int spritesPerRow, spritesPerColumn,
-        horizontalPadding, verticalPadding,
-        horizontalOffset, verticalOffset;
+    const unsigned int spritesPerRow, spritesPerColumn, horizontalPadding, verticalPadding, horizontalOffset,
+        verticalOffset;
+
 public:
     /**
      *
@@ -30,10 +30,9 @@ public:
      * @param horizontalOffset Horizontal offset (when the sprites 'actually begin' horizontal-wise)
      * @param verticalOffset  Vertical offset (when the sprites 'actually begin' vertical-wise)
      */
-    SpriteSheet(const std::string &texturePath,
-                const unsigned int &spritesPerRow, const unsigned int &spritesPerColumn,
-                const unsigned int &horizontalPadding=0, const unsigned int &verticalPadding=0,
-                const unsigned int &horizontalOffset=0, const unsigned int &verticalOffset=0);
+    SpriteSheet(const std::string& texturePath, const unsigned int& spritesPerRow, const unsigned int& spritesPerColumn,
+                const unsigned int& horizontalPadding = 0, const unsigned int& verticalPadding = 0,
+                const unsigned int& horizontalOffset = 0, const unsigned int& verticalOffset = 0);
 
     /**
      * @brief Returns a sprite given the coordinates that is also correctly sized by looking at the projected size
@@ -42,7 +41,7 @@ public:
      * @param projected the size that the sprite needs to be
      * @return the sprite
      */
-    sf::Sprite GetSprite(const  int &x, const int &y, const Coordinate2D::Coordinate &projected) const;
+    sf::Sprite GetSprite(const int& x, const int& y, const Coordinate2D::Coordinate& projected) const;
 
     /**
      * @brief Crops the spritesheet texture and positions it according to the given column and row, used by GetSprite()
@@ -50,8 +49,7 @@ public:
      * @param row
      * @return cropped rectangle
      */
-    sf::IntRect GetTextureRect(const int &column, const int &row) const;
+    sf::IntRect GetTextureRect(const int& column, const int& row) const;
 };
 
-
-#endif //PACMAN_SPRITESHEET_H
+#endif // PACMAN_SPRITESHEET_H

@@ -3,9 +3,8 @@
 #ifndef WORLD_H
 #define WORLD_H
 
-#include "Pattern/AbstractFactory/AbstractFactory.h"
 #include "Level/Level.h"
-
+#include "Pattern/AbstractFactory/AbstractFactory.h"
 
 #define DEFAULT_LEVEL_PATH "src/config/level.txt"
 
@@ -33,12 +32,13 @@ protected:
      * @brief Number of lives.
      */
     std::shared_ptr<int> lives;
+
 public:
     /**
      *
      * @param factory Entity factory
      */
-    explicit World(std::unique_ptr<AbstractFactory> &factory);
+    explicit World(std::unique_ptr<AbstractFactory>& factory);
 
     /**
      * @brief Updates the world by also updating the level.
@@ -61,7 +61,7 @@ public:
      * @brief Sets the current direction of the player entity (PacMan)
      * @param direction
      */
-    void SetPlayerDirection(const Coordinate2D::DiscreteDirection2D &direction);
+    void SetPlayerDirection(const Coordinate2D::DiscreteDirection2D& direction);
 };
 
 #endif

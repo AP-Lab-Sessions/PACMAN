@@ -12,5 +12,4 @@ struct EntityDestroyEvent : public PMLogic::Event<EntityDestroyEvent> {
     std::weak_ptr<PMLogic::Entity> entity;
 };
 
-
-#endif //PACMAN_ENTITYDESTROYEVENT_H
+#endif // PACMAN_ENTITYDESTROYEVENT_H

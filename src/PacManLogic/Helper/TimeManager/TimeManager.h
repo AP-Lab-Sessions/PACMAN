@@ -1,7 +1,7 @@
 //
 
-#ifndef PACMAN_DELTATIME_H
-#define PACMAN_DELTATIME_H
+#ifndef PACMAN_TIMEMANAGER_H
+#define PACMAN_TIMEMANAGER_H
 
 #include "PMLogic.h"
 
@@ -11,9 +11,8 @@
 #include <functional>
 #include <list>
 
-
 /**
-* @brief A timer that calls a callback when the specified time has run out.
+ * @brief A timer that calls a callback when the specified time has run out.
  */
 class PMLogic::Helper::Timer {
 public:
@@ -31,11 +30,11 @@ public:
      * @param callback The callback function.
      * @param duration Duration of the timer.
      */
-    Timer(const std::function<void()> &callback, const float &duration);
+    Timer(const std::function<void()>& callback, const float& duration);
 };
 
 /**
-* @brief A stopwatch that can be paused, resumed, and tracked. Used by DeltaTime for its core function
+ * @brief A stopwatch that can be paused, resumed, and tracked. Used by TimeManager for its core function
  */
 class PMLogic::Helper::StopWatch {
 protected:
@@ -51,6 +50,7 @@ protected:
      * @brief A time that helps with pausing and resuming
      */
     std::chrono::time_point<std::chrono::steady_clock> capturedTime;
+
 public:
     StopWatch();
     /**
@@ -82,12 +82,12 @@ public:
 };
 
 /**
-* @brief Keeps the difference in time between current update step (tick) and the previous one.
+ * @brief Keeps the difference in time between current update step (tick) and the previous one.
  * Furthermore it also manages timers and stopwatches that get updated in accordance to deltatime
  */
-class PMLogic::Helper::DeltaTime : public PMLogic::Singleton<PMLogic::Helper::DeltaTime> {
+class PMLogic::Helper::TimeManager : public PMLogic::Singleton<PMLogic::Helper::TimeManager> {
 protected:
-    DeltaTime();
+    TimeManager();
 
     /**
      * @brief The difference in time between current tick and the previous one
@@ -116,26 +116,26 @@ public:
     /**
      * @brief Updates deltatime by getting to the next update step
      */
-     void Tick();
+    void Tick();
 
     /**
      * @brief Gets deltaTime
      * @return deltaTime
      */
-     float GetDeltaTime() const;
+    float GetDeltaTime() const;
 
-     /**
-      * @brief Adds a timer
-      * @param callBack
-      * @param duration
-      */
-     void AddTimer(const std::weak_ptr<PMLogic::Helper::Timer> &timer);
+    /**
+     * @brief Adds a timer
+     * @param callBack
+     * @param duration
+     */
+    void AddTimer(const std::weak_ptr<PMLogic::Helper::Timer>& timer);
 
-     /**
-      * @brief Adds a stopwatch
-      * @param stopWatch
-      */
-     void AddStopWatch(const std::weak_ptr<PMLogic::Helper::StopWatch> &stopWatch);
+    /**
+     * @brief Adds a stopwatch
+     * @param stopWatch
+     */
+    void AddStopWatch(const std::weak_ptr<PMLogic::Helper::StopWatch>& stopWatch);
 };
 
-#endif // PACMAN_DELTATIME_H
+#endif // PACMAN_TIMEMANAGER_H

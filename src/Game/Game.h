@@ -3,9 +3,9 @@
 #ifndef PACMAN_GAME_H
 #define PACMAN_GAME_H
 
-#include <SFML/Graphics.hpp>
-#include "State/StateManager/StateManager.h"
 #include "PacManLogic/Coordinate/Coordinate.h"
+#include "State/StateManager/StateManager.h"
+#include <SFML/Graphics.hpp>
 
 /**
  * @brief The PacMan Game class which holds the view aspect of the game and the logic aspect.
@@ -50,7 +50,7 @@ public:
      * @param width Width of the view and initial width of the render window
      * @param height Height of the view and initial height of the render window
      */
-    Game(const unsigned int &width, const unsigned int &height);
+    Game(const unsigned int& width, const unsigned int& height);
 
     /**
      * @brif Runs the entire game (calls all the above methods)

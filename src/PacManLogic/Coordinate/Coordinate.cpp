@@ -5,20 +5,19 @@
 
 Coordinate2D::Coordinate::Coordinate(const float& x, const float& y) : x(x), y(y) {}
 
-float Coordinate2D::Coordinate::GetX() const {return x;}
-float Coordinate2D::Coordinate::GetY() const {return y;}
+float Coordinate2D::Coordinate::GetX() const { return x; }
+float Coordinate2D::Coordinate::GetY() const { return y; }
 
-void Coordinate2D::Coordinate::SetX(const float &newX) {x=newX;}
-void Coordinate2D::Coordinate::SetY(const float& newY) {y=newY;}
+void Coordinate2D::Coordinate::SetX(const float& newX) { x = newX; }
+void Coordinate2D::Coordinate::SetY(const float& newY) { y = newY; }
 
-bool Coordinate2D::IsNormalized(const float& n) {
-    return normalizedMin <= n && n <= normalizedMax;
-}
+bool Coordinate2D::IsNormalized(const float& n) { return normalizedMin <= n && n <= normalizedMax; }
 bool Coordinate2D::IsNormalized(const Coordinate2D::Coordinate& coordinate) {
     return IsNormalized(coordinate.GetX()) && IsNormalized(coordinate.GetY());
 }
 
-Coordinate2D::NormalizedCoordinate::NormalizedCoordinate(const float& xArg, const float& yArg) : Coordinate(xArg,yArg) {
+Coordinate2D::NormalizedCoordinate::NormalizedCoordinate(const float& xArg, const float& yArg)
+    : Coordinate(xArg, yArg) {
     assert(IsNormalized(*this));
 }
 
@@ -32,17 +31,16 @@ void Coordinate2D::NormalizedCoordinate::SetY(const float& newY) {
     y = newY;
 }
 
-
-bool Coordinate2D::IsOverlapping(const Coordinate2D::NormalizedCoordinate &pos1, const Coordinate2D::Coordinate &size1,
-                                 const Coordinate2D::NormalizedCoordinate &pos2,
-                                 const Coordinate2D::Coordinate &size2) {
-    return (pos1.GetX() < pos2.GetX()+size2.GetX() && pos1.GetX()+size1.GetX() > pos2.GetX()
-            && pos1.GetY() < pos2.GetY()+size2.GetY() && pos1.GetY()+size1.GetY() > pos2.GetY());
+bool Coordinate2D::IsOverlapping(const Coordinate2D::NormalizedCoordinate& pos1, const Coordinate2D::Coordinate& size1,
+                                 const Coordinate2D::NormalizedCoordinate& pos2,
+                                 const Coordinate2D::Coordinate& size2) {
+    return (pos1.GetX() < pos2.GetX() + size2.GetX() && pos1.GetX() + size1.GetX() > pos2.GetX() &&
+            pos1.GetY() < pos2.GetY() + size2.GetY() && pos1.GetY() + size1.GetY() > pos2.GetY());
 }
 
 float Coordinate2D::GetManhattanDistance(const Coordinate2D::NormalizedCoordinate& coord1,
                                          const Coordinate2D::NormalizedCoordinate& coord2) {
-    return std::abs(coord2.GetX()-coord1.GetX()) + std::abs(coord2.GetY()-coord1.GetY());
+    return std::abs(coord2.GetX() - coord1.GetX()) + std::abs(coord2.GetY() - coord1.GetY());
 }
 
 bool Coordinate2D::Coordinate::operator==(const Coordinate2D::Coordinate& other) const {
@@ -50,16 +48,22 @@ bool Coordinate2D::Coordinate::operator==(const Coordinate2D::Coordinate& other)
 }
 
 float Coordinate2D::Normalize(const float& position, const float& length) {
-    if(position+length > Coordinate2D::normalizedMax) {
+    if (position + length > Coordinate2D::normalizedMax) {
         return Coordinate2D::normalizedMin;
-    }
-    else if(position < Coordinate2D::normalizedMin) {
-        return Coordinate2D::normalizedMax-length;
+    } else if (position < Coordinate2D::normalizedMin) {
+        return Coordinate2D::normalizedMax - length;
     }
     return position;
 }
 
 Coordinate2D::NormalizedCoordinate Coordinate2D::Normalize(const Coordinate2D::Coordinate& coordinate,
                                                            const Coordinate2D::Coordinate& size) {
-    return { Normalize(coordinate.GetX(), size.GetX()), Normalize(coordinate.GetY(), size.GetY())};
+    return {Normalize(coordinate.GetX(), size.GetX()), Normalize(coordinate.GetY(), size.GetY())};
+}
+
+Coordinate2D::NormalizedCoordinate Coordinate2D::GetCenteredShrinked(const Coordinate2D::NormalizedCoordinate& pos,
+                                                                     const Coordinate2D::Coordinate& size,
+                                                                     const float& smallFactor) {
+    return {pos.GetX() + (size.GetX() / 2) - (size.GetX() / (2 * smallFactor)),
+            pos.GetY() + (size.GetY() / 2) - (size.GetY() / (2 * smallFactor))};
 }

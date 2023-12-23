@@ -3,23 +3,24 @@
 #ifndef PACMAN_LEVEL_H
 #define PACMAN_LEVEL_H
 
-#include "UpdateVisitor/UpdateVisitor.h"
+#include "Events/EntityEvent/EntityCollectedEvent.h"
+#include "Events/EntityEvent/EntityDestroyEvent.h"
 #include "Pattern/AbstractFactory/AbstractFactory.h"
 #include "Score/Score.h"
-#include "Events/EntityEvent/EntityDestroyEvent.h"
-#include "Events/EntityEvent/EntityCollectedEvent.h"
+#include "UpdateVisitor/UpdateVisitor.h"
 
 /**
  * @brief A level that accordingly, creates entities, updates them and even destroys them.
  */
 class Level : public PMLogic::IEventListener<EntityDestroyEvent>,
               public PMLogic::IEventListener<EntityCollectedEvent>,
-              public std::enable_shared_from_this<Level>{
+              public std::enable_shared_from_this<Level> {
 private:
     /**
      * @brief The entities that are to be destroyed
      */
     std::vector<std::weak_ptr<PMLogic::Entity>> destructables;
+
 protected:
     /**
      * @brief String representing the level
@@ -80,7 +81,7 @@ protected:
      * @param intersectionSize Size of all intersections
      * @param startPosition Starting position
      */
-    void AddIntersections(const Coordinate2D::Coordinate &intersectionSize,
+    void AddIntersections(const Coordinate2D::Coordinate& intersectionSize,
                           Coordinate2D::NormalizedCoordinate startPosition);
     /**
      * @brief Gets all viable directions you can go from an intersection on position x,y of level string
@@ -88,23 +89,23 @@ protected:
      * @param y row of level string
      * @return All viable directions you can go from the intersection.
      */
-    std::list<Coordinate2D::DiscreteDirection2D> GetIntersectionDirections(const int &x, const int &y) const;
+    std::list<Coordinate2D::DiscreteDirection2D> GetIntersectionDirections(const int& x, const int& y) const;
     /**
-     * @brief Gets the symbol from the level string given x,y position. This is done modulo-wise so x,y cannot get out of bounds.
-    * @param x column of level string
-    * @param y row of level string
+     * @brief Gets the symbol from the level string given x,y position. This is done modulo-wise so x,y cannot get out
+     * of bounds.
+     * @param x column of level string
+     * @param y row of level string
      * @return The symbol.
      */
-    char GetLevelChar(const int &x, const int &y) const;
+    char GetLevelChar(const int& x, const int& y) const;
     /**
      * @brief Tells if the symbol is not a wall or a newline.
      * @param c the symbol.
      * @return Boolean denoting if the symbol is not a wall or a newline.
      */
-    bool CharIsPath(const char &c) const;
+    bool CharIsPath(const char& c) const;
 
 public:
-
     /**
      *
      * @param levelPath Path to the level text file
@@ -112,9 +113,8 @@ public:
      * @param score Current score
      * @param lives Current number of lives
      */
-    Level(const std::string &levelPath,
-          const std::weak_ptr<PMLogic::AbstractFactory> &factory,
-          const std::weak_ptr<PMLogic::Score> &score, const std::weak_ptr<int> &lives);
+    Level(const std::string& levelPath, const std::weak_ptr<PMLogic::AbstractFactory>& factory,
+          const std::weak_ptr<PMLogic::Score>& score, const std::weak_ptr<int>& lives);
 
     /**
      * @brief Gets the pacman entity which acts as the playable entity.
@@ -128,16 +128,17 @@ public:
     void Update();
 
     /**
-     * @brief Called when an entity gets destroyed, the entity gets added to the destructables and gets deleted from the entities next update
+     * @brief Called when an entity gets destroyed, the entity gets added to the destructables and gets deleted from the
+     * entities next update
      * @param entityDestroy
      */
-    void Update(const EntityDestroyEvent &entityDestroy) override;
+    void Update(const EntityDestroyEvent& entityDestroy) override;
 
     /**
      * @brief Called when an entity gets collected, collectablesAmount is consequently decremented.
      * @param entityCollected
      */
-    void Update(const EntityCollectedEvent &entityCollected) override;
+    void Update(const EntityCollectedEvent& entityCollected) override;
 
     /**
      * @brief Loads the level by reading the level string and creating all the necessary entities.

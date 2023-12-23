@@ -3,8 +3,8 @@
 #ifndef PACMAN_STATE_H
 #define PACMAN_STATE_H
 
-#include <memory>
 #include <SFML/Graphics.hpp>
+#include <memory>
 
 class StateManager;
 
@@ -30,24 +30,25 @@ protected:
      * @brief The secondary (pixelated) font of the game.
      */
     sf::Font secondaryFont;
+
 public:
     /**
      *
      * @param window The render window.
      */
-    explicit State(const std::weak_ptr<sf::RenderWindow> &window);
+    explicit State(const std::weak_ptr<sf::RenderWindow>& window);
     virtual ~State() = default;
 
     /**
      * @brief Sets the State manager.
      */
-    void SetManager(const std::weak_ptr<StateManager> &);
+    void SetManager(const std::weak_ptr<StateManager>&);
 
     /**
      * @brief Processes events of the state.
      * @param event
      */
-    virtual void ProcessEvents(const sf::Event &event) = 0;
+    virtual void ProcessEvents(const sf::Event& event) = 0;
     /**
      * @brief Renders the contents of the state.
      */

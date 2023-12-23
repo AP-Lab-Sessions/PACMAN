@@ -5,8 +5,8 @@
 
 #include "Coordinate/Coordinate.h"
 
-#include "Events/EntityEvent/EntityDestroyEvent.h"
 #include "Events/EntityEvent/EntityCreateEvent.h"
+#include "Events/EntityEvent/EntityDestroyEvent.h"
 
 #include <memory>
 
@@ -37,12 +37,11 @@ public:
     std::unique_ptr<EntityDestroyEvent> onEntityDestroy;
     std::unique_ptr<EntityCreateEvent> onEntityCreate;
 
-
     /**
      * @param startPosition The starting position of the entity.
      * @param size The size of the entity.
      */
-    explicit Entity(Coordinate2D::NormalizedCoordinate startPosition, const Coordinate2D::Coordinate &size);
+    explicit Entity(Coordinate2D::NormalizedCoordinate startPosition, const Coordinate2D::Coordinate& size);
     virtual ~Entity();
 
     /**
@@ -61,43 +60,43 @@ public:
      * @brief Calls the visit function of the visitor
      * @param visitor
      */
-    virtual void Accept(const std::weak_ptr<IEntityVisitor> &visitor) = 0;
+    virtual void Accept(const std::weak_ptr<IEntityVisitor>& visitor) = 0;
 
     /**
      * @brief Tells if the entity will collide with another
      * @param entity
      * @return Boolean denoting if the entity will collide with another.
      */
-    virtual bool WillCollide(const PMLogic::Entity &entity) const = 0;
+    virtual bool WillCollide(const PMLogic::Entity& entity) const = 0;
 
     /**
      * @brief Handle collision with itself and pacman
      */
-    virtual void CollideWith(PacMan &);
+    virtual void CollideWith(PacMan&);
     /**
      * @brief Handle collision with itself and ghost
      */
-    virtual void CollideWith(Ghost &);
+    virtual void CollideWith(Ghost&);
     /**
      * @brief Handle collision with itself and fruit
      */
-    virtual void CollideWith(Fruit &);
+    virtual void CollideWith(Fruit&);
     /**
      * @brief Handle collision with itself and coin
      */
-    virtual void CollideWith(Coin &);
+    virtual void CollideWith(Coin&);
     /**
      * @brief Handle collision with itself and wall
      */
-    virtual void CollideWith(Wall &);
+    virtual void CollideWith(Wall&);
     /**
      * @brief Handle collision with itself and intersection
      */
-    virtual void CollideWith(Intersection &);
+    virtual void CollideWith(Intersection&);
     /**
      * @brief Handle collision with itself and an entity
      */
-    virtual void CollideWith(PMLogic::Entity &) = 0;
+    virtual void CollideWith(PMLogic::Entity&) = 0;
 
     /**
      * @brief Respawns the entity
@@ -105,7 +104,8 @@ public:
     virtual void Respawn();
 
     /**
-     * @brief Will call the onEntityCreate event so all listeners of that event will know that the entity has been created and is ready.
+     * @brief Will call the onEntityCreate event so all listeners of that event will know that the entity has been
+     * created and is ready.
      */
     void Create() const;
 };

@@ -3,14 +3,9 @@
 #include "Coin.h"
 #include "Entity/IEntityVisitor/IEntityVisitor.h"
 
+Coin::Coin(const Coordinate2D::NormalizedCoordinate& startPosition, const Coordinate2D::Coordinate& size)
+    : CollectableEntity(startPosition, size, 5) {}
 
-Coin::Coin(const Coordinate2D::NormalizedCoordinate &startPosition, const Coordinate2D::Coordinate &size) :
-CollectableEntity(startPosition,  size,  5) {}
+void Coin::Accept(const std::weak_ptr<IEntityVisitor>& visitor) { visitor.lock()->Visit(*this); }
 
-void Coin::Accept(const std::weak_ptr<IEntityVisitor>& visitor) {
-    visitor.lock()->Visit(*this);
-}
-
-void Coin::CollideWith(PMLogic::Entity &entity) {
-    entity.CollideWith(*this);
-}
+void Coin::CollideWith(PMLogic::Entity& entity) { entity.CollideWith(*this); }
