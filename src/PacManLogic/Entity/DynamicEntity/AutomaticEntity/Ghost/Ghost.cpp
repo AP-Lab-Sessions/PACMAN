@@ -10,15 +10,14 @@
 
 Ghost::Ghost(const Coordinate2D::NormalizedCoordinate &startPosition,const Coordinate2D::Coordinate &size,
              const float &power,
-             const float &stasisTime) :
-AutomaticEntity(startPosition, size, 0.75f*power),  fearDuration(10.0f/power), mode(Mode_Stasis),
+             const float &stasisDuration) :
+AutomaticEntity(startPosition, size, 0.75f*power),  fearDuration(10.0f/power), stasisDuration(stasisDuration),
+                                            mode(Mode_Stasis),
     onModeChange(std::make_unique<GhostModeChangeEvent>(mode)),
     onEntityCollected(std::make_unique<EntityCollectedEvent>(50,false))
 {
     SetIsKillable(false);
-    modeTimer = std::make_shared<PMLogic::Helper::Timer>([&]{
-                    SetMode(Mode_Chase);
-                }, stasisTime);
+    SetMode(Mode_Stasis);
     PMLogic::Helper::DeltaTime::GetInstance().lock()->AddTimer(modeTimer);
 }
 
@@ -44,15 +43,15 @@ void Ghost::CollideWith(PMLogic::Entity &entity) {
 
 void Ghost::CollideWith(Wall& wall) {
     DynamicEntity::CollideWith(wall);
-    if(WillCollide(wall)) ChooseDirection();
+    if(WillCollide(wall)) ChooseNextDirection();
 }
 
-void Ghost::CollideWith(const Intersection& intersection) {
+void Ghost::CollideWith(Intersection& intersection) {
     const auto& intersectionIter =
         std::find(collidingWithIntersection.begin(), collidingWithIntersection.end(), intersection);
     if(WillCollide(intersection) && intersectionIter == collidingWithIntersection.end()) {
         collidingWithIntersection.push_back(intersection);
-        ChooseDirection();
+        ChooseNextDirection();
         DynamicEntity::CollideWith(intersection);
     }
     else if(!WillCollide(intersection) && intersectionIter != collidingWithIntersection.end())
@@ -73,7 +72,15 @@ void Ghost::SetMode(const GhostMode &newMode) {
             SetMode(Mode_Chase);
         }, fearDuration);
         PMLogic::Helper::DeltaTime::GetInstance().lock()->AddTimer(modeTimer);
-        ChooseDirection();
+        ChooseNextDirection();
+        break;
+    }
+    case Mode_Stasis:{
+        modeTimer = std::make_shared<PMLogic::Helper::Timer>([&]{
+            SetMode(Mode_Chase);
+        }, stasisDuration);
+        SetSpeed(GetDefaultSpeed());
+        SetIsKillable(false);
         break;
     }
     default: {
@@ -125,7 +132,7 @@ Coordinate2D::DiscreteDirection2D Ghost::GetDirectionWithMaximumDistance() const
     }
     return result[random.lock()->GetRandomInteger(0, static_cast<int>(result.size()-1))];
 }
-void Ghost::ChooseDirection() {
+void Ghost::ChooseNextDirection() {
     if(!viableDirections.empty()) {
         const auto& random {PMLogic::Helper::Random::GetInstance()};
         const bool computeManhattanDistance {random.lock()->GetRandomFloat(0.0f, 1.0f) <= 0.5f};
@@ -167,6 +174,6 @@ void Ghost::Update(const EntityCollectedEvent& eventData) {
 void Ghost::Respawn() {
     SetMode(Mode_Chase);
     SetPosition(GetSpawn());
-    ChooseDirection();
+    ChooseNextDirection();
 }
 

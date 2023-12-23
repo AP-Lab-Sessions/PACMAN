@@ -6,6 +6,9 @@
 #include "Game/Widgets/TextWidget/TextWidget.h"
 #include "State/State.h"
 
+/**
+ * @brief The main menu of the game.
+ */
 class MenuState : public State {
 protected:
     TextWidget title, play, quit, highScore;

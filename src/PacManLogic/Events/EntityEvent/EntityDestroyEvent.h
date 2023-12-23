@@ -5,6 +5,9 @@
 
 #include "Pattern/Observer/Event/Event.h"
 
+/**
+ * @brief Called when an entity gets destroyed.
+ */
 struct EntityDestroyEvent : public PMLogic::Event<EntityDestroyEvent> {
     std::weak_ptr<PMLogic::Entity> entity;
 };

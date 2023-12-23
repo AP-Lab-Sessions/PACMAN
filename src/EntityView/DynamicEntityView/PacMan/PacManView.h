@@ -5,6 +5,9 @@
 
 #include "EntityView/DynamicEntityView/DynamicEntityView.h"
 
+/**
+ * @brief View of the PacMan entity.
+ */
 class PacManView final : public DynamicEntityView {
 protected:
 public:
@@ -12,6 +15,10 @@ public:
 
     using DynamicEntityView::Update;
 
+    /**
+     * @brief Listens to the creation of PacMan entity and plays a sound.
+     * @param event
+     */
     void Update(const EntityCreateEvent &event) final;
 };
 

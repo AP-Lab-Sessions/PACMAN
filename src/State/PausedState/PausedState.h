@@ -6,6 +6,9 @@
 #include "Game/Widgets/TextWidget/TextWidget.h"
 #include "State/State.h"
 
+/**
+ * @brief State where the currently played level is paused.
+ */
 class PausedState : public State {
 protected:
     TextWidget description, resume,goToMenu;

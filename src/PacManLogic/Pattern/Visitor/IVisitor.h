@@ -6,6 +6,9 @@
 
 #include "PMLogic.h"
 
+/**
+* @brief Abstract visitor
+ */
 class PMLogic::IVisitor {
 public:
     virtual ~IVisitor() = default;

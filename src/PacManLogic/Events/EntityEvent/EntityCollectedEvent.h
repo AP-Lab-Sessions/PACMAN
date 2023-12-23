@@ -5,6 +5,9 @@
 
 #include "Pattern/Observer/Event/Event.h"
 
+/**
+ * @brief Called when a collectable entity gets collected or when a ghost gets eaten.
+ */
 struct EntityCollectedEvent : public PMLogic::Event<EntityCollectedEvent> {
     const int reward;
     const bool collectedFruit;

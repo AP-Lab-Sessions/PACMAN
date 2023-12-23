@@ -5,7 +5,9 @@
 
 #include "Entity/IEntityVisitor/IEntityVisitor.h"
 
-
+/**
+ * @brief Visitor that updates concrete entities in Visit (currently only for dynamic entities)
+ */
 class UpdateVisitor : public IEntityVisitor {
 public:
     void Visit(PacMan &pacMan) const override;

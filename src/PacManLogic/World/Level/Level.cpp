@@ -116,7 +116,11 @@ void Level::Load() {
             break;
         }
         case 'g': {
-            for(int i=0;i<4;i++) ghosts.push_back(factoryPtr->CreateGhost(currentPos, size, currentDifficulty));
+            for(int i=0;i<2;i++)
+                ghosts.push_back(factoryPtr->CreateGhost(currentPos, size, currentDifficulty, 0.0f));
+            for(int i=0;i<2;i++)
+                ghosts.push_back(factoryPtr->CreateGhost(currentPos, size, currentDifficulty,
+                                                         5.0f*static_cast<float>(i+1)));
             break;
         }
         case '#': {
@@ -169,7 +173,7 @@ void Level::DetectAllCollisions() {
         }
     }
 }
-void Level::Reload() {
+void Level::GoNextLevel() {
     PMLogic::Helper::DeltaTime::GetInstance().lock()->Pause();
     entities.clear();
     currentDifficulty *= 1.25;
@@ -195,7 +199,7 @@ void Level::Update() {
     }
 
     if(!collectablesCount) {
-        Reload();
+        GoNextLevel();
     }
     else if(pacManDied && *lives.lock()) {
         PMLogic::Helper::DeltaTime::GetInstance().lock()->Pause();

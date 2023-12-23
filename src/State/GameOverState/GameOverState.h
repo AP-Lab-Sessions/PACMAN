@@ -6,6 +6,9 @@
 #include "State/State.h"
 #include "Game/Widgets/TextWidget/TextWidget.h"
 
+/**
+ * @brief The state where the player used all of his lives and died.
+ */
 class GameOverState : public State {
 protected:
     TextWidget description, goToMenu;

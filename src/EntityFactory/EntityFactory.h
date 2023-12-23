@@ -8,19 +8,20 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
+/**
+ * @brief concrete factory which produces the necessary entities and corresponding views
+ */
 class EntityFactory : public PMLogic::AbstractFactory {
 protected:
     std::vector<std::shared_ptr<EntityView>> &viewsRef;
     const std::weak_ptr<sf::RenderWindow> window;
 
-    template<typename EntityType, typename EntityViewType>
-    std::unique_ptr<EntityType> CreateEntity(const Coordinate2D::NormalizedCoordinate &startPosition,
-                                             const Coordinate2D::Coordinate &size) const;
-
-    template<typename DynamicEntityType, typename DynamicEntityViewType>
-    std::unique_ptr<DynamicEntityType> CreateDynamicEntity(const Coordinate2D::NormalizedCoordinate &startPosition,
-                                                           const Coordinate2D::Coordinate &size) const;
 public:
+    /**
+     * @brief constructor of the factory
+     * @param viewsRef reference to the views of the game so whenever a view gets added it's added into the game
+     * @param window the render window of the game
+     */
     explicit EntityFactory( std::vector<std::shared_ptr<EntityView>> &viewsRef,
                            const std::weak_ptr<sf::RenderWindow> &window);
 
@@ -30,7 +31,7 @@ public:
 
     std::unique_ptr<Ghost> CreateGhost(
             const Coordinate2D::NormalizedCoordinate &startPosition,  const Coordinate2D::Coordinate &size,
-            const float &power) const override;
+            const float &power, const float &stasisTime) const override;
 
     std::unique_ptr<Wall> CreateWall(
             const Coordinate2D::NormalizedCoordinate &startPosition, const Coordinate2D::Coordinate &size

@@ -6,6 +6,9 @@
 #include "Pattern/Observer/Event/Event.h"
 #include "Coordinate/Coordinate.h"
 
+/**
+ * @brief Called when a dynamic entity changes direction.
+ */
 struct EntityDirectionChangeEvent : public PMLogic::Event<EntityDirectionChangeEvent> {
     Coordinate2D::DiscreteDirection2D newDirection;
 

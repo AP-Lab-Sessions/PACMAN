@@ -19,18 +19,18 @@ Game::Game(const unsigned int &width, const unsigned int &height)
     manager->PushState(startState);
     stateManager = manager;
 
-    background = sf::RectangleShape();
-    background.setSize(sf::Vector2f{static_cast<float>(width), static_cast<float>(height)});
-    background.setOutlineColor(sf::Color::White);
-    background.setFillColor(sf::Color::Transparent);
-    background.setOutlineThickness(1.0f);
+    outline = sf::RectangleShape();
+    outline.setSize(sf::Vector2f{static_cast<float>(width), static_cast<float>(height)});
+    outline.setOutlineColor(sf::Color::White);
+    outline.setFillColor(sf::Color::Transparent);
+    outline.setOutlineThickness(1.0f);
 }
 void Game::Update() {
     stateManager->Update();
 }
 void Game::Render() {
     window->clear();
-    window->draw(background);
+    window->draw(outline);
     stateManager->Render();
     window->display();
 }

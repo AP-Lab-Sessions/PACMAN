@@ -10,7 +10,7 @@
 
 
 /**
- * @brief A Singleton helper class that generates a random integer between x and y
+ * @brief A Singleton helper class that generates a random number (float or integer) between x and y
  */
 class PMLogic::Helper::Random : public PMLogic::Singleton<PMLogic::Helper::Random> {
 protected:
@@ -26,10 +26,10 @@ public:
     int GetRandomInteger(const int &min=1, const int &max=100);
 
     /**
-     * @briwf
+     * @briwf Gets a random float between min and max
      * @param min
      * @param max
-     * @return
+     * @return The random float.
      */
     float GetRandomFloat(const float &min=0.0f, const float &max=1.0f);
 };

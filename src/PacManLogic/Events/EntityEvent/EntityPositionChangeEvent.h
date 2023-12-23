@@ -6,6 +6,9 @@
 #include "Pattern/Observer/Event/Event.h"
 #include "Coordinate/Coordinate.h"
 
+/**
+ * @brief Called when an entity changes position.
+ */
 struct EntityPositionChangeEvent : public PMLogic::Event<EntityPositionChangeEvent> {
     Coordinate2D::NormalizedCoordinate newPosition;
     explicit EntityPositionChangeEvent(Coordinate2D::NormalizedCoordinate newPosition)

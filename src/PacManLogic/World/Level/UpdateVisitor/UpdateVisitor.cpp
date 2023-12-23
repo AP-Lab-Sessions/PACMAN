@@ -15,7 +15,7 @@ void UpdateVisitor::Visit(Wall &) const {}
 void UpdateVisitor::Visit(Fruit &) const {}
 
 void UpdateVisitor::Visit(Ghost &ghost) const {
-    ghost.Move();
+    if(ghost.GetMode() != Mode_Stasis) ghost.Move();
 }
 
 void UpdateVisitor::Visit(PacMan &pacMan) const {

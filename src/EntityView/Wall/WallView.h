@@ -5,6 +5,9 @@
 
 #include "EntityView/EntityView.h"
 
+/**
+ * @brief View of the wall entity
+ */
 class WallView final : public EntityView {
 protected:
     sf::RectangleShape wall;

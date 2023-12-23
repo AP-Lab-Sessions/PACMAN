@@ -8,9 +8,18 @@
 #include "PacManLogic/World/World.h"
 #include "State/State.h"
 
+/**
+ * @brief The game level.
+ */
 class LevelState : public State {
 protected:
+    /**
+     * @brief Entity views
+     */
     std::vector<std::shared_ptr<EntityView>> views;
+    /**
+     * @brief The world
+     */
     std::unique_ptr<PMLogic::World> world;
     TextWidget score, lives;
 public:

@@ -11,7 +11,7 @@ DynamicEntity::DynamicEntity(const Coordinate2D::NormalizedCoordinate& startPosi
                              const Coordinate2D::Coordinate &size,
                               const float &defaultSpeed)
     : PMLogic::Entity(startPosition, size), spawn(startPosition),
-      currentDirection(Coordinate2D::Direction_Right), nextDirection(currentDirection), viableDirections(directions2D),
+      currentDirection(Coordinate2D::Direction_Right), nextDirection(currentDirection), viableDirections(Coordinate2D::directions2D),
       defaultSpeed(defaultSpeed), speed(defaultSpeed),
       isKillable(true),
       onPositionChange(std::make_unique<EntityPositionChangeEvent>(startPosition)),
@@ -25,7 +25,7 @@ void DynamicEntity::Move() {
     if(std::find(viableDirections.begin(), viableDirections.end(), GetDirection()) != viableDirections.end()) {
         SetPosition(GetNextPosition());
     }
-    viableDirections = directions2D;
+    viableDirections = Coordinate2D::directions2D;
 }
 
 Coordinate2D::NormalizedCoordinate DynamicEntity::GetNextPosition(const Coordinate2D::DiscreteDirection2D& direction) const {
@@ -107,13 +107,13 @@ void DynamicEntity::CollideWith(Wall & wall) {
             break;
         }
     }
-    for(const auto &direction : directions2D) {
+    for(const auto &direction : Coordinate2D::directions2D) {
         if(WillCollide(wall, direction)) {
             viableDirections.remove(direction);
         }
     }
 }
-void DynamicEntity::CollideWith(const Intersection& intersection) {
+void DynamicEntity::CollideWith(Intersection& intersection) {
     if(WillCollide(intersection) && GetDirection() != nextDirection) {
         const auto &directionsList = intersection.GetDirections();
         if(std::find(directionsList.begin(), directionsList.end(), nextDirection) != directionsList.end()) {

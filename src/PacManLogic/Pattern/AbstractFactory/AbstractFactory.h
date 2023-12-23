@@ -13,6 +13,9 @@ class Wall;
 class Fruit;
 class Coin;
 
+/**
+ * @brief Factory interface for concrete entities.
+ */
 class PMLogic::AbstractFactory {
 public:
     virtual std::unique_ptr<PacMan> CreatePacMan(
@@ -21,7 +24,7 @@ public:
 
     virtual std::unique_ptr<Ghost> CreateGhost(
             const Coordinate2D::NormalizedCoordinate &startPosition,  const Coordinate2D::Coordinate &size,
-            const float &power
+            const float &power, const float &stasisTime
             ) const = 0;
 
     virtual std::unique_ptr<Wall> CreateWall(
