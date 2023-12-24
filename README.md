@@ -3,7 +3,7 @@ Project Advanced Programming 2023-2024
 ### Name: Patryk Pilichowski
 ### Student number: s0220383
 
-## Build & Installation:
+## Build & Installation
 You can build the project out-of-source, install, and run it (make sure you're in the root directory first):
 ```
 mkdir build -p
@@ -11,12 +11,12 @@ cd build && cmake .. && make && make install
 cd .. && ./build/installed/bin/PacMan
 ```
 The project has to be executed from root as well for the relative paths to work.
-## Features:
+## Features
 * Menu
   * Title text
   * Play button
   * Quit button
-  * Top 5 highscores saved to 
+  * Top 5 highscores
 * Level
   * Ghosts and PacMan movement
   * Entities that try to go out of bounds will end up in the opposite end of the map
@@ -82,3 +82,15 @@ The project has to be executed from root as well for the relative paths to work.
   * This is because when a dynamic entity wants to make a turn at an intersection they have to 'snap' on the intersection perfectly 
   so they can fit inbetween two walls
   * This will currently remain unchanged for the same reason as described above.
+
+## Generating API Documentation
+API documentation can be read in the source code itself but it can also be generated using _doxygen_ like this:
+```
+cd docs && doxygen docs.cfg
+```
+Again, ensure you're in the root directory first to run the command above. \
+You can then view the locally created site by running this in /docs/:
+```
+browsername index.html
+```
+Where `browsername` is the installed browser of your choice, i.e `google-chrome`, `firefox`, etc...
