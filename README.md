@@ -52,7 +52,7 @@ The project has to be executed from root as well for the relative paths to work.
       * '.' represents a coin
       * 'f' represents a fruit
       * ' ' represents empty space
-    * Can be extended to playing different levels in one game
+    * Can be extended to playing different levels in one game or procedural generation of the level text files
     * Currently only a single customizable level can be played during the game
 * Sprites
   * All entities (except intersections) have sprites
@@ -64,7 +64,7 @@ The project has to be executed from root as well for the relative paths to work.
     * Eating a coin
     * Eating a fruit
     * Eating a ghost
-## Known Issues:
+## Known Issues
 * OpenAL errors relating to SFML audio occur rarily. 
   * This issue seems machine dependent. 
   * It does not affect gameplay itself. However, it does make the time loading a level longer.
