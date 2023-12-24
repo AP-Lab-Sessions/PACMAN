@@ -89,7 +89,7 @@ API documentation can be read in the source code itself but it can also be gener
 cd docs && doxygen docs.cfg
 ```
 Again, ensure you're in the root directory first to run the command above. \
-You can then view the locally created site by running this in /docs/:
+You can then view the locally created site by running this in /docs/html/:
 ```
 browsername index.html
 ```
