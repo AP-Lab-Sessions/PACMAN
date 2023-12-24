@@ -37,6 +37,16 @@ public:
      * @return The reward.
      */
     int GetReward() const;
+
+    /**
+     * @brief Handle collision with itself and pacman.
+     */
+    void CollideWith(const PacMan &) override;
+
+    /**
+     * @brief Handle collision with itself and an entity
+     */
+    void CollideWith(Entity&) const override = 0;
 };
 } // namespace PMGame::Logic
 

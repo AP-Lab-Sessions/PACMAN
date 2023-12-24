@@ -81,22 +81,22 @@ public:
     /**
      * @brief Handle collision with itself and pacman
      */
-    void CollideWith(PacMan&) final;
+    void CollideWith(const PacMan&) final;
 
     /**
      * @brief Handle collision with itself and an entity.
      */
-    void CollideWith(Entity&) override;
+    void CollideWith(Entity&) const override;
 
     /**
      * @brief Handle collision with itself and wall.
      */
-    void CollideWith(Wall&) override;
+    void CollideWith(const Wall&) override;
 
     /**
      * @brief Handle collision with itself and intersection.
      */
-    void CollideWith(Intersection&) override;
+    void CollideWith(const Intersection&) override;
 
     /**
      * @brief Get the ghost mode.

@@ -80,7 +80,7 @@ bool PMGame::Logic::DynamicEntity::GetIsKillable() const { return isKillable; }
 
 void PMGame::Logic::DynamicEntity::SetIsKillable(const bool& newIsKillable) { isKillable = newIsKillable; }
 
-void PMGame::Logic::DynamicEntity::CollideWith(Wall& wall) {
+void PMGame::Logic::DynamicEntity::CollideWith(const Wall& wall) {
     if (WillCollide(wall)) {
         const auto& nextPosition{GetNextPosition()};
         switch (GetDirection()) {
@@ -104,7 +104,7 @@ void PMGame::Logic::DynamicEntity::CollideWith(Wall& wall) {
         }
     }
 }
-void PMGame::Logic::DynamicEntity::CollideWith(Intersection& intersection) {
+void PMGame::Logic::DynamicEntity::CollideWith(const Intersection& intersection) {
     const PMGame::Logic::Coordinate2D::NormalizedCoordinate centeredCoord =
         PMGame::Logic::Coordinate2D::GetCenteredShrinked(intersection.GetPosition(), intersection.GetSize(), 10);
     if (PMGame::Logic::Coordinate2D::IsOverlapping(

@@ -29,7 +29,7 @@ public:
     /**
      * @brief Handle collision with itself and an entity
      */
-    void CollideWith(Entity&) override;
+    void CollideWith(Entity&) const override;
 
     /**
      * @brief Calls  the visit function of the visitor

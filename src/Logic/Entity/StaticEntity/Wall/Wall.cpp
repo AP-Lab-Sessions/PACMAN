@@ -8,4 +8,4 @@ PMGame::Logic::Wall::Wall(const Coordinate2D::NormalizedCoordinate& startPositio
 
 void PMGame::Logic::Wall::Accept(const std::weak_ptr<IEntityVisitor>& visitor) { visitor.lock()->Visit(*this); }
 
-void PMGame::Logic::Wall::CollideWith(PMGame::Logic::Entity& entity) { entity.CollideWith(*this); }
+void PMGame::Logic::Wall::CollideWith(PMGame::Logic::Entity& entity) const { entity.CollideWith(*this); }

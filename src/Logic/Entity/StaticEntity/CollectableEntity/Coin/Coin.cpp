@@ -8,4 +8,4 @@ PMGame::Logic::Coin::Coin(const Coordinate2D::NormalizedCoordinate& startPositio
 
 void PMGame::Logic::Coin::Accept(const std::weak_ptr<IEntityVisitor>& visitor) { visitor.lock()->Visit(*this); }
 
-void PMGame::Logic::Coin::CollideWith(PMGame::Logic::Entity& entity) { entity.CollideWith(*this); }
+void PMGame::Logic::Coin::CollideWith(PMGame::Logic::Entity& entity) const { entity.CollideWith(*this); }

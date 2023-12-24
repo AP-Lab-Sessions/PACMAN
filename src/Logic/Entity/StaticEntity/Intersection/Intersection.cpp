@@ -6,7 +6,7 @@ PMGame::Logic::Intersection::Intersection(const Coordinate2D::NormalizedCoordina
                                           const std::list<Coordinate2D::DiscreteDirection2D>& directions)
     : StaticEntity(startPosition, size), directions(directions) {}
 
-void PMGame::Logic::Intersection::CollideWith(PMGame::Logic::Entity& entity) { entity.CollideWith(*this); }
+void PMGame::Logic::Intersection::CollideWith(PMGame::Logic::Entity& entity) const { entity.CollideWith(*this); }
 void PMGame::Logic::Intersection::Accept(const std::weak_ptr<IEntityVisitor>&) {}
 
 std::list<PMGame::Logic::Coordinate2D::DiscreteDirection2D> PMGame::Logic::Intersection::GetDirections() const {

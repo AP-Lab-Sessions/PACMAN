@@ -140,34 +140,34 @@ public:
     /**
      * @brief Handle collision with itself and wall
      */
-    void CollideWith(Wall&) override;
+    void CollideWith(const Wall&) override;
     /**
      * @brief Handle collision with itself and intersection
      */
-    void CollideWith(Intersection&) override;
+    void CollideWith(const Intersection&) override;
 
     /**
      * @brief Handle collision with itself and ghost
      */
-    void CollideWith(PacMan&) override {}
+    void CollideWith(const PacMan&) override {}
 
     /**
      * @brief Handle collision with itself and ghost
      */
-    void CollideWith(Ghost&) override {}
+    void CollideWith(const Ghost&) override {}
 
     /**
      * @brief Handle collision with itself and fruit
      */
-    void CollideWith(Fruit&) override {}
+    void CollideWith(const Fruit&) override {}
     /**
      * @brief Handle collision with itself and coin
      */
-    void CollideWith(Coin&) override {}
+    void CollideWith(const Coin&) override {}
     /**
      * @brief Handle collision with itself and an entity
      */
-    void CollideWith(Entity&) override = 0;
+    void CollideWith(Entity&) const override = 0;
 
     /**
      * @brief Retrieve the starting position.

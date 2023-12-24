@@ -9,4 +9,4 @@ PMGame::Logic::Fruit::Fruit(const Coordinate2D::NormalizedCoordinate& startPosit
 
 void PMGame::Logic::Fruit::Accept(const std::weak_ptr<IEntityVisitor>& visitor) { visitor.lock()->Visit(*this); }
 
-void PMGame::Logic::Fruit::CollideWith(PMGame::Logic::Entity& entity) { entity.CollideWith(*this); }
+void PMGame::Logic::Fruit::CollideWith(PMGame::Logic::Entity& entity) const { entity.CollideWith(*this); }

@@ -20,26 +20,24 @@ PMGame::Logic::Ghost::Ghost(const PMGame::Logic::Coordinate2D::NormalizedCoordin
 
 void PMGame::Logic::Ghost::Accept(const std::weak_ptr<IEntityVisitor>& visitor) { visitor.lock()->Visit(*this); }
 
-void PMGame::Logic::Ghost::CollideWith(PacMan& pacMan) {
+void PMGame::Logic::Ghost::CollideWith(const PacMan& pacMan) {
     if (WillCollide(pacMan)) {
         if (GetIsKillable()) {
             onEntityCollected->Notify(*onEntityCollected);
             Respawn();
-        } else if (pacMan.GetIsKillable()) {
-            pacMan.onEntityDestroy->Notify(*pacMan.onEntityDestroy);
         }
     }
 }
 
-void PMGame::Logic::Ghost::CollideWith(PMGame::Logic::Entity& entity) { entity.CollideWith(*this); }
+void PMGame::Logic::Ghost::CollideWith(PMGame::Logic::Entity& entity) const { entity.CollideWith(*this); }
 
-void PMGame::Logic::Ghost::CollideWith(Wall& wall) {
+void PMGame::Logic::Ghost::CollideWith(const Wall& wall) {
     DynamicEntity::CollideWith(wall);
     if (WillCollide(wall))
         ChooseNextDirection();
 }
 
-void PMGame::Logic::Ghost::CollideWith(Intersection& intersection) {
+void PMGame::Logic::Ghost::CollideWith(const Intersection& intersection) {
     const auto& intersectionIter =
         std::find(collidingWithIntersection.begin(), collidingWithIntersection.end(), intersection);
     const PMGame::Logic::Coordinate2D::NormalizedCoordinate centeredCoord =

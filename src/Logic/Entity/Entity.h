@@ -74,31 +74,31 @@ public:
     /**
      * @brief Handle collision with itself and pacman
      */
-    virtual void CollideWith(PacMan&);
+    virtual void CollideWith(const PacMan&);
     /**
      * @brief Handle collision with itself and ghost
      */
-    virtual void CollideWith(Ghost&);
+    virtual void CollideWith(const Ghost&);
     /**
      * @brief Handle collision with itself and fruit
      */
-    virtual void CollideWith(Fruit&);
+    virtual void CollideWith(const Fruit&);
     /**
      * @brief Handle collision with itself and coin
      */
-    virtual void CollideWith(Coin&);
+    virtual void CollideWith(const Coin&);
     /**
      * @brief Handle collision with itself and wall
      */
-    virtual void CollideWith(Wall&);
+    virtual void CollideWith(const Wall&);
     /**
      * @brief Handle collision with itself and intersection
      */
-    virtual void CollideWith(Intersection&);
+    virtual void CollideWith(const Intersection&);
     /**
      * @brief Handle collision with itself and an entity
      */
-    virtual void CollideWith(PMGame::Logic::Entity&) = 0;
+    virtual void CollideWith(PMGame::Logic::Entity&) const = 0;
 
     /**
      * @brief Respawns the entity

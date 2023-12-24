@@ -158,7 +158,7 @@ void PMGame::Logic::Level::Load() {
 PMGame::Logic::Level::Level(const std::string& levelStr, const std::weak_ptr<PMGame::Logic::AbstractFactory>& factory,
                             const std::weak_ptr<PMGame::Logic::Score>& score, const std::weak_ptr<int>& lives)
     : levelStr(levelStr), levelSize(GetLevelSize(levelStr)), factory(factory), score(score), lives(lives),
-      updateVisitor(std::make_shared<UpdateVisitor>()), currentDifficulty(1.0f), collectablesCount(0) {}
+      updateVisitor(std::make_shared<UpdateVisitor>()), currentDifficulty(0.7f), collectablesCount(0) {}
 
 void PMGame::Logic::Level::Restart() {
     for (const auto& currentEntity : entities) {

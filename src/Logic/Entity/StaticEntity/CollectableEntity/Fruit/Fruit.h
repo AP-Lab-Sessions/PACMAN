@@ -27,7 +27,7 @@ public:
     /**
      * @brief Handle collision with itself and an entity
      */
-    void CollideWith(Entity&) override;
+    void CollideWith(Entity&) const override;
 };
 } // namespace PMGame::Logic
 #endif // PACMAN_FRUIT_H
