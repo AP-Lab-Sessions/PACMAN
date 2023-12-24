@@ -54,7 +54,7 @@ public:
     Game(const unsigned int& width, const unsigned int& height);
 
     /**
-     * @brif Runs the entire game (calls all the above methods)
+     * @brief Runs the entire game (calls all the above methods)
      */
     void Run();
 };

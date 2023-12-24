@@ -6,7 +6,7 @@
 #include "Level/Level.h"
 #include "Pattern/AbstractFactory/AbstractFactory.h"
 
-#define DEFAULT_LEVEL_PATH "src/config/level.txt"
+#define DEFAULT_LEVEL_PATH "levels/level.txt"
 
 namespace PMGame::Logic {
 /**
