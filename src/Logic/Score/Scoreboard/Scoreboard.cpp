@@ -15,8 +15,7 @@ PMGame::Logic::Scoreboard::Scoreboard() {
             json j = json::parse(highScoreInput);
             // Even if highScore contains more than 5 ints we will store the first 5.
             highScore = j["highScore"].get<std::set<int>>();
-        } else
-            std::cerr << "No highscore file found\n";
+        }
     } catch (const std::exception& exception) {
         std::cerr << "Error: " << exception.what() << std::endl;
     }
