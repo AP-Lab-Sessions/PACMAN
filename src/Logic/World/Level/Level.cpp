@@ -116,18 +116,21 @@ void PMGame::Logic::Level::Load() {
         }
         case 'g': {
             for (int i = 0; i < 2; i++)
-                ghosts.push_back(factoryPtr->CreateGhost(currentPos, size, currentDifficulty, 0.0f));
+                ghosts.push_back(factoryPtr->CreateGhost(currentPos, size, difficulty, 0.0f));
             for (int i = 0; i < 2; i++)
                 ghosts.push_back(
-                    factoryPtr->CreateGhost(currentPos, size, currentDifficulty, 5.0f * static_cast<float>(i + 1)));
+                    factoryPtr->CreateGhost(currentPos, size, difficulty, 5.0f * static_cast<float>(i + 1)));
             break;
         }
         case '#': {
             entities.push_back(factoryPtr->CreateWall(currentPos, size));
             break;
         }
-        default:
+        case ' ': {
             break;
+        }
+        default:
+            throw std::runtime_error("Symbol "+std::to_string(currentChar)+" not supported in level import\n");
         }
         if (currentChar != '\n')
             currentPos.SetX(currentPos.GetX() + size.GetX());
@@ -142,6 +145,7 @@ void PMGame::Logic::Level::Load() {
         currentCollectable->onEntityCollected->Attach(shared_from_this());
         entities.push_back(std::move(currentCollectable));
     }
+    if(player.expired()) throw std::runtime_error("There is no pacman in level!");
     for (auto& currentGhost : ghosts) {
         currentGhost->onEntityCollected->Attach(score.lock());
         player.lock()->onPositionChange->Attach(currentGhost);
@@ -156,28 +160,25 @@ void PMGame::Logic::Level::Load() {
 }
 
 PMGame::Logic::Level::Level(const std::string& levelStr, const std::weak_ptr<PMGame::Logic::AbstractFactory>& factory,
-                            const std::weak_ptr<PMGame::Logic::Score>& score, const std::weak_ptr<int>& lives)
-    : levelStr(levelStr), levelSize(GetLevelSize(levelStr)), factory(factory), score(score), lives(lives),
-      updateVisitor(std::make_shared<UpdateVisitor>()), currentDifficulty(0.7f), collectablesCount(0) {}
+                            const std::weak_ptr<PMGame::Logic::Score>& score, const std::weak_ptr<int>& lives,
+                            const float &difficulty)
+    : completed(false), levelStr(levelStr), levelSize(GetLevelSize(levelStr)), factory(factory), score(score), lives(lives),
+      updateVisitor(std::make_shared<UpdateVisitor>()), difficulty(difficulty), collectablesCount(0) {}
 
 void PMGame::Logic::Level::Restart() {
     for (const auto& currentEntity : entities) {
         currentEntity->Respawn();
     }
 }
-
+bool PMGame::Logic::Level::GetIsCompleted() const {
+    return completed;
+}
 void PMGame::Logic::Level::DetectAllCollisions() {
     for (const auto& currentEntity : entities) {
         for (const auto& currentEntity2 : entities) {
             currentEntity->CollideWith(*currentEntity2);
         }
     }
-}
-void PMGame::Logic::Level::GoNextLevel() {
-    PMGame::Logic::Helper::TimeManager::GetInstance().lock()->Pause();
-    entities.clear();
-    currentDifficulty *= 1.25;
-    Load();
 }
 void PMGame::Logic::Level::Update() {
     destructables.clear();
@@ -200,7 +201,7 @@ void PMGame::Logic::Level::Update() {
     }
 
     if (!collectablesCount) {
-        GoNextLevel();
+        completed = true;
     } else if (pacManDied && *lives.lock()) {
         PMGame::Logic::Helper::TimeManager::GetInstance().lock()->Pause();
         Restart();

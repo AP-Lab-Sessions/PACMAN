@@ -24,6 +24,10 @@ private:
 
 protected:
     /**
+     * @brief Denotes if all coins and fruits have been collected and therefore the level is completed
+     */
+    bool completed;
+    /**
      * @brief String representing the level
      */
     const std::string levelStr;
@@ -63,7 +67,7 @@ protected:
     /**
      * @brief Difficulty number used for ghosts
      */
-    float currentDifficulty;
+    const float difficulty;
     /**
      * @brief Amount of collectables currently existing in the level
      */
@@ -113,9 +117,10 @@ public:
      * @param factory Entity factory
      * @param score Current score
      * @param lives Current number of lives
+     * @param difficulty The difficulty.
      */
     Level(const std::string& levelPath, const std::weak_ptr<AbstractFactory>& factory,
-          const std::weak_ptr<Score>& score, const std::weak_ptr<int>& lives);
+          const std::weak_ptr<Score>& score, const std::weak_ptr<int>& lives, const float &difficulty);
 
     /**
      * @brief Gets the pacman entity which acts as the playable entity.
@@ -150,6 +155,12 @@ public:
      * @brief Restarts the level by respawning all entities to their starting positions.
      */
     void Restart();
+
+    /**
+     *
+     * @return Boolean denoting if the level is completed (all coins and fruits are collected)
+     */
+    bool GetIsCompleted() const;
 };
 } // namespace PMGame::Logic
 #endif // PACMAN_LEVEL_H

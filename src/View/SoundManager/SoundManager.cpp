@@ -5,9 +5,9 @@
 #include <iostream>
 
 void PMGame::View::SoundManager::Play(const std::string& soundPath) {
-    if (soundPlayers.find(soundPath) == soundPlayers.end())
+    if (soundPlayers.find(soundPath) == soundPlayers.end()) {
         soundPlayers[soundPath] = SoundPlayer();
-
+    }
     SoundPlayer& soundPlayer = soundPlayers[soundPath];
 
     if (soundPlayer.sound.getStatus() == sf::Sound::Status::Stopped) {

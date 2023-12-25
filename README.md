@@ -44,16 +44,15 @@ The project has to be executed from root as well for the relative paths to work.
   * Difficulty increases by a factor every time player goes to the next level
     * Ghosts become faster, fear mode duration is shorter
   * Player can safely pause and resume the game anytime
-  * **Extra feature:** Level is a customizable text file
-    * Can be customized in `/levels/level.txt`
+  * **Extra feature:** Multiple customizable levels playable throughout the game
+    * Can be customized in `/levels/`
       * 'g' represents spawn for ghosts
       * '#' represents a wall
       * 'p' represents spawn for PacMan
       * '.' represents a coin
       * 'f' represents a fruit
       * ' ' represents empty space
-    * Can be extended to playing different levels in one game or procedural generation of the level text files
-    * Currently only a single customizable level can be played during the game
+    * Can be extended to procedural generation of the level text files
 * Sprites
   * All entities (except intersections) have sprites
   * Dynamic entities like pacman and ghost have looping animations

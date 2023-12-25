@@ -5,8 +5,9 @@
 
 #include "Level/Level.h"
 #include "Pattern/AbstractFactory/AbstractFactory.h"
+#include <filesystem>
 
-#define DEFAULT_LEVEL_PATH "levels/level.txt"
+#define LEVEL_DIR "levels/"
 
 namespace PMGame::Logic {
 /**
@@ -14,6 +15,10 @@ namespace PMGame::Logic {
  */
 class World {
 protected:
+    /**
+     * @brief Current difficulty of the game
+     */
+    float currentDifficulty;
     /**
      * @brief Entity factory
      */
@@ -33,6 +38,23 @@ protected:
      * @brief Number of lives.
      */
     std::shared_ptr<int> lives;
+
+
+    /**
+     * @brief All level files
+     */
+    std::vector<std::filesystem::path> levelFiles;
+
+    /**
+     * @brief Current level file index
+     */
+    int currentLevelFileIndex;
+
+    /**
+     * @brief Loads current level file
+     */
+    void LoadNextLevel();
+
 
 public:
     /**
