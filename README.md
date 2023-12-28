@@ -20,7 +20,7 @@ The project has to be executed from root as well for the relative paths to work.
 * Level
   * Ghosts and PacMan movement
   * Entities that try to go out of bounds will end up in the opposite end of the map
-  * Player movement control with arrow keys
+  * Player movement control with arrows and WASD keys
   * Collisions with walls
   * Intersections
     * Invisible entities that help dynamic entities like pacman and ghosts 'snap' in the intersection coordinate such that they can fit through walls perfectly

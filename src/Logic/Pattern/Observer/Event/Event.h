@@ -9,6 +9,7 @@
 #include <memory>
 
 namespace PMGame::Logic {
+
 /**
  * @brief An event that can attach eventlisteners to itself
  * @tparam EventType the type of the event
