@@ -19,7 +19,7 @@ The project has to be executed from root as well for the relative paths to work.
   * Top 5 highscores
 * Level
   * Ghosts and PacMan movement
-  * Entities that try to go out of bounds will end up in the opposite end of the map
+  * **Extra feature:** Entities that try to go out of bounds will end up in the opposite end of the map
   * Player movement control with arrows and WASD keys
   * Collisions with walls
   * Intersections
