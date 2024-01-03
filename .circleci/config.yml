@@ -5,10 +5,25 @@ jobs:
     resource_class: small
     docker:
       - image: ubuntu:22.04
+
+    environment:
+      SFML_VERSION: 2.5.1
+      CMAKE_VERSION: 3.22.1
+      GPP_VERSION: 11.3.0
+      CLANG_VERSION: 14.0.0
+
     steps:
       - checkout
-      - run: apt update
-      - run: DEBIAN_FRONTEND=noninteractive TZ=Europe/Brussels apt install -y gcc g++ libsfml-dev cmake git
+      - run:
+           name: Install dependencies
+           command: |
+             apt-get update
+             apt-get install -y \
+               build-essential \
+               cmake=${CMAKE_VERSION}-* \
+               g++-${GPP_VERSION} \
+               clang-${CLANG_VERSION} \
+               libsfml-dev=${SFML_VERSION}-*
       - run: mkdir -p build
       - run: cd build && cmake ..
       - run: cd build && make
