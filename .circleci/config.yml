@@ -9,18 +9,11 @@ jobs:
     environment:
       SFML_VERSION: 2.5.1
       CMAKE_VERSION: 3.22.1
-      GPP_VERSION: 11.3.0
-      CLANG_VERSION: 14.0.0
+      GPP_VERSION: 11
+      CLANG_VERSION: 14
 
     steps:
       - checkout
-      - run:
-          name: Add Ubuntu Toolchain PPA
-          command: |
-            apt-get update
-            apt-get install -y software-properties-common
-            add-apt-repository ppa:ubuntu-toolchain-r/test -y
-            apt-get update
       - run:
            name: Install dependencies
            command: |
