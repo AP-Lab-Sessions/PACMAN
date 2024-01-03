@@ -95,4 +95,10 @@ browsername index.html
 Where `browsername` is the installed browser of your choice, i.e `google-chrome`, `firefox`, etc...
 
 ## Design Choices Overview
-The design choices that deviate, are not described in the assignment, or are important to note nonetheless, are overviewed [here](https://drive.google.com/file/d/1O2pbs5r8tH6qS5A6R_MVgv1Xu8pisTt8/view?usp=drive_link).
+The design choices that are:
+ - Different from what was described in the assignment
+ - New
+ - Important to note nonetheless
+ - Extra features
+
+are overviewed [here](https://drive.google.com/file/d/1O2pbs5r8tH6qS5A6R_MVgv1Xu8pisTt8/view?usp=drive_link).
