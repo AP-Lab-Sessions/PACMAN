@@ -39,7 +39,6 @@ protected:
      */
     std::shared_ptr<int> lives;
 
-
     /**
      * @brief All level files
      */
@@ -54,7 +53,6 @@ protected:
      * @brief Loads current level file
      */
     void LoadNextLevel();
-
 
 public:
     /**

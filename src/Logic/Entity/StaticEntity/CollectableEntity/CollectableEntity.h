@@ -41,7 +41,7 @@ public:
     /**
      * @brief Handle collision with itself and pacman.
      */
-    void CollideWith(const PacMan &) override;
+    void CollideWith(const PacMan&) override;
 
     /**
      * @brief Handle collision with itself and an entity

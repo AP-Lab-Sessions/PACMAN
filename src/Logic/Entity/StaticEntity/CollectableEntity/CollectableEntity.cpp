@@ -12,7 +12,7 @@ PMGame::Logic::CollectableEntity::CollectableEntity(const Coordinate2D::Normaliz
 int PMGame::Logic::CollectableEntity::GetReward() const { return reward; }
 
 void PMGame::Logic::CollectableEntity::CollideWith(const PMGame::Logic::PacMan& pacman) {
-    if(WillCollide(pacman)) {
+    if (WillCollide(pacman)) {
         onEntityCollected->Notify(*onEntityCollected);
         onEntityDestroy->Notify(*onEntityDestroy);
     }

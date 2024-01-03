@@ -45,22 +45,26 @@ void PMGame::View::LevelState::Render() {
 void PMGame::View::LevelState::ProcessEvents(const sf::Event& event) {
     if (event.type == sf::Event::KeyPressed) {
         switch (event.key.code) {
-        case sf::Keyboard::Key::A: {}
+        case sf::Keyboard::Key::A: {
+        }
         case sf::Keyboard::Key::Left: {
             world->SetPlayerDirection(PMGame::Logic::Coordinate2D::Direction_Left);
             break;
         }
-        case sf::Keyboard::Key::D: {}
+        case sf::Keyboard::Key::D: {
+        }
         case sf::Keyboard::Key::Right: {
             world->SetPlayerDirection(PMGame::Logic::Coordinate2D::Direction_Right);
             break;
         }
-        case sf::Keyboard::Key::W: {}
+        case sf::Keyboard::Key::W: {
+        }
         case sf::Keyboard::Key::Up: {
             world->SetPlayerDirection(PMGame::Logic::Coordinate2D::Direction_Up);
             break;
         }
-        case sf::Keyboard::Key::S: {}
+        case sf::Keyboard::Key::S: {
+        }
         case sf::Keyboard::Key::Down: {
             world->SetPlayerDirection(PMGame::Logic::Coordinate2D::Direction_Down);
             break;

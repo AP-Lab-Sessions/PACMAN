@@ -120,7 +120,7 @@ public:
      * @param difficulty The difficulty.
      */
     Level(const std::string& levelPath, const std::weak_ptr<AbstractFactory>& factory,
-          const std::weak_ptr<Score>& score, const std::weak_ptr<int>& lives, const float &difficulty);
+          const std::weak_ptr<Score>& score, const std::weak_ptr<int>& lives, const float& difficulty);
 
     /**
      * @brief Gets the pacman entity which acts as the playable entity.

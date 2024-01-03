@@ -29,9 +29,10 @@ protected:
      * @tparam EventType current type of event
      * @param event the current event
      */
-    template<typename EntityViewType, typename ...EventType>
-    void AttachView(const std::unique_ptr<EventType> &... event) const;
-        public:
+    template <typename EntityViewType, typename... EventType>
+    void AttachView(const std::unique_ptr<EventType>&... event) const;
+
+public:
     /**
      * @brief constructor of the factory
      * @param viewsRef reference to the views of the game so whenever a view gets added it's added into the game

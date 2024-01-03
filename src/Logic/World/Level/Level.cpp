@@ -130,7 +130,7 @@ void PMGame::Logic::Level::Load() {
             break;
         }
         default:
-            throw std::runtime_error("Symbol "+std::to_string(currentChar)+" not supported in level import\n");
+            throw std::runtime_error("Symbol " + std::to_string(currentChar) + " not supported in level import\n");
         }
         if (currentChar != '\n')
             currentPos.SetX(currentPos.GetX() + size.GetX());
@@ -145,7 +145,8 @@ void PMGame::Logic::Level::Load() {
         currentCollectable->onEntityCollected->Attach(shared_from_this());
         entities.push_back(std::move(currentCollectable));
     }
-    if(player.expired()) throw std::runtime_error("There is no pacman in level!");
+    if (player.expired())
+        throw std::runtime_error("There is no pacman in level!");
     for (auto& currentGhost : ghosts) {
         currentGhost->onEntityCollected->Attach(score.lock());
         player.lock()->onPositionChange->Attach(currentGhost);
@@ -161,18 +162,16 @@ void PMGame::Logic::Level::Load() {
 
 PMGame::Logic::Level::Level(const std::string& levelStr, const std::weak_ptr<PMGame::Logic::AbstractFactory>& factory,
                             const std::weak_ptr<PMGame::Logic::Score>& score, const std::weak_ptr<int>& lives,
-                            const float &difficulty)
-    : completed(false), levelStr(levelStr), levelSize(GetLevelSize(levelStr)), factory(factory), score(score), lives(lives),
-      updateVisitor(std::make_shared<UpdateVisitor>()), difficulty(difficulty), collectablesCount(0) {}
+                            const float& difficulty)
+    : completed(false), levelStr(levelStr), levelSize(GetLevelSize(levelStr)), factory(factory), score(score),
+      lives(lives), updateVisitor(std::make_shared<UpdateVisitor>()), difficulty(difficulty), collectablesCount(0) {}
 
 void PMGame::Logic::Level::Restart() {
     for (const auto& currentEntity : entities) {
         currentEntity->Respawn();
     }
 }
-bool PMGame::Logic::Level::GetIsCompleted() const {
-    return completed;
-}
+bool PMGame::Logic::Level::GetIsCompleted() const { return completed; }
 void PMGame::Logic::Level::DetectAllCollisions() {
     for (const auto& currentEntity : entities) {
         for (const auto& currentEntity2 : entities) {
