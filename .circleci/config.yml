@@ -1,10 +1,11 @@
-resource_class: small
-docker:
-  - image: ubuntu:22.04
-steps:
-  - checkout
-  - run: apt update
-  - run: DEBIAN_FRONTEND=noninteractive TZ=Europe/Brussels apt install -y gcc g++-11 libsfml-dev cmake git
-  - run: mkdir -p build
-  - run: cd build && cmake ..
-  - run: cd build && make
+jobs:
+  resource_class: small
+  docker:
+    - image: ubuntu:22.04
+  steps:
+    - checkout
+    - run: apt update
+    - run: DEBIAN_FRONTEND=noninteractive TZ=Europe/Brussels apt install -y gcc g++ libsfml-dev cmake git
+    - run: mkdir -p build
+    - run: cd build && cmake ..
+    - run: cd build && make
