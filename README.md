@@ -93,3 +93,6 @@ You can then view the locally created site by running this in /docs/html/:
 browsername index.html
 ```
 Where `browsername` is the installed browser of your choice, i.e `google-chrome`, `firefox`, etc...
+
+## Design Choices Overview
+The design choices that deviate, are not described in the assignment, or are important to note nonetheless, are overviewed [here](https://drive.google.com/file/d/1O2pbs5r8tH6qS5A6R_MVgv1Xu8pisTt8/view?usp=drive_link).
