@@ -3,6 +3,9 @@ Project Advanced Programming 2023-2024
 ### Name: Patryk Pilichowski
 ### Student number: s0220383
 
+## Links
+* [Design Choices Overview](https://drive.google.com/file/d/1O2pbs5r8tH6qS5A6R_MVgv1Xu8pisTt8/view?usp=drive_link)
+
 ## Build & Installation
 You can build the project out-of-source, install, and run it (make sure you're in the root directory first):
 ```
